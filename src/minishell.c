@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 10:50:07 by vhaefeli          #+#    #+#             */
-/*   Updated: 2021/11/05 10:50:30 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/07/04 18:24:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int main (int argc, char **argv, char **envp)
 {
-	t_list	*el1;
-	t_list	*el2;
-
-	if (!lst)
-		return ;
-	el1 = *lst;
-	while (el1)
-	{
-		del(el1->content);
-		el2 = el1;
-		el1 = el1->next;
-		free(el2);
-	}
-	*lst = NULL;
+    printf("Bienvenue dans %s\n%d,%s\n", argv[0], argc, envp[0]);
+    return (0);
 }

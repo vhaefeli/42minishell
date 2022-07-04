@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 16:28:28 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/07/04 14:05:58 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/07/04 17:58:03 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,20 +51,9 @@ SRCS =	ft_isalpha.c\
 		ft_putendl_fd.c\
 		ft_putnbr_fd.c
 
-SRCS_BONUS = ft_lstnew.c\
-			 ft_lstadd_front.c\
-			 ft_lstsize.c\
-			 ft_lstlast.c\
-			 ft_lstadd_back.c\
-			 ft_lstdelone.c\
-			 ft_lstclear.c\
-			 ft_lstiter.c\
-			 ft_lstmap.c
 
 
 OBJS = $(SRCS:.c=.o)
-
-OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 .PHONY: all clean fclean re
 
@@ -75,12 +64,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
-
-bonus: $(OBJS_BONUS) | $(NAME)
-	ar -rcs $(NAME) $(OBJS_BONUS)
  
 clean:
-	rm -f $(OBJS) $(OBJS_BONUS)
+	rm -f $(OBJS)
 fclean: clean
 	rm -f $(NAME)
 
