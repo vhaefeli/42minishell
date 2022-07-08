@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 18:45:54 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/05/14 17:10:30 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/06/29 10:32:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "pipex.h"
 
-int main (int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_msvar msvar;
+	t_list	*cmd_list;
 
-	msvar = ini_ms(envp);
-    printf("Bienvenue dans %s\n%d,%s\n", argv[0], argc, envp[0]);
-    return (0);
+	check_nbargv(argc);
+	check_file(argv);
+	cmd_list = list_cmds(argv, envp);
+	if (cmd_list == NULL)
+	{
+		ft_printf("error with cmds listing");
+		return (1);
+	}
+	pipex(&cmd_list, envp);
+	free(cmd_list);
+	return (0);
 }

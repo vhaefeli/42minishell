@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   listmanip.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/07/08 16:24:45 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+t_list	*ft_lstfirst(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->previous)
+		lst = lst->previous;
+	return (lst);
+}
+
+void	ft_lstadd_back(t_list *firstcmd, t_list *new)
+{
+	t_list	*lastel;
+
+	if (!new)
+		return ;
+	lastel = ft_lstlast(firstcmd);
+	if (!lastel)
+		firstcmd = new;
+	else
+		lastel->next = new;
+}
+
+t_list	*ft_ininewlst_el(void)
+{
+	t_list	*list;
+	int		i;
+
+	i = 0;
+	list = malloc(sizeof(*list));
+	if (!list)
+		return (NULL);
+	list->infile = NULL;
+	list->infileflag = 0;
+	list->outfile = NULL;
+	list->outfileflag = 0;
+	list->previous = NULL;
+	list->next = NULL;
+	return (list);
+}

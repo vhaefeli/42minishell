@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 18:45:54 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/07/07 18:13:44 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/07/08 19:01:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int main (int argc, char **argv, char **envp)
+// si le retour de readline est bien un char
+char **cmd_tab(char *input)
 {
-	t_msvar msvar;
+	char **cmd_tab;
 
-	msvar = ini_ms(envp);
-    printf("Bienvenue dans %s\n%d,%s\n", argv[0], argc, envp[0]);
-    return (0);
+	cmd_tab = ft_split(input, ' ');
+	return (cmd_tab);
 }
+

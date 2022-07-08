@@ -1,22 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_error_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 18:45:54 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/07/08 19:02:33 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+include "minishell.h"
 
-int main (int argc, char **argv, char **envp)
+// attention pas de exit qui fermerait minishell
+
+int	ft_cmd_error(t_list **list_cmds, int error_type.)
 {
-	t_msvar msvar;
+	int	i;
 
-	msvar = ini_ms(envp);
-    printf("Bienvenue dans %s\n%d,%s\n", argv[0], argc, envp[0]);
-    return (0);
+	i = 0;
+	if (list_cmds)
+		del_list(list_cmds);
+	return (error_type);
+}
+
+void	ft_exit_minishell(char **path)
+{
+		if (path)
+	{
+		while (path[i])
+		{
+			free(path[i]);
+			i++;
+		}
+		free(path);
+	}
+	printf("Bye Bye! See you soon :oD");
+	exit ;
 }
