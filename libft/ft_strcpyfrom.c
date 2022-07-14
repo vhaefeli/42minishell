@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_exit.c                                    :+:      :+:    :+:   */
+/*   ft_strcpyfrom.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/14 20:05:27 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/07/11 14:00:28 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/07/11 17:13:46 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-include "minishell.h"
-
-// attention pas de exit qui fermerait minishell
-
-int	ft_errortype
-
-1 erreur de commande
-
-int	ft_cmd_error(t_list **list_cmds, int error_type)
+char	*ft_strcpyfrom(char *src, int c)
 {
-	int	i;
+	int		i;
+	char	*dst;
 
 	i = 0;
-	if (list_cmds)
-		del_list(list_cmds);
-	return (error_type);
-}
-
-void	ft_exit_minishell(char **path)
-{
-		if (path)
+	dst = malloc(ft_strlen(src) - c + 1);
+	while (src[c + i] != '\0')
 	{
-		while (path[i])
-		{
-			free(path[i]);
-			i++;
-		}
-		free(path);
+		dst[i] = src[c + i];
+		i++;
 	}
-	printf("Bye Bye! See you soon :oD");
-	exit ;
+	dst[i] = '\0';
+	return (dst);
 }

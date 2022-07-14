@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/07/08 18:25:17 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/07/11 13:25:47 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ _SRCS 			= minishell.c\
 					env_analyze.c\
 					ft_cmd.c\
 					ft_del.c\
-					ft_error_exit.c
+					ft_error_exit.c\
+					ft_spec_flag.c
 
 OBJS 			= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS))
 SRCS 			= $(patsubst %, $(SRCS_DIR)/%, $(_SRCS))
