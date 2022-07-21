@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 18:30:58 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/14 20:40:12 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ typedef struct s_msvar
 	int		cmd_historyfile;
 	int		return_historyfile;
 }	t_msvar;
+
+typedef	struct s_varchar
+{
+	int		i;
+	int		j;
+	char	*str;
+	char	*str2;
+} t_varchar;
 
 // env_analzye.c fonction using the original envp to find data 
 // and initialisation

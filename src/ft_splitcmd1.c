@@ -1,51 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_splitcmd.c                                      :+:      :+:    :+:   */
+/*   ft_splitcmd1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/14 20:05:17 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:27:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// include "minishell.h"
-# include <stddef.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdbool.h>
-# include <string.h>
-# include <unistd.h>
-# include <limits.h>
-
-typedef	struct s_varchar
-{
-	int		i;
-	int		j;
-	char	*str;
-	char	*str2;
-} t_varchar;
-
-char	*ft_strdup(const char *s1)
-{
-	char	*copy;
-	int		i;
-
-	i = 0;
-	copy = malloc(strlen(s1) + 1);
-	printf("strlen: %lu\n", strlen(s1));
-	if (!copy)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		copy[i] = s1[i];
-		i++;
-	}
-	copy[i] = '\0';
-	printf("copy: %s\n", copy);
-	return (copy);
-}
+include "minishell.h"
 
 int	quotesize(char *s, int i, char quotetype)
 {
@@ -68,7 +33,7 @@ int	quotesize(char *s, int i, char quotetype)
 	return (quotesize);
 }
 
-static int	ft_cntcmdline(char *s)
+int	ft_cntcmdline(char *s)
 {
 	int	i;
 	int	nline;
@@ -95,7 +60,7 @@ static int	ft_cntcmdline(char *s)
 	return (nline);
 }
 
-static int	ft_cntchar(char *s, int i)
+int	ft_cntchar(char *s, int i)
 {
 	int	start;
 	
@@ -170,57 +135,3 @@ char	*cpycmdflag(t_varchar *listcmd)
 	listcmd->str2[listcmd->i - j] = '\0';
 	return (listcmd->str2);
 }
-
-static char	**ft_filltab(char *s, int nbline)
-{
-	t_varchar	*lignecmd;
-	int			l;
-	char		**dst;
-
-	lignecmd = malloc (sizeof(t_varchar));
-	lignecmd->str = s;
-	lignecmd->i = 0;
-	l = 0;
-	dst = malloc(sizeof(char *) * nbline);
-	while (l < nbline - 1)
-	{
-		dst[l] = ft_strdup(cpycmdflag(lignecmd));
-		l++;
-	}
-	dst[l] = NULL;
-	return (dst);
-}
-
-char	**ft_splitcmd(char *s)
-{
-	char	**dst;
-	size_t	line;
-
-	if (!s)
-		return (NULL);
-	line = ft_cntcmdline(s);
-	dst = (char **)malloc(line * sizeof(char *));
-	if (!dst)
-		return (NULL);
-	dst = ft_filltab(s, line);
-	return (dst);
-}
-
-int	main(int argc, char **argv)
-{
-	char	**tab;
-	int	i = 0;
-	char *src;
-
-	src = argv[argc - 1];
-	// printf("str : %s\n", src);
-	// printf("argc:%d\n", argc);
-	// printf("nbre de commande %d\n", ft_cntcmdline(src) - 1);
-	tab = ft_splitcmd(src);
-	while (tab[i])
-	{
-		printf("cmd:%s\n", tab[i]);
-		i++;
-	}
-	return (0);
-} 

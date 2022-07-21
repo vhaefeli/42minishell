@@ -25,3 +25,7 @@ il faut voir comment se gère la sortie sur le prompt. je pense que je vais les 
 
 ma prochaine etape remplir la liste des commandes. et je vais du coup essayer de lister tout les cas et de les envoyer sur des fonctions qu'on se partagera après. (par exemple la fonction check_bracket pour gerer les ' et ")
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+commit 14 juillet 
+travaille essentiellement sur le parsing de la ligne de commande y compris les simples et doubles quotes.
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 

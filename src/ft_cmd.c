@@ -6,29 +6,22 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:13:44 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/14 20:07:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:42:35 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 include "minishell.h"
 
-// char **cmd_tab(char *input)
-// {
-// 	char	**cmd_tab;
-
-// 	cmd_tab = ft_split(input, ' ');
-// 	return (cmd_tab);
-// }
 
 char **cmd_tab(char *input)
 {
 	char	**cmd_tab;
 	
-	cmd_tab = ft_split(input, ' ');
+	cmd_tab = ft_splitcmd(input);
 	return (cmd_tab);
 }
 
-char **nbcmd(char *input)
+char **allcmd(char *input)
 {
 	char	**cmds_tab;
 	cmds_tab = ft_split(input, '|');
