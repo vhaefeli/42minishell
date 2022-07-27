@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 16:23:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:33:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	del_list(t_list **list_cmds)
 	{
 
 		del_el(el1->path_cmd);
+		del_el(el1->cmd_temp);
 		del_tab(el->cmd_with_flags);
 		del_el(el1->infile);
 		el1->infileflag = 0;

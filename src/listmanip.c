@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/11 18:15:08 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/25 23:23:35 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_list	*ft_ininewlst_el(void)
 	int		i;
 
 	i = 0;
-	list = malloc(sizeof(*list));
+	list = malloc(sizeof(t_list));
 	if (!list)
 		return (NULL);
 	list->infile = NULL;

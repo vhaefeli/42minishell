@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/14 20:40:12 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/25 22:26:38 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@
 typedef struct s_list
 {
 	char			*path_cmd;
+	char			*cmd_tmp;
 	char			**cmd_with_flags;
 	char			*infile;
-	int				infileflag;
+	int				infileflag;//0 no infile / 1 infile / 2 heredoc as infile
 	char			*outfile;
-	int				outfileflag;
+	int				outfileflag;//0 no outfile / 1 outfile O_TRUNC / 2 outfile O_APPEND
 	struct s_list	*previous;
 	struct s_list	*next;
 }	t_list;
@@ -76,5 +77,15 @@ t_list	*ft_ininewlst_el(void);
 void	del_el(char *el);
 void	del_tab(char **el);
 void	del_list(t_list **list_cmds);
+
+// ft_splitcmd1.c and ft_splitcmd1.c used to split the string 
+// with the complete commande in a table
+int		quotesize(char *s, int i, char quotetype);
+int		ft_cntcmdline(char *s);
+int		ft_cntchar(char *s, int i);
+void	ft_writequote(t_varchar *listcmd, int j);
+char	*cpycmdflag(t_varchar *listcmd);
+char	**ft_filltab(char *s, int nbline);
+char	**ft_splitcmd(char *s);
 
 #endif

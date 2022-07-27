@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/15 16:27:30 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/25 22:27:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ int	ft_cntcmdline(char *s)
 	return (nline);
 }
 
-int	ft_cntchar(char *s, int i)
+int	ft_cntchar(char *s, char c, int i)
 {
 	int	start;
 	
 	start = i;
 	while (s[i] == ' ')
 		i++;
-	while (s[i] != ' ' && s[i] != '\0')
+	while (s[i] != c && s[i] != '\0')
 	{
-		if (s[i] == '\''  )
+		if (s[i] == '\'')
 			i += quotesize(s, i, '\'');
 		else if (s[i] == '\"')
 			i += quotesize(s, i, '\"');
