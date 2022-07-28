@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/25 22:26:38 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:45:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,28 @@ void	del_el(char *el);
 void	del_tab(char **el);
 void	del_list(t_list **list_cmds);
 
+// list_cmds.c create the chained list of cmds from the cmd line
+t_list	**list_cmds(char *cmdline, t_msvar **ms_env);
+
+// ft_pipe_split.c first op split the cmd line if there is pipes
+int ft_pipe_split(char *cmdline, t_list *cmd, int i);
+
+// ft_in_out_files.c check the infile and outfile and fill them in the list
+size_t	check_infile(char *cmdline);
+size_t	check_outfile(char *cmdline);
+void	ft_check_in_out(t_list *cmd);
+void	ft_in_out_files(t_list **cmds);
+
+// ft_fill_data1.c et ft_fill_data2.c filling of the different data of
+// chained list of commands
+void	ft_fill_infile(t_list *cmd, size_t infile_len);
+void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
+char	whosfirst(char *cmdline);
+char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen);
+char	*cmd_path(char **path, char *cmd);
+void	ft_fillpath_cmd(t_list **cmds, t_msvar *ms_env);
+void	ft_fillcmd_flag(t_list **cmds);
+
 // ft_splitcmd1.c and ft_splitcmd1.c used to split the string 
 // with the complete commande in a table
 int		quotesize(char *s, int i, char quotetype);
@@ -87,5 +109,13 @@ void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
+
+
+
+
+// ft_error_exit.c list of the insid errors and their number
+// exit of minishell
+int		ft_cmd_error(t_list **list_cmds, int error_type);
+void	ft_exit_minishell(char **path);
 
 #endif

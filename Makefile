@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/07/14 20:17:06 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/07/28 22:45:29 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,18 @@ INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS 			= minishell.c\
 					env_analyze.c\
-					ft_cmd.c\
+					ft_checkcmd.c\ #a supprimer pour version finale
 					ft_del.c\
 					ft_error_exit.c\
-					ft_spec_flag.c\
-					ft_splitcmd.c
+					ft_fill_data1.c\
+					ft_fill_data2.c\
+					ft_in_out_files.c\
+					ft_pipe_split.c\
+					ft_splitcmd1.c\
+					ft_splitcmd2.c\
+					list_cmds.c\
+					listmanip.c\
+
 
 OBJS 			= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS))
 SRCS 			= $(patsubst %, $(SRCS_DIR)/%, $(_SRCS))

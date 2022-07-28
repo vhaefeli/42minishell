@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/25 17:33:06 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:08:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	del_list(t_list **list_cmds)
 		el1 = el1->next;
 		free(el2);
 	}
-	// faut il faire un free sur le ** ?
+	free (list_cmds);
 	list_cmds = NULL;
 }

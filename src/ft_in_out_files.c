@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/26 22:33:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:34:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void	ft_in_out_files(t_list **cmds)
 	while (*cmds)
 	{
 		ft_check_in_out(*cmds);
-		*(cmds) = *cmds->next;
+		*(cmds) = (*cmds)->next;
 	}
 }
