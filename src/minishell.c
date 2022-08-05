@@ -6,17 +6,48 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/08 18:45:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:48:48 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// pour control du bon fonctionnement = a effacer apres
+void checklistcmd(t_list *cmd)
+{
+	int	a;
+	int i = 0;
+
+	while (cmd && (i + 1))
+	{
+		printf("%d eme commande\n", i++);
+		printf("path_cmd: %s\n", cmd->path_cmd);
+		a = 0;
+		while (cmd->cmd_with_flags[a])
+			printf("path_cmd: %s\n", cmd->cmd_with_flags[a++]);
+		printf("infile: %s\n", cmd->infile);
+		printf("infileflag: %d\n", cmd->infileflag);
+		printf("outfile: %s\n", cmd->outfile);
+		printf("outfileflag: %d\n", cmd->outfileflag);
+		printf("address cmd: %p\n", &cmd);
+		printf("address previous: %p\n", cmd->previous);
+		printf("address next toujours: %p\n", cmd->next);
+		cmd = cmd->next;
+	}
+}
+
 int main (int argc, char **argv, char **envp)
 {
-	t_msvar msvar;
+	t_msvar *ms_env;
+	t_list	**cmdslist;
+	char	cmdline[31] = "<infile cat | wc -l > outfile";
 
-	msvar = ini_ms(envp);
-    printf("Bienvenue dans %s\n%d,%s\n", argv[0], argc, envp[0]);
+	ms_env = ini_ms(envp);
+	cmdslist = list_cmds(cmdline, ms_env);
+	checklistcmd(*cmdslist);
+	printf("liste cree");
+	del_list(cmdslist);
+	checklistcmd(cmdslist);
+    printf("liste vide");
     return (0);
 }

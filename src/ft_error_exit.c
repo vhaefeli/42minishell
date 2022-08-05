@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/14 20:05:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:45:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,13 @@ include "minishell.h"
 // attention pas de exit qui fermerait minishell
 
 int	ft_errortype
+0 pas d erreur
+1 erreur generique
+2 erreur de commande
+3 erreur infile outfile
+4 erreur cmd builtin
 
-1 erreur de commande
+
 
 int	ft_cmd_error(t_list **list_cmds, int error_type)
 {

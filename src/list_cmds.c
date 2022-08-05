@@ -6,13 +6,13 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/27 12:05:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:44:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	**list_cmds(char *cmdline, t_msvar **ms_env)
+t_list	**list_cmds(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*first_cmd;
 	t_list	*new_cmd1;
@@ -34,7 +34,7 @@ t_list	**list_cmds(char *cmdline, t_msvar **ms_env)
 		new_cmd1 = new_cmd2;
 	}
 	if (i = -1)
-		return (NULL);
+		return (NULL); //error with the cmd
 	// step 2 clean the cmds lines by searching the infile and outfile
 	ft_in_out_files(&first_cmd);
 	// step 3 fill the cmd_with_flag by a new split

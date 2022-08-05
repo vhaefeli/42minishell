@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/28 22:45:18 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:40:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "keys.h"
 # include <stddef.h>
-# include <stdlib.h>e
+# include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
 # include <string.h>
@@ -36,7 +36,7 @@ typedef struct s_list
 {
 	char			*path_cmd;
 	char			*cmd_tmp;
-	char			**cmd_with_flags;
+	char			**cmd_with_flags; //table with in[0] the cmd and after the flags
 	char			*infile;
 	int				infileflag;//0 no infile / 1 infile / 2 heredoc as infile
 	char			*outfile;
@@ -110,8 +110,12 @@ char	*cpycmdflag(t_varchar *listcmd);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
 
-
-
+// pipe_children_process.c execute the commande
+static int	check_infile(char *cmd_infile, int fd[]);
+static int	check_outfile(char *cmd_outfile, int fd[]);
+int	checkbuiltin(char *cmd);
+int	execbuiltin(t_list *cmds, int builtincmd_nb, char **envp);
+void	child_process(t_list *list_cmds, int fd[], char **envp);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/04 13:48:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:01:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,6 @@ void	check_nbargv(int argc)
 	}
 }
 
-void	check_file(char **argv)
-{
-	int	i;
-	int	file;
-
-	i = 4;
-	if (access(argv[1], F_OK) != 0)
-	{
-		ft_printf("(Error) %s : %s \n", strerror(errno), argv[1]);
-		exit(EXIT_FAILURE);
-	}
-	if (access(argv[1], R_OK) != 0)
-	{
-		ft_printf("(Error) %s : %s \n", strerror(errno), argv[1]);
-		exit(EXIT_FAILURE);
-	}
-	while (argv[i + 1])
-		i++;
-	if (access(argv[i], F_OK) != 0)
-	{
-		file = open(argv[i], O_CREAT, 0644);
-		close(file);
-	}
-	if (access(argv[i], W_OK) != 0)
-	{
-		ft_printf("(Error) %s : %s \n", strerror(errno), argv[i]);
-		exit(EXIT_FAILURE);
-	}
-}
 
 static void	fd_value_exchange(int fd[], int temp_fd[])
 {
