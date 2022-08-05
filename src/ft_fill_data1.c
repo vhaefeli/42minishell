@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/27 11:39:50 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:23:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 	i = 0;
 	j = 0;
 	cmd->infile = malloc(infile_len + 1);
-	while (cmdline[i] && cmdline[i] != '<')
-		i+= ft_cntchar(cmdline, '<', i);
-	if (cmdline[i++] == '<')
+	while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != '<')
+		i+= ft_cntchar(cmd->cmd_tmp, '<', i);
+	if (cmd->cmd_tmp[i++] == '<')
 	{
-		if (cmdline[i] == '<')
+		if (cmd->cmd_tmp[i] == '<')
 		{
 			i++;
 			cmd->infileflag = 2;
 		}
 		else
 			cmd->infileflag = 1;
-		while (cmdline[i] == ' ')
+		while (cmd->cmd_tmp[i] == ' ')
 			i++;
-		while (cmdline[i] != ' ')
+		while (cmd->cmd_tmp[i] != ' ')
 		{
-			cmd->infile[j] = cmdline[i];
+			cmd->infile[j] = cmd->cmd_tmp[i];
 			i++;
 			j++;
 		}
@@ -50,29 +50,29 @@ void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
 	i = 0;
 	j = 0;
 	cmd->outfile = malloc(outfile_len + 1);
-	while (cmdline[i] && cmdline[i] != '<')
-		i+= ft_cntchar(cmdline, '<', i);
-	if (cmdline[i++] == '<')
+	while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != '<')
+		i+= ft_cntchar(cmd->cmd_tmp, '<', i);
+	if (cmd->cmd_tmp[i++] == '<')
 	{
-		if (cmdline[i] == '<')
+		if (cmd->cmd_tmp[i] == '<')
 		{
 			i++;
 			cmd->outfileflag = 2;
 		}
 		else
 			cmd->outfileflag = 1;
-		while (cmdline[i] == ' ')
+		while (cmd->cmd_tmp[i] == ' ')
 			i++;
-		while (cmdline[i] != ' ')
+		while (cmd->cmd_tmp[i] != ' ')
 		{
-			cmd->outfile[j] = cmdline[i];
+			cmd->outfile[j] = cmd->cmd_tmp[i];
 			i++;
 			j++;
 		}
 	}
 }
 
-char	whosfirst(char *cmdline)
+static char	whos_first(char *cmdline)
 {
 	int	in;
 	int	out;

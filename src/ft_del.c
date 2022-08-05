@@ -6,11 +6,11 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/27 12:08:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 22:56:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-include "minishell.h"
+#include "minishell.h"
 
 void	del_el(char *el)
 {
@@ -38,20 +38,20 @@ void	del_tab(char **el)
 	el = NULL;
 }
 
-void	del_list(t_list **list_cmds)
+void	del_list(t_list *list_cmds)
 {
 	t_list	*el1;
 	t_list	*el2;
 
-	if (!lst)
+	if (!list_cmds)
 		return ;
-	el1 = ft_lstfirst(*list_cmds);
+	el1 = ft_lstfirst(list_cmds);
 	while (el1)
 	{
 
 		del_el(el1->path_cmd);
-		del_el(el1->cmd_temp);
-		del_tab(el->cmd_with_flags);
+		del_el(el1->cmd_tmp);
+		del_tab(el1->cmd_with_flags);
 		del_el(el1->infile);
 		el1->infileflag = 0;
 		del_el(el1->outfile);

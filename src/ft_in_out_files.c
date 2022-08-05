@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/04 23:45:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:43:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ size_t	check_infile(char *cmdline)
 	size_t	j;
 
 	i = 0;
+	j = 0;
 	while (cmdline[i] && cmdline[i] != '<')
 		i+= ft_cntchar(cmdline, '<', i);
 	if (cmdline[i++] == '<')
@@ -84,11 +85,11 @@ void	ft_check_in_out(t_list *cmd)
 	printf("cmd_temp apres traitement: %s\n", cmd->cmd_tmp);
 }
 
-void	ft_in_out_files(t_list **cmds)
+void	ft_in_out_files(t_list *cmds)
 {
-	while (*cmds)
+	while (cmds)
 	{
-		ft_check_in_out(*cmds);
-		*(cmds) = (*cmds)->next;
+		ft_check_in_out(cmds);
+		cmds = (cmds)->next;
 	}
 }

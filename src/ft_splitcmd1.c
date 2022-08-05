@@ -6,11 +6,11 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 18:27:29 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:40:57 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-include "minishell.h"
+#include "minishell.h"
 
 int	quotesize(char *s, int i, char quotetype)
 {
@@ -115,7 +115,7 @@ char	*cpycmdflag(t_varchar *listcmd)
 
 	if (listcmd->str2)
 		free (listcmd->str2);
-	linesize = ft_cntchar(listcmd->str, listcmd->i);
+	linesize = ft_cntchar(listcmd->str, ' ', listcmd->i);
 	listcmd->str2 = (char *)malloc(linesize * sizeof(char));
 	if (!listcmd->str2 || linesize == 0)
 		return (NULL);

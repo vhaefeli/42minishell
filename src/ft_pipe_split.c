@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 21:49:31 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/28 22:37:59 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:16:49 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int ft_pipe_split(char *cmdline, t_list *cmd, int i)
 	j = 0;
 	if (! cmdline)
 		return (-1);
-	fullcmdsize = ft_cntchar(cmdline, '\|', i);
+	fullcmdsize = ft_cntchar(cmdline, '|', i);
 	cmd->cmd_tmp = malloc(fullcmdsize + 1);
 	if (!cmd->cmd_tmp)
 		return (-1);
@@ -31,7 +31,8 @@ int ft_pipe_split(char *cmdline, t_list *cmd, int i)
 		j++;
 	}
 	cmd->cmd_tmp[j] = 0;
-	if (cmdline[i] = 0)
+	if (cmdline[i] == 0)
 		return (i);
+	printf("pipe_splite i = %d\n", i + 1);
 	return (i + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/25 23:23:35 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:43:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ t_list	*ft_lstfirst(t_list *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(t_list **firstcmd, t_list *new)
+void	ft_lstadd_back(t_list *firstcmd, t_list *new)
 {
 	t_list	*lastel;
 
 	if (!new)
 		return ;
-	lastel = ft_lstlast(*firstcmd);
+	lastel = ft_lstlast(firstcmd);
 	if (!lastel)
 		firstcmd = new;
 	else
@@ -49,9 +49,7 @@ void	ft_lstadd_back(t_list **firstcmd, t_list *new)
 t_list	*ft_ininewlst_el(void)
 {
 	t_list	*list;
-	int		i;
 
-	i = 0;
 	list = malloc(sizeof(t_list));
 	if (!list)
 		return (NULL);

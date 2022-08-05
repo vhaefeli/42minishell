@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/07/28 22:28:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:36:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,27 @@ char	*cmd_path(char **path, char *cmd)
 	return (NULL);
 }
 
-void	ft_fillpath_cmd(t_list **cmds, t_msvar *ms_env)
+int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
-	while (*cmds)
+	while (cmds)
 	{
-		(*cmds)->path_cmd = cmd_path(ms_env->all_path, (*cmds)->cmd_with_flags[0]);
-		if ((*cmds)->path_cmd == NULL)
+		cmds->path_cmd = cmd_path(ms_env->all_path, cmds->cmd_with_flags[0]);
+		if (cmds->path_cmd == NULL)
 		{
-			ft_printf("error: command not found: %s\n", (*cmds)->cmd_with_flags[0]);
-			ft_cmd_error(&cmds, 1);
-			return (NULL);
+			printf("error: command not found: %s\n", cmds->cmd_with_flags[0]);
+			ft_cmd_error(cmds, 1);
+			return (1);
 		}
-		*cmds = (*cmds)->next;
+		cmds = cmds->next;
 	}
+	return (0);
 }
 
-void	ft_fillcmd_flag(t_list **cmds)
+void	ft_fillcmd_flag(t_list *cmds)
 {
-	while (*cmds)
+	while (cmds)
 	{
-		(*cmds)->cmd_with_flags = ft_splitcmd((*cmds)->cmd_tmp);
-		*cmds = (*cmds)->next;
+		cmds->cmd_with_flags = ft_splitcmd(cmds->cmd_tmp);
+		cmds = cmds->next;
 	}
 }

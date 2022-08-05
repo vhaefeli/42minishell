@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/04 23:16:24 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 21:39:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_file_in(char *cmd_infile, int fd[])
 		}
 		if (access(cmd_infile, R_OK) != 0)
 		{
-			ft_printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
+			printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
 			return (-1);
 		}
 		return (open(cmd_infile, O_RDONLY));
@@ -45,7 +45,7 @@ static int	check_file_out(char *cmd_outfile, int fd[])
 		}
 		if (access(cmd_outfile, W_OK) != 0)
 		{
-			ft_printf("(Error) %s : %s \n", strerror(errno), cmd_outfile);
+			printf("(Error) %s : %s \n", strerror(errno), cmd_outfile);
 			return (-1);
 		}
 		return (open(cmd_outfile, O_WRONLY | O_TRUNC));
@@ -89,7 +89,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, char **envp)
 		return (cmd_export(cmds, envp));
 	if (builtincmd_nb == 5)
 		return (cmd_unset(cmds, envp));
-	if (!builtincmd_nb == 6)
+	if (builtincmd_nb == 6)
 		return (cmd_env(cmds, envp));
 	if (builtincmd_nb == 7)
 		return (cmd_exit(cmds, envp));
@@ -118,7 +118,7 @@ int	child_process(t_list *list_cmds, int fd[], char **envp)
 		close(fd[0]);
 	if (fd[1] > -1)
 		close(fd[1]);
-	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0];
+	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
 		return (execbuiltin(list_cmds, builtincmd_nb, envp));
 	else

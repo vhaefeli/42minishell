@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/04 23:48:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:45:50 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void checklistcmd(t_list *cmd)
 int main (int argc, char **argv, char **envp)
 {
 	t_msvar *ms_env;
-	t_list	**cmdslist;
+	t_list	*cmdslist;
 	char	cmdline[31] = "<infile cat | wc -l > outfile";
 
+	printf("argc:%i argv0:%s\n", argc, argv[0]);
+	printf("%s\n", cmdline);
 	ms_env = ini_ms(envp);
 	cmdslist = list_cmds(cmdline, ms_env);
-	checklistcmd(*cmdslist);
+	checklistcmd(cmdslist);
 	printf("liste cree");
 	del_list(cmdslist);
 	checklistcmd(cmdslist);

@@ -6,11 +6,11 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/04 23:36:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:06:37 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-include "minishell.h"
+#include "minishell.h"
 
 char	**path_finder(char **envp)
 {
@@ -23,7 +23,7 @@ char	**path_finder(char **envp)
 		i++;
 	if (envp[i] == NULL)
 	{
-		ft_printf("(Error) PATH not found\n");
+		printf("(Error) PATH not found\n");
 		exit(EXIT_FAILURE);
 	}
 	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
@@ -36,6 +36,7 @@ t_msvar	*ini_ms(char **envp)
 {
 	t_msvar *msvar;
 
+	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_origin = envp;
 	msvar->envp_ms = envp;
 	msvar->all_path = path_finder(envp);
