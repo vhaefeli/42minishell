@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 23:41:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:02:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,26 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 		new_cmd1 = first_cmd;
 	while (i >= 0 && cmdline[i] != 0)
 	{
+		printf("listcmd i:%d\n", i);
 		new_cmd2 = ft_ininewlst_el();
 		new_cmd2->previous = new_cmd1;
 		new_cmd1->next = new_cmd2;
 		i = ft_pipe_split(cmdline, new_cmd2, i);
+		printf("listcmd i:%d\n", i);
 		new_cmd1 = new_cmd2;
 	}
 	if (i == -1)
 		return (NULL); //error with the cmd
 	// step 2 clean the cmds lines by searching the infile and outfile
+	printf("list_cmds step2\n");
 	ft_in_out_files(first_cmd);
 	// step 3 fill the cmd_with_flag by a new split
+	printf("list_cmds step3\n");
 	ft_fillcmd_flag(first_cmd);
 	// step 4 fill the path_cmd data
+	printf("list_cmds step4\n");
 	ft_fillpath_cmd(first_cmd, ms_env);
-	free(cmdline);
+	printf("list_cmds end\n");
+	// free(cmdline);  ' remettre quand cmdline ne sera pas le char * du main...
 	return (first_cmd);
 }

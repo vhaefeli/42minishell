@@ -30,3 +30,8 @@ travaille essentiellement sur le parsing de la ligne de commande y compris les s
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  commit 27 juillet
  creation d-un fichier usefull or not qui regroupe des fonction que j-ai ecrite et qui ne sont plus utiles....mais on ne sais jamais...
+
+ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ commit 6 aout filling in progress
+ la liste de commande se remplis plutot bien. il y a des problemes encore avec le clean commande: le outfile n-est pas supprimer et donc se retrouve comme flag de la commande.
+ quelque chose d'etrange avec les adresses des struct commandes... ' controler...
