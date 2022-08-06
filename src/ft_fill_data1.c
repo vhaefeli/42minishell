@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/06 16:10:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:28:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 	}
 	if (cmd_tmp[i] == first_c)
 	{
+		i++;
 		if (cmd_tmp[i] == first_c)
 			i++;
 		while (cmd_tmp[i] == ' ')
 			i++;
-		while (cmd_tmp[i] != ' ')
-		i++;
+		while (cmd_tmp[i] && cmd_tmp[i] != ' ')
+			i++;
 	}
 	if (first_c == '<')
 		first_c = '>';
@@ -127,11 +128,12 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 	}
 	if (cmd_tmp[i] == first_c)
 	{
+		i++;
 		if (cmd_tmp[i] == first_c)
 			i++;
 		while (cmd_tmp[i] == ' ')
 			i++;
-		while (cmd_tmp[i] != ' ')
+		while (cmd_tmp[i] && cmd_tmp[i] != ' ')
 		i++;
 	}
 	while (cmd_tmp[i])
