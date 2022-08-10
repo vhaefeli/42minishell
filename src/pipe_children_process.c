@@ -6,49 +6,57 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 21:39:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:58:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_file_in(char *cmd_infile, int fd[])
+static int	check_file_in(t_list *cmd, int fd[])
 {
-	if (cmd_infile != NULL)
+	if (cmd->infile != NULL)
 	{
-		if (access(cmd_infile, F_OK) != 0)
+		if (cmd->infileflag == 1)
 		{
-			printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
-			return (-1);
+			if (access(cmd->infile, F_OK) != 0)
+			{
+				printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
+				return (-1);
+			}
+			if (access(cmd->infile, R_OK) != 0)
+			{
+				printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
+				return (-1);
+			}
+			return (open(cmd->infile, O_RDONLY));
 		}
-		if (access(cmd_infile, R_OK) != 0)
-		{
-			printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
-			return (-1);
-		}
-		return (open(cmd_infile, O_RDONLY));
+		if (cmd->infileflag == 2)
+			return (open(ft_heredoc(cmd->infile), O_RDONLY))
 	}
 	else
 		return (fd[0]);
 }
 
-static int	check_file_out(char *cmd_outfile, int fd[])
+static int	check_file_out(t_list *cmd, int fd[])
 {
 	int	file;
 	
-	if (cmd_outfile != NULL)
+	if (cmd->outfile != NULL)
 	{
-		if (access(cmd_outfile, F_OK) != 0)
+		if (access(cmd->outfile, F_OK) != 0)
 		{
-			file = open(cmd_outfile, O_CREAT, 0644);
+			file = open(cmd->outfile, O_CREAT, 0644);
 			close(file);
 		}
-		if (access(cmd_outfile, W_OK) != 0)
+		if (access(cmd->outfile, W_OK) != 0)
 		{
 			printf("(Error) %s : %s \n", strerror(errno), cmd_outfile);
 			return (-1);
 		}
-		return (open(cmd_outfile, O_WRONLY | O_TRUNC));
+		if (cmd->outfileflag == 1)
+			return (open(cmd->outfile, O_WRONLY | O_TRUNC));
+		if (cmd->outfileflag == 2)
+			return (open(cmd->outfile, O_WRONLY | O_APPEND));
 	}
 	else
 		return (fd[1]);
@@ -120,8 +128,11 @@ int	child_process(t_list *list_cmds, int fd[], char **envp)
 		close(fd[1]);
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
-		return (execbuiltin(list_cmds, builtincmd_nb, envp));
+	{
+		execbuiltin(list_cmds, builtincmd_nb, envp);
+		kill(0, 0);
+	}
 	else
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, envp);
-		return (2); //cmd error
+	kill(0, 2);
 }

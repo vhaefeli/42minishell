@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/06 17:44:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:58:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,27 +87,16 @@ void	ft_check_in_out(t_list *cmd)
 	size_t	outfile_len;
 	size_t	cmd_wflag_len;
 
-	printf("cmd_temp avant traitement:-%s-\n", cmd->cmd_tmp);
 	cmdline_len = ft_strlen(cmd->cmd_tmp);
-	printf("cmdlinelen: %zu\n", cmdline_len);
-	printf("ft_check_in_out 1\n");
 	infile_len = check_infile(cmd->cmd_tmp);
-	printf("infilelen: %zu\n", infile_len);
-	printf("ft_check_in_out 2\n");
 	outfile_len = check_outfile(cmd->cmd_tmp);
-	printf("outfilelen: %zu\n", outfile_len);
-	printf("ft_check_in_out 3\n");
 	if (infile_len > 0)
 		ft_fill_infile(cmd, infile_len);
-	printf("\ninfile: -%s- flag %i\n", cmd->infile, cmd->infileflag);
 	if (outfile_len > 0)
 		ft_fill_outfile(cmd, outfile_len);
-	printf("\noutfile: -%s- flag %i\n", cmd->outfile, cmd->outfileflag);
 	cmd_wflag_len = ft_cleaned_cmdline_len(cmd);
-	printf("cmdlen: %zu\n", cmd_wflag_len);
 	if (cmd_wflag_len < cmdline_len)
 		cmd->cmd_tmp = ft_clean_cmdline(cmd->cmd_tmp, cmd_wflag_len);
-	printf("\ncmd_temp apres traitement:-%s-\n\n", cmd->cmd_tmp);
 }
 
 void	ft_in_out_files(t_list *cmds)
@@ -118,3 +107,4 @@ void	ft_in_out_files(t_list *cmds)
 		cmds = (cmds)->next;
 	}
 }
+

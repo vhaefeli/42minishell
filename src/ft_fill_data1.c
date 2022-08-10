@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/06 18:28:30 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:19:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] == ' ')
 			i++;
 		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != ' ')
-		{
-			cmd->infile[j] = cmd->cmd_tmp[i];
-			i++;
-			j++;
-		}
+			cmd->infile[j++] = cmd->cmd_tmp[i++];
 	}
 }
 
