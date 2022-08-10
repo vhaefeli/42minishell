@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/06 18:19:30 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:32:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void checklistcmd(t_list *cmd)
 	int	a;
 	int i = 0;
 
+	printf("hello");
 	while (cmd && (i + 1))
 	{
 		printf("********\n%d eme commande\n", i++ + 1);
@@ -29,9 +30,9 @@ void checklistcmd(t_list *cmd)
 		printf("infileflag:%d\n", cmd->infileflag);
 		printf("outfile:%s\n", cmd->outfile);
 		printf("outfileflag:%d\n", cmd->outfileflag);
-		printf("address cmd: %p\n", &cmd);
+		printf("address cmd: %p\n", cmd);
 		printf("address previous: %p\n", cmd->previous);
-		printf("address next toujours: %p\n\n", cmd->next);
+		printf("address next: %p\n\n", cmd->next);
 		cmd = cmd->next;
 	}
 }
@@ -40,7 +41,7 @@ int main (int argc, char **argv, char **envp)
 {
 	t_msvar *ms_env;
 	t_list	*cmdslist;
-	char	cmdline[26] = "< infile wc -l >> outfile";
+	char	cmdline[37] = "< infile cat | wc -l | wc >> outfile";
 
 	printf("argc:%i argv0:%s\n", argc, argv[0]);
 	printf("%s\n****************\n", cmdline);
@@ -48,6 +49,7 @@ int main (int argc, char **argv, char **envp)
 	cmdslist = list_cmds(cmdline, ms_env);
 	checklistcmd(cmdslist);
 	printf("liste cree");
+	checklistcmd(cmdslist);
 	del_list(cmdslist);
 	checklistcmd(cmdslist);
     printf("liste vide");
