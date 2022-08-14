@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 19:06:37 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:59:03 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_msvar	*ini_ms(char **envp)
 	msvar->envp_origin = envp;
 	msvar->envp_ms = envp;
 	msvar->all_path = path_finder(envp);
+
+	
 	// if (access("history_cmd", F_OK) != 0)
 	// {
 	// 	msvar->cmd_historyfile = open("history_cmd", O_CREAT | O_APPEND, 444);

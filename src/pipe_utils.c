@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/04 23:01:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:03:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	check_nbargv(int argc)
-{
-	if (argc < 5)
-	{
-		ft_printf("(Error) Too few arguments\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
+#include "minishell.h"
 
 static void	fd_value_exchange(int fd[], int temp_fd[])
 {
@@ -29,7 +19,7 @@ static void	fd_value_exchange(int fd[], int temp_fd[])
 	temp_fd[0] = temp_fd[1];
 }
 
-void	pipex(t_list **list_cmds, char **envp)
+void	pipex(t_list **list_cmds, t_msvar *ms_env)
 {
 	pid_t		pid1;
 	int			fd[2];
@@ -48,11 +38,26 @@ void	pipex(t_list **list_cmds, char **envp)
 		if (pid1 < 0 && ft_printf("Fork %d : ", n_cmd))
 			ft_error(*list_cmds, NULL);
 		if (pid1 == 0)
-			child_process(*list_cmds, fd, envp);
+			child_process(*list_cmds, fd, ms_env);
 		close(fd[1]);
 		*list_cmds = lst_delonecmd(*list_cmds);
 	}
 	close(fd[0]);
 	while (n_cmd--)
 		waitpid(pid1, NULL, 0);
+}
+
+int	ft_pipe(char *cmdline, t_msvar *ms_env)
+{
+	t_list	*cmd_list;
+
+	cmd_list = list_cmds(cmdline, ms_env);
+	if (cmd_list == NULL)
+	{
+		ft_printf("error with cmds listing");
+		return (1);
+	}
+	pipex(&cmd_list, ms_env);
+	free(cmd_list);
+	return (0);
 }

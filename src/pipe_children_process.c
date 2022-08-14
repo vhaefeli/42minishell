@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/10 20:58:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:04:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,27 @@ int	checkbuiltin(char *cmd)
 		return (0);
 }
 
-int	execbuiltin(t_list *cmds, int builtincmd_nb, char **envp)
+int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
 	if (builtincmd_nb == 1)
-		return (cmd_echo(cmds, envp));
+		return (cmd_echo(cmds, ms_env));
 	if (builtincmd_nb == 2)
-		return (cmd_cd(cmds, envp));		
+		return (cmd_cd(cmds, ms_env));		
 	if (builtincmd_nb == 3)
-		return (cmd_pwd(cmds, envp));
+		return (cmd_pwd(cmds, ms_env));
 	if (builtincmd_nb == 4)
-		return (cmd_export(cmds, envp));
+		return (cmd_export(cmds, ms_env));
 	if (builtincmd_nb == 5)
-		return (cmd_unset(cmds, envp));
+		return (cmd_unset(cmds, ms_env));
 	if (builtincmd_nb == 6)
-		return (cmd_env(cmds, envp));
+		return (cmd_env(cmds, ms_env));
 	if (builtincmd_nb == 7)
-		return (cmd_exit(cmds, envp));
+		return (cmd_exit(cmds, ms_env));
 	else
 		return (4); //cmd builtin error
 }
 
-int	child_process(t_list *list_cmds, int fd[], char **envp)
+int	child_process(t_list *list_cmds, int fd[], t_msvar *ms_env)
 {
 	int		infile;
 	int		outfile;
@@ -129,10 +129,10 @@ int	child_process(t_list *list_cmds, int fd[], char **envp)
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
 	{
-		execbuiltin(list_cmds, builtincmd_nb, envp);
+		execbuiltin(list_cmds, builtincmd_nb, ms_env);
 		kill(0, 0);
 	}
 	else
-		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, envp);
+		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
 	kill(0, 2);
 }

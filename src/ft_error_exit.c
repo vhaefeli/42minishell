@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 23:34:24 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:15:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@ int	ft_cmd_error(t_list *list_cmds, int error_type)
 	return (error_type);
 }
 
-int	ft_exit_minishell(char **path)
+int	ft_exit_minishell(t_msvar *ms_env)
 {
 	int	i;
 
-	i = 0;
-		if (path)
-	{
-		while (path[i])
-		{
-			free(path[i]);
-			i++;
-		}
-		free(path);
-	}
+	// faire une fonction qui free le ms_env et tout ce qui peut trainer.
+	// i = 0;
+	// 	if (path)
+	// {
+	// 	while (path[i])
+	// 	{
+	// 		free(path[i]);
+	// 		i++;
+	// 	}
+	// 	free(path);
+	// }
 	printf("Bye Bye! See you soon :oD");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/09 21:32:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:26:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ int main (int argc, char **argv, char **envp)
 {
 	t_msvar *ms_env;
 	t_list	*cmdslist;
-	char	cmdline[37] = "< infile cat | wc -l | wc >> outfile";
+	int		run_check;
 
-	printf("argc:%i argv0:%s\n", argc, argv[0]);
-	printf("%s\n****************\n", cmdline);
+	run_check = 1;
 	ms_env = ini_ms(envp);
-	cmdslist = list_cmds(cmdline, ms_env);
-	checklistcmd(cmdslist);
-	printf("liste cree");
-	checklistcmd(cmdslist);
-	del_list(cmdslist);
-	checklistcmd(cmdslist);
-    printf("liste vide");
+	while (run_check)
+	{
+		//process parallele pour les ctrl???
+		cmdslist = ft_readline(); //fonction qui lit le prompte
+		ft_pipe( cmdline, ms_env);
+	}
+	ft_exit_minishell(ms_env);
     return (0);
 }

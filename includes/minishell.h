@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 23:42:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/14 13:09:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,36 @@ void	ft_fillcmd_flag(t_list *cmds);
 // with the complete commande in a table
 int		quotesize(char *s, int i, char quotetype);
 int		ft_cntcmdline(char *s);
-int	ft_cntchar(char *s, char c, int i);
+int		ft_cntchar(char *s, char c, int i);
 void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
 
-// // pipe_children_process.c execute the commande
-// int		checkbuiltin(char *cmd);
-// int		execbuiltin(t_list *cmds, int builtincmd_nb, char **envp);
-// int		child_process(t_list *list_cmds, int fd[], char **envp);
+// pipe_children_process.c execute the commande
+int		checkbuiltin(char *cmd);
+int		execbuiltin(t_list *cmds, int builtincmd_nb, char **envp);
+int		child_process(t_list *list_cmds, int fd[], char **envp);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell
 int		ft_cmd_error(t_list *list_cmds, int error_type);
-int	ft_exit_minishell(char **path);
+int		ft_exit_minishell(char **path);
 
-// // builtin cmds
-// int		cmd_echo(t_list *cmds, char **envp);
-// int		cmd_cd(t_list *cmds, char **envp);
-// int		cmd_pwd(t_list *cmds, char **envp);
-// int		cmd_export(t_list *cmds, char **envp);
-// int		cmd_unset(t_list *cmds, char **envp);
-// int		cmd_env(t_list *cmds, char **envp);
-// int		cmd_exit(t_list *cmds, char **envp);
+// builtin cmds
+int		cmd_echo(t_list *cmds, char **envp);
+int		cmd_cd(t_list *cmds, char **envp);
+int		cmd_pwd(t_list *cmds, char **envp);
+int		cmd_export(t_list *cmds, char **envp);
+int		cmd_unset(t_list *cmds, char **envp);
+int		cmd_env(t_list *cmds, char **envp);
+int		cmd_exit(t_list *cmds, char **envp);
+
+// ft_pipe_spit.c
+int ft_pipe_split(char *cmdline, t_list *cmd, int i);
+
+// pipe_utils.c 
+void	pipex(t_list **list_cmds, t_msvar *ms_env);
+int	ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif
