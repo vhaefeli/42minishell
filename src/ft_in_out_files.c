@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_in_out_files.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/08/10 20:58:59 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+size_t	check_infile(char *cmdline)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (cmdline[i] && cmdline[i] != '<')
+		i+= ft_cntchar(cmdline, '<', i);
+	if (cmdline[i++] == '<')
+	{
+		j++;
+		if (cmdline[i] == '<')
+		{
+			i++;
+			j++;
+		}
+		while (cmdline[i] && cmdline[i++] == ' ')
+			j++;
+		while (cmdline[i] && cmdline[i++] != ' ')
+			j++;
+	}
+	printf("check infile j:%zu\n", j);
+	return (j);
+}
+
+size_t	check_outfile(char *cmdline)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (cmdline[i] && cmdline[i] != '>')
+		i+= ft_cntchar(cmdline, '>', i);
+	if (cmdline[i++] == '>')
+	{
+		j++;
+		if (cmdline[i] == '>')
+		{
+			i++;
+			j++;
+		}
+		while (cmdline[i] && cmdline[i++] == ' ')
+			j++;
+		while (cmdline[i] && cmdline[i++] != ' ')
+			j++;
+	}
+	printf("check outfile j:%zu\n", j);
+	return (j);
+}
+
+static size_t	ft_cleaned_cmdline_len(t_list *cmd)
+{
+	size_t	cmdlen;
+	
+	cmdlen = ft_strlen(cmd->cmd_tmp);
+	if (cmd->infileflag == 1)
+		cmdlen-= (ft_strlen(cmd->infile) + 2);
+	if (cmd->infileflag == 2)
+		cmdlen-= (ft_strlen(cmd->infile) + 3);
+	if (cmd->outfileflag == 1)
+		cmdlen-= (ft_strlen(cmd->outfile) + 2);
+	if (cmd->outfileflag == 2)
+		cmdlen-= (ft_strlen(cmd->outfile) + 3);
+	return (cmdlen);
+}
+
+void	ft_check_in_out(t_list *cmd)
+{
+	size_t	cmdline_len;
+	size_t	infile_len;
+	size_t	outfile_len;
+	size_t	cmd_wflag_len;
+
+	cmdline_len = ft_strlen(cmd->cmd_tmp);
+	infile_len = check_infile(cmd->cmd_tmp);
+	outfile_len = check_outfile(cmd->cmd_tmp);
+	if (infile_len > 0)
+		ft_fill_infile(cmd, infile_len);
+	if (outfile_len > 0)
+		ft_fill_outfile(cmd, outfile_len);
+	cmd_wflag_len = ft_cleaned_cmdline_len(cmd);
+	if (cmd_wflag_len < cmdline_len)
+		cmd->cmd_tmp = ft_clean_cmdline(cmd->cmd_tmp, cmd_wflag_len);
+}
+
+void	ft_in_out_files(t_list *cmds)
+{
+	while (cmds)
+	{
+		ft_check_in_out(cmds);
+		cmds = (cmds)->next;
+	}
+}
+
