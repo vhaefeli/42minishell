@@ -6,12 +6,12 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/08/14 13:03:47 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/08/26 17:44:48 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS 			= -Wall -Wextra -Werror -g #-fsanitize=address -fno-omit-frame-pointer
+CFLAGS 			=  -g -lreadline #-Wall -Wextra -Werror -fsanitize=address -fno-omit-frame-pointer
 TARGET 			= minishell
 SRCS_DIR 		= ./src
 OBJS_DIR 		= ./obj
@@ -19,14 +19,7 @@ LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
 LIBS			= $(LIBFT_DIR)/libft.a
-_SRCS 			= 	cmd_cd.c\
-					cmd_echo.c\
-					cmd_env.c\
-					cmd_exit.c\
-					cmd_pwd.c\
-					cmd_export.c\
-					cmd_uset.c\
-					env_analyze.c\
+_SRCS 			= 	env_analyze.c\
 					ft_del.c\
 					ft_error_exit.c\
 					ft_fill_data1.c\
@@ -37,7 +30,7 @@ _SRCS 			= 	cmd_cd.c\
 					ft_splitcmd2.c\
 					list_cmds.c\
 					listmanip.c\
-					pipe_children_process.c
+					pipe_children_process.c\
 					pipe_utils.c\
 					minishell.c
 

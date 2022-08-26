@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/14 13:09:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:12:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,28 +111,28 @@ char	**ft_splitcmd(char *s);
 
 // pipe_children_process.c execute the commande
 int		checkbuiltin(char *cmd);
-int		execbuiltin(t_list *cmds, int builtincmd_nb, char **envp);
-int		child_process(t_list *list_cmds, int fd[], char **envp);
+int		execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
+int		child_process(t_list *list_cmds, int fd[], t_msvar *ms_env);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell
 int		ft_cmd_error(t_list *list_cmds, int error_type);
-int		ft_exit_minishell(char **path);
+int		ft_exit_minishell(t_msvar *ms_env);
 
 // builtin cmds
-int		cmd_echo(t_list *cmds, char **envp);
-int		cmd_cd(t_list *cmds, char **envp);
-int		cmd_pwd(t_list *cmds, char **envp);
-int		cmd_export(t_list *cmds, char **envp);
-int		cmd_unset(t_list *cmds, char **envp);
-int		cmd_env(t_list *cmds, char **envp);
-int		cmd_exit(t_list *cmds, char **envp);
+// int		cmd_echo(t_list *cmds, char **envp);
+// int		cmd_cd(t_list *cmds, char **envp);
+// int		cmd_pwd(t_list *cmds, char **envp);
+// int		cmd_export(t_list *cmds, char **envp);
+// int		cmd_unset(t_list *cmds, char **envp);
+// int		cmd_env(t_list *cmds, char **envp);
+// int		cmd_exit(t_list *cmds, char **envp);
 
 // ft_pipe_spit.c
-int ft_pipe_split(char *cmdline, t_list *cmd, int i);
+int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c 
 void	pipex(t_list **list_cmds, t_msvar *ms_env);
-int	ft_pipe(char *cmdline, t_msvar *ms_env);
+int		ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif

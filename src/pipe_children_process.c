@@ -6,13 +6,17 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/14 12:04:09 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:25:46 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+static char	*ft_heredoc(char *infile)
+{
+	return (infile);
+}
 
-static int	check_file_in(t_list *cmd, int fd[])
+static int	check_file_in(t_list *cmd, int *fd)
 {
 	if (cmd->infile != NULL)
 	{
@@ -20,24 +24,23 @@ static int	check_file_in(t_list *cmd, int fd[])
 		{
 			if (access(cmd->infile, F_OK) != 0)
 			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
+				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
 				return (-1);
 			}
 			if (access(cmd->infile, R_OK) != 0)
 			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd_infile);
+				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
 				return (-1);
 			}
 			return (open(cmd->infile, O_RDONLY));
 		}
 		if (cmd->infileflag == 2)
-			return (open(ft_heredoc(cmd->infile), O_RDONLY))
+			return (open(ft_heredoc(cmd->infile), O_RDONLY));
 	}
-	else
-		return (fd[0]);
+	return (fd[0]);
 }
 
-static int	check_file_out(t_list *cmd, int fd[])
+static int	check_file_out(t_list *cmd, int *fd)
 {
 	int	file;
 	
@@ -50,7 +53,7 @@ static int	check_file_out(t_list *cmd, int fd[])
 		}
 		if (access(cmd->outfile, W_OK) != 0)
 		{
-			printf("(Error) %s : %s \n", strerror(errno), cmd_outfile);
+			printf("(Error) %s : %s \n", strerror(errno), cmd->outfile);
 			return (-1);
 		}
 		if (cmd->outfileflag == 1)
@@ -58,8 +61,7 @@ static int	check_file_out(t_list *cmd, int fd[])
 		if (cmd->outfileflag == 2)
 			return (open(cmd->outfile, O_WRONLY | O_APPEND));
 	}
-	else
-		return (fd[1]);
+	return (fd[1]);
 }
 
 int	checkbuiltin(char *cmd)
@@ -87,32 +89,35 @@ int	checkbuiltin(char *cmd)
 
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
-	if (builtincmd_nb == 1)
-		return (cmd_echo(cmds, ms_env));
-	if (builtincmd_nb == 2)
-		return (cmd_cd(cmds, ms_env));		
-	if (builtincmd_nb == 3)
-		return (cmd_pwd(cmds, ms_env));
-	if (builtincmd_nb == 4)
-		return (cmd_export(cmds, ms_env));
-	if (builtincmd_nb == 5)
-		return (cmd_unset(cmds, ms_env));
-	if (builtincmd_nb == 6)
-		return (cmd_env(cmds, ms_env));
-	if (builtincmd_nb == 7)
-		return (cmd_exit(cmds, ms_env));
-	else
-		return (4); //cmd builtin error
+	// fonction temp pour utiliser les variables:
+	return (builtincmd_nb + cmds->infileflag + ms_env->cmd_historyfile);
+	
+	// if (builtincmd_nb == 1)
+	// 	return (cmd_echo(cmds, ms_env));
+	// if (builtincmd_nb == 2)
+	// 	return (cmd_cd(cmds, ms_env));		
+	// if (builtincmd_nb == 3)
+	// 	return (cmd_pwd(cmds, ms_env));
+	// if (builtincmd_nb == 4)
+	// 	return (cmd_export(cmds, ms_env));
+	// if (builtincmd_nb == 5)
+	// 	return (cmd_unset(cmds, ms_env));
+	// if (builtincmd_nb == 6)
+	// 	return (cmd_env(cmds, ms_env));
+	// if (builtincmd_nb == 7)
+	// 	return (cmd_exit(cmds, ms_env));
+	// else
+		// return (4); //cmd builtin error
 }
 
-int	child_process(t_list *list_cmds, int fd[], t_msvar *ms_env)
+int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 {
 	int		infile;
 	int		outfile;
 	int		builtincmd_nb;
 
-	infile = check_file_in(list_cmds->infile, fd);
-	outfile = check_file_out(list_cmds->outfile, fd);
+	infile = check_file_in(list_cmds, fd);
+	outfile = check_file_out(list_cmds, fd);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
@@ -135,4 +140,5 @@ int	child_process(t_list *list_cmds, int fd[], t_msvar *ms_env)
 	else
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
 	kill(0, 2);
+	return (2);
 }

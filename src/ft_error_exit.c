@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/14 12:15:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:58:34 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	ft_cmd_error(t_list *list_cmds, int error_type)
 
 int	ft_exit_minishell(t_msvar *ms_env)
 {
-	int	i;
+	// int	i;
 
+	free(ms_env);
 	// faire une fonction qui free le ms_env et tout ce qui peut trainer.
 	// i = 0;
 	// 	if (path)
