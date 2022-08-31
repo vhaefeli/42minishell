@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 20:34:35 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:14:35 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	**ft_filltab(char *s, int nbline)
 
 	lignecmd = malloc (sizeof(t_varchar));
 	lignecmd->str = s;
+	lignecmd->str2 = NULL;
 	lignecmd->i = 0;
+	lignecmd->j = 0;
 	l = 0;
 	dst = malloc(sizeof(char *) * nbline);
 	while (l < nbline - 1)

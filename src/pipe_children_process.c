@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/26 17:25:46 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/31 17:22:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	check_file_in(t_list *cmd, int *fd)
 static int	check_file_out(t_list *cmd, int *fd)
 {
 	int	file;
-	
+
 	if (cmd->outfile != NULL)
 	{
 		if (access(cmd->outfile, F_OK) != 0)
@@ -67,12 +67,12 @@ static int	check_file_out(t_list *cmd, int *fd)
 int	checkbuiltin(char *cmd)
 {
 	size_t	n;
-	
+
 	n = ft_strlen(cmd);
 	if (!ft_strncmp("echo", cmd, n))
 		return (1);
 	if (!ft_strncmp("cd", cmd, n))
-		return (2);		
+		return (2);
 	if (!ft_strncmp("pwd", cmd, n))
 		return (3);
 	if (!ft_strncmp("export", cmd, n))
@@ -91,11 +91,11 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
 	// fonction temp pour utiliser les variables:
 	return (builtincmd_nb + cmds->infileflag + ms_env->cmd_historyfile);
-	
+
 	// if (builtincmd_nb == 1)
 	// 	return (cmd_echo(cmds, ms_env));
 	// if (builtincmd_nb == 2)
-	// 	return (cmd_cd(cmds, ms_env));		
+	// 	return (cmd_cd(cmds, ms_env));
 	// if (builtincmd_nb == 3)
 	// 	return (cmd_pwd(cmds, ms_env));
 	// if (builtincmd_nb == 4)
@@ -118,11 +118,15 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
+	printf("fd[0] :%d\n", fd[0]);
+	printf("fd[1] :%d\n", fd[0]);
 	if (infile < 0 || outfile < 0)
 	{
+		printf("fd[0] :%d\n", fd[0]);
+		printf("fd[1] :%d\n", fd[0]);
 		close(fd[1]);
 		close(fd[0]);
-		perror("Fork");
+		perror("Forkdsdsd");
 		return (3); // infile outfile error
 	}
 	dup2(infile, STDIN_FILENO);

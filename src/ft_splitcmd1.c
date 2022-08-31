@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/05 23:40:57 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:55:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	quotesize(char *s, int i, char quotetype)
 		quotesize++;
 		if (s[i] == '\0')
 		{
-			printf("error : you can have only an even number of %c quotes\n", quotetype);
+			printf("error : you can have only an even ");
+			printf("number of %c quotes\n", quotetype);
 			return (- j - 1);
 		}
 	}
@@ -63,7 +64,7 @@ int	ft_cntcmdline(char *s)
 int	ft_cntchar(char *s, char c, int i)
 {
 	int	start;
-	
+
 	start = i;
 	while (s[i] == ' ')
 		i++;
@@ -109,14 +110,17 @@ void	ft_writequote(t_varchar *listcmd, int j)
 
 char	*cpycmdflag(t_varchar *listcmd)
 {
-	
+
 	int		j;
 	int		linesize;
 
 	if (listcmd->str2)
+	{
 		free (listcmd->str2);
+		listcmd->str2 = NULL;
+	}
 	linesize = ft_cntchar(listcmd->str, ' ', listcmd->i);
-	listcmd->str2 = (char *)malloc(linesize * sizeof(char));
+	listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
 	if (!listcmd->str2 || linesize == 0)
 		return (NULL);
 	while (listcmd->str[listcmd->i] == ' ')
