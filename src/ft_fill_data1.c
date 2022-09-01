@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/31 18:07:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 09:29:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,20 @@ static char	whos_first(char *cmdline)
 		return ('>');
 }
 
+int	ft_clean_space(int i, char *str)
+{
+	while (str[i] == ' ' && str[i])
+			i++;
+	return (i);
+}
+
+char	switchinout(char first_c);
+{
+		if (first_c == '<')
+		return ('>');
+	else
+		return ('<');
+}
 char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 {
 	int		i;
@@ -95,11 +109,11 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 	printf("pre cleaned_cmd:%s-\n len: %lu\n", cmd_tmp, cmdlen);
 	first_c = whos_first(cmd_tmp);
 	cleaned_cmd = malloc(cmdlen + 1);
+	cleaned_cmd[cmdlen] = 0;
 	k = ft_cntchar(cmd_tmp, first_c, 0);
 	printf("k1:%d\n", k);
-	while (i < k && cmd_tmp[i])
+	while (i < k && cmd_tmp[i] && cleaned_cmd[j])
 	{
-		printf("HHH\n");
 		cleaned_cmd[j] = cmd_tmp[i];
 		i++;
 		j++;
@@ -109,20 +123,17 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 		i++;
 		if (cmd_tmp[i] == first_c)
 			i++;
-		while (cmd_tmp[i] == ' ')
-			i++;
+		i = ft_clean_space(i, cmd_tmp);
 		while (cmd_tmp[i] && cmd_tmp[i] != ' ')
 			i++;
 	}
-	if (first_c == '<')
-		first_c = '>';
-	else
-		first_c = '<';
+	first_c = switchinout(first_c);
 	k = ft_cntchar(cmd_tmp, first_c, 0);
 	printf("k2:%d\n", k);
-	while (i < k && cmd_tmp[i])
+	i = ft_clean_space(i, cmd_tmp);
+	while (i < k && cmd_tmp[i] && cleaned_cmd[j])
 	{
-		printf("j:%d\n", j);
+		printf("i: %d j:%d\n", i, j);
 		cleaned_cmd[j] = cmd_tmp[i];
 		i++;
 		j++;
@@ -132,19 +143,20 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 		i++;
 		if (cmd_tmp[i] == first_c)
 			i++;
-		while (cmd_tmp[i] == ' ')
-			i++;
-		while (cmd_tmp[i] && cmd_tmp[i] != ' ')
-		i++;
-	}
-	while (cmd_tmp[i])
-	{
 		while (cmd_tmp[i] == ' ' && cmd_tmp[i])
 			i++;
+		while (cmd_tmp[i] && cmd_tmp[i] != ' ' && cmd_tmp[i])
+			i++;
+	}
+	while (cmd_tmp[i] == ' ' && cmd_tmp[i])
+		i++;
+	while (cmd_tmp[i])
+	{
 		cleaned_cmd[j] = cmd_tmp[i];
 		i++;
 		j++;
 	}
+	printf("i: %d j:%d\n", i, j);
 	cleaned_cmd[j] = 0;
 	// free (cmd_tmp);
 	printf("cleaned_cmd:%s", cleaned_cmd);
