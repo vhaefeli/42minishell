@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/31 17:22:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 14:04:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,10 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	if (builtincmd_nb)
 	{
 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
-		kill(0, 0);
+		exit (1);
 	}
 	else
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
-	kill(0, 2);
+	exit (1);
 	return (2);
 }

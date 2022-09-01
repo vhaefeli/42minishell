@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/26 18:04:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 14:18:20 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,20 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 	int			fd[2];
 	int			temp_fd[2];
 	int			n_cmd;
+	int i = 4;
 
 	n_cmd = 0;
 	temp_fd[0] = -1;
 	pid1 = -1;
-	while (*list_cmds && ++n_cmd)
+	while (*list_cmds && ++n_cmd && i--)
 	{
 		if (pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
-			exit;
+			exit (0);
 			// ft_error(*list_cmds, NULL);
 		fd_value_exchange(fd, temp_fd);
 		pid1 = fork();
 		if (pid1 < 0 && printf("Fork %d : ", n_cmd))
-			exit;
+			exit(0);
 			// ft_error(*list_cmds, NULL);
 		if (pid1 == 0)
 			child_process(*list_cmds, fd, ms_env);
