@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 21:49:31 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/06 14:08:42 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:12:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int ft_pipe_split(char *cmdline, t_list *cmd, int i)
 	cmd->cmd_tmp[j] = 0;
 	if (cmdline[i] == 0)
 		return (i);
-	printf("pipe_splite i = %d\n", i + 1);
+	// printf("pipe_splite i = %d\n", i + 1);
 	return (i + 1);
 }

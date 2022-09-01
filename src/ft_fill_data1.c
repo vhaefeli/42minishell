@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 13:50:05 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:06:05 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
 		}
 	}
 	cmd->outfile[j] = 0;
-	printf("Xoutfile :%s\n", cmd->outfile);
 }
 
 static char	whos_first(char *cmdline)
@@ -116,27 +115,22 @@ void	clean_file(int k, t_varchar *cmd, char first_c)
 
 char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 {
-	t_varchar	*cmd;
+	t_varchar	cmd;
 	int		k;
 	char	first_c;
 
-	cmd->i = 0;
-	cmd->j = 0;
-	cmd->str = cmd_tmp;
-	cmd->str2 = malloc(cmdlen + 1);
-	cmd->str2[cmdlen] = 0;
-	printf("pre cleaned_cmd:%s-\n len: %lu\n", cmd_tmp, cmdlen);
+	cmd.i = 0;
+	cmd.j = 0;
+	cmd.str = cmd_tmp;
+	cmd.str2 = malloc(cmdlen + 1);
+	cmd.str2[cmdlen] = 0;
 	first_c = whos_first(cmd_tmp);
 	k = ft_cntchar(cmd_tmp, first_c, 0);
-	printf("k1:%d\n", k);
-	clean_file(k, cmd, first_c);
+	clean_file(k, &cmd, first_c);
 	first_c = switchinout(first_c);
 	k = ft_cntchar(cmd_tmp, first_c, 0);
-	printf("k2:%d\n", k);
-	clean_file(k, cmd, first_c);
+	clean_file(k, &cmd, first_c);
 	k = ft_strlen(cmd_tmp);
-	clean_file(k, cmd, first_c);
-	// free (cmd_tmp);
-	printf("cleaned_cmd:%s\n", cmd->str2);
-	return (cmd->str2);
+	clean_file(k, &cmd, first_c);
+	return (cmd.str2);
 }

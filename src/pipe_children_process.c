@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 14:04:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:10:20 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,11 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
-	printf("fd[0] :%d\n", fd[0]);
-	printf("fd[1] :%d\n", fd[0]);
 	if (infile < 0 || outfile < 0)
 	{
-		printf("fd[0] :%d\n", fd[0]);
-		printf("fd[1] :%d\n", fd[0]);
 		close(fd[1]);
 		close(fd[0]);
-		perror("Forkdsdsd");
+		perror("Fork");
 		return (3); // infile outfile error
 	}
 	dup2(infile, STDIN_FILENO);
@@ -143,6 +139,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	}
 	else
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
+	printf("error execve\n");
 	exit (1);
 	return (2);
 }
