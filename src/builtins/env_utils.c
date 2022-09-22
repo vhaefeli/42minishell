@@ -1,3 +1,5 @@
+#include "../../i"
+
 int			env_add(const char *value, t_env *env)
 {
 	t_env	*new;

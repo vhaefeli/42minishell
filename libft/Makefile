@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 16:28:28 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/07/11 17:14:47 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/09/22 11:53:15 by tlefebvr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	ft_isalpha.c\
 		ft_strlcat.c\
 		ft_strchr.c\
 		ft_strrchr.c\
+		ft_strcmp.c\
 		ft_strncmp.c\
 		ft_strnstr.c\
 		ft_bzero.c\
