@@ -6,23 +6,30 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 13:20:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:00:47 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-static char	*ft_heredoc(char *infile)
+int	ft_heredoc(char *infile)
 {
 	int		file;
 	char	*text;
 
-	file = open(".heredoc", O_CREAT | O_APPEND, 0666);
-
-	text = readline("> ");
-	write(file, &text, ft_strlen(text));
-
-
-	return (infile);
+	if (!infile)
+	{
+		printf("minishell: no end delimiter for heredoc");
+		return (-1);
+	}
+	file = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
+	while(1)
+	{
+		text = readline("> ");
+		if (ft_strcmp(text, infile))
+			break ;
+		write(file, &text, ft_strlen(text));
+	}
+	return (file);
 }
 
 static int	check_file_in(t_list *cmd, int *fd)
@@ -45,7 +52,7 @@ static int	check_file_in(t_list *cmd, int *fd)
 			return (open(cmd->infile, O_RDONLY));
 		}
 		if (cmd->infileflag == 2)
-			return (open(ft_heredoc(cmd->infile), O_RDONLY));
+			return (ft_heredoc(cmd->infile));
 	}
 	return (fd[0]);
 }
@@ -100,21 +107,21 @@ int	checkbuiltin(char *cmd)
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
 
-	if (builtincmd_nb == 1)
-		return (ft_echo(cmds, ms_env));
-	if (builtincmd_nb == 2)
-		return (ft_cd(cmds, ms_env));
-	if (builtincmd_nb == 3)
-		return (ft_pwd(cmds, ms_env));
-	if (builtincmd_nb == 4)
-		return (ft_export(cmds, ms_env));
-	if (builtincmd_nb == 5)
-		return (ft_unset(cmds, ms_env));
-	if (builtincmd_nb == 6)
-		return (ft_env(cmds, ms_env));
-	if (builtincmd_nb == 7)
-		return (ft_exit(cmds, ms_env));
-	else
+	// if (builtincmd_nb == 1)
+	// 	return (ft_echo(cmds, ms_env));
+	// if (builtincmd_nb == 2)
+	// 	return (ft_cd(cmds, ms_env));
+	// if (builtincmd_nb == 3)
+	// 	return (ft_pwd(cmds, ms_env));
+	// if (builtincmd_nb == 4)
+	// 	return (ft_export(cmds, ms_env));
+	// if (builtincmd_nb == 5)
+	// 	return (ft_unset(cmds, ms_env));
+	// if (builtincmd_nb == 6)
+	// 	return (ft_env(cmds, ms_env));
+	// if (builtincmd_nb == 7)
+	// 	return (ft_exit(cmds, ms_env));
+	// else
 		return (4); //cmd builtin error
 }
 
@@ -148,6 +155,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	}
 	else
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
+
 	printf("error execve\n");
 	exit (1);
 	return (2);

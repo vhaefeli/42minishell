@@ -6,16 +6,12 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/09/22 11:33:46 by vhaefeli         ###   ########.fr        #
-=======
-#    Updated: 2022/09/22 13:14:38 by tlefebvr         ###   ########.fr        #
->>>>>>> f1802e12d09f64872862755175ee2bf519eb7653
+#    Updated: 2022/09/22 15:05:52 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS 			=  -g -lreadline  -fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
+CFLAGS 			=  -g -lreadline  #-fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
 TARGET 			= minishell
 SRCS_DIR 		= ./src
 OBJS_DIR 		= ./obj
@@ -23,17 +19,7 @@ LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
 LIBS			= $(LIBFT_DIR)/libft.a
-_SRCS 			= 	builtins/cmd_cd.c\
-					builtins/cmd_echo.c\
-					builtins/cmd_env.c\
-					builtins/cmd_exit.c\
-					builtins/cmd_export.c\
-					builtins/cmd_pwd.c\
-					builtins/cmd_unset.c\
-					builtins/env_utils.c\
-					builtins/env.c\
-					builtins/get_env.c\
-					env_analyze.c\
+_SRCS 			= 	env_analyze.c\
 					ft_del.c\
 					ft_error_exit.c\
 					ft_fill_data1.c\
@@ -58,8 +44,7 @@ all: $(TARGET)
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
-	rm -d $(OBJS_DIR)
+	rm -rf $(OBJS_DIR)
 
 
 fclean: clean

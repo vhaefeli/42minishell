@@ -6,11 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/09/22 11:03:47 by vhaefeli         ###   ########.fr       */
-=======
-/*   Updated: 2022/09/22 11:53:55 by tlefebvr         ###   ########.fr       */
->>>>>>> f1802e12d09f64872862755175ee2bf519eb7653
+/*   Updated: 2022/09/22 14:58:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,45 +74,45 @@ typedef	struct s_varchar
 
 
 
-// Builtins
-// cmd_cd.c
-int	ft_cd(char **args, t_env *env);
+// // Builtins
+// // cmd_cd.c
+// int	ft_cd(char **args, t_env *env);
 
-// cmd_echo.c
-int	ft_echo(char **args);
+// // cmd_echo.c
+// int	ft_echo(char **args);
 
-// cmd_env.c
-int	ft_env(t_msvar *env);
+// // cmd_env.c
+// int	ft_env(t_msvar *env);
 
-// cmd_exit.c
-int	cmd_exit(t_list list, char **cmd);
+// // cmd_exit.c
+// int	cmd_exit(t_list list, char **cmd);
 
-// cmd_export.c
-int	ft_export(char **args, t_env *env, t_env *secret);
+// // cmd_export.c
+// int	ft_export(char **args, t_env *env, t_env *secret);
 
-int mini_pwd(void);
-int	ft_unset(char **a, t_msvar *msvar);
+// int mini_pwd(void);
+// int	ft_unset(char **a, t_msvar *msvar);
 
-// en_utils.c
-int		env_add(const char *value, t_env *env);
-char	*get_env_name(char *dest, const char *src);
-int		is_in_env(t_env *env, char *args);
+// // en_utils.c
+// int		env_add(const char *value, t_env *env);
+// char	*get_env_name(char *dest, const char *src);
+// int		is_in_env(t_env *env, char *args);
 
-// env.c
-size_t	size_env(t_env *lst);
-char	*env_to_str(t_env *lst);
-int		env_init(t_msvar *msvar, char **env_array);
-int		secret_env_init(t_msvar *msvar, char **env_array);
+// // env.c
+// size_t	size_env(t_env *lst);
+// char	*env_to_str(t_env *lst);
+// int		env_init(t_msvar *msvar, char **env_array);
+// int		secret_env_init(t_msvar *msvar, char **env_array);
 
-// get_env.c
-int		is_env_char(int c);
-int		is_valid_env(const char *env);
-int		env_value_len(const char *env);
-char	*env_value(char *env);
-char	*get_env_value(char *arg, t_env *env);
+// // get_env.c
+// int		is_env_char(int c);
+// int		is_valid_env(const char *env);
+// int		env_value_len(const char *env);
+// char	*env_value(char *env);
+// char	*get_env_value(char *arg, t_env *env);
 
-// memdel.c
-void *ft_memdel(void *ptr);
+// // memdel.c
+// void *ft_memdel(void *ptr);
 
 // env_analzye.c fonction using the original envp to find data
 // and initialisation
