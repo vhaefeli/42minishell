@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/08/31 16:05:00 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/09/22 10:20:36 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,17 @@ LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
 LIBS			= $(LIBFT_DIR)/libft.a
-_SRCS 			= 	env_analyze.c\
+_SRCS 			= 	builtins/cmd_cd.c\
+					builtins/cmd_echo.c\
+					builtins/cmd_env.c\
+					builtins/cmd_exit.c\
+					builtins/cmd_export.c\
+					builtins/cmd_pwd.c\
+					builtins/cmd_unset.c\
+					builtins/env_utils.c\
+					builtins/env.c\
+					builtins/get_env.c\
+					env_analyze.c\
 					ft_del.c\
 					ft_error_exit.c\
 					ft_fill_data1.c\

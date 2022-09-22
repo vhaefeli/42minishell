@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/26 17:12:36 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 10:14:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,73 @@ typedef	struct s_varchar
 	char	*str2;
 } t_varchar;
 
-// env_analzye.c fonction using the original envp to find data 
+typedef struct	s_env
+{
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
+typedef struct	s_mini
+{
+	t_token			*start;
+	t_env			*env;
+	t_env			*secret_env;
+	int				in;
+	int				out;
+	int				fdin;
+	int				fdout;
+	int				pipin;
+	int				pipout;
+	int				pid;
+	int				charge;
+	int				parent;
+	int				last;
+	int				ret;
+	int				exit;
+	int				no_exec;
+}				t_mini;
+
+// Builtins
+// cmd_cd.c
+int	ft_cd(char **args, t_env *env);
+
+// cmd_echo.c
+int	ft_echo(char **args);
+
+// cmd_env.c
+int	ft_env(t_msvar *env);
+
+// cmd_exit.c
+int	cmd_exit(t_list list, char **cmd);
+
+// cmd_export.c
+int	ft_export(char **args, t_env *env, t_env *secret);
+
+int mini_pwd(void);
+int	ft_unset(char **a, t_mini *mini);
+
+// en_utils.c
+int		env_add(const char *value, t_env *env);
+char	*get_env_name(char *dest, const char *src);
+int		is_in_env(t_env *env, char *args);
+
+// env.c
+size_t	size_env(t_env *lst);
+char	*env_to_str(t_env *lst);
+int		env_init(t_mini *mini, char **env_array);
+int		secret_env_init(t_mini *mini, char **env_array);
+
+// get_env.c
+int		is_env_char(int c);
+int		is_valid_env(const char *env);
+int		env_value_len(const char *env);
+char	*env_value(char *env);
+char	*get_env_value(char *arg, t_env *env);
+
+// memdel.c
+void *ft_memdel(void *ptr);
+
+// env_analzye.c fonction using the original envp to find data
 // and initialisation
 t_msvar	*ini_ms(char **envp);
 char	**path_finder(char **envp);
@@ -99,7 +165,7 @@ char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
 
-// ft_splitcmd1.c and ft_splitcmd1.c used to split the string 
+// ft_splitcmd1.c and ft_splitcmd1.c used to split the string
 // with the complete commande in a table
 int		quotesize(char *s, int i, char quotetype);
 int		ft_cntcmdline(char *s);
@@ -131,7 +197,7 @@ int		ft_exit_minishell(t_msvar *ms_env);
 // ft_pipe_spit.c
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
-// pipe_utils.c 
+// pipe_utils.c
 void	pipex(t_list **list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 19:10:20 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:35:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*ft_heredoc(char *infile)
 
 static int	check_file_in(t_list *cmd, int *fd)
 {
+
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)

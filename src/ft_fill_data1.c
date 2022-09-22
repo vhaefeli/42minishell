@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 19:06:05 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:26:17 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen)
 	clean_file(k, &cmd, first_c);
 	k = ft_strlen(cmd_tmp);
 	clean_file(k, &cmd, first_c);
+	printf("clean cmd :%s-\n", cmd.str2);
 	return (cmd.str2);
 }
