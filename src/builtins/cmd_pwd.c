@@ -1,3 +1,5 @@
+#include "../../includes/minishell.h"
+
 int mini_pwd(void)
 {
 	char *buf;

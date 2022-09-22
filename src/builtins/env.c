@@ -46,7 +46,7 @@ char	*env_to_str(t_env *lst)
 	return (env);
 }
 
-int	env_init(t_mini *mini, char **env_array)
+int	env_init(t_msvar *msvar, char **env_array)
 {
 	t_env	*env;
 	t_env	*new;
@@ -56,7 +56,7 @@ int	env_init(t_mini *mini, char **env_array)
 		return (1);
 	env->value = ft_strdup(env_array[0]);
 	env->next = NULL;
-	mini->env = env;
+	msvar->env = env;
 	i = 1;
 	while (env_array && env_array[0] && env_array[i])
 	{
@@ -71,7 +71,7 @@ int	env_init(t_mini *mini, char **env_array)
 	return (0);
 }
 
-int	secret_env_init(t_mini *mini, char **env_array)
+int	secret_env_init(t_msvar *msvar, char **env_array)
 {
 	t_env	*env;
 	t_env	*new;
@@ -81,7 +81,7 @@ int	secret_env_init(t_mini *mini, char **env_array)
 		return (1);
 	env->value = ft_strdup(env_array[0]);
 	env->next = NULL;
-	mini->secret_env = env;
+	msvar->secret_env = env;
 	i = 1;
 	while (env_array && env_array[0] && env_array[i])
 	{

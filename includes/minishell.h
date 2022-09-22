@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 10:14:28 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 11:53:55 by tlefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,20 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct	s_env
+{
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
 typedef struct s_msvar
 {
 	char	**envp_origin;
 	char	**envp_ms;
+	t_env 	*env;
+	t_env	*secret_env;
+	int 	ret;
+	int 	exit;
 	char	**all_path;
 	int		cmd_historyfile;
 	int		return_historyfile;
@@ -62,31 +72,7 @@ typedef	struct s_varchar
 	char	*str2;
 } t_varchar;
 
-typedef struct	s_env
-{
-	char			*value;
-	struct s_env	*next;
-}				t_env;
 
-typedef struct	s_mini
-{
-	t_token			*start;
-	t_env			*env;
-	t_env			*secret_env;
-	int				in;
-	int				out;
-	int				fdin;
-	int				fdout;
-	int				pipin;
-	int				pipout;
-	int				pid;
-	int				charge;
-	int				parent;
-	int				last;
-	int				ret;
-	int				exit;
-	int				no_exec;
-}				t_mini;
 
 // Builtins
 // cmd_cd.c
@@ -105,7 +91,7 @@ int	cmd_exit(t_list list, char **cmd);
 int	ft_export(char **args, t_env *env, t_env *secret);
 
 int mini_pwd(void);
-int	ft_unset(char **a, t_mini *mini);
+int	ft_unset(char **a, t_msvar *msvar);
 
 // en_utils.c
 int		env_add(const char *value, t_env *env);
@@ -115,8 +101,8 @@ int		is_in_env(t_env *env, char *args);
 // env.c
 size_t	size_env(t_env *lst);
 char	*env_to_str(t_env *lst);
-int		env_init(t_mini *mini, char **env_array);
-int		secret_env_init(t_mini *mini, char **env_array);
+int		env_init(t_msvar *msvar, char **env_array);
+int		secret_env_init(t_msvar *msvar, char **env_array);
 
 // get_env.c
 int		is_env_char(int c);
