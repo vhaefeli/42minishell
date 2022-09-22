@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 14:10:39 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:26:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ typedef	struct s_varchar
 // // cmd_echo.c
 // int	ft_echo(char **args);
 
-// cmd_env.c
-int	ft_env(t_env *env);
+// // cmd_env.c
+// int	ft_env(t_env *env);
 
-// cmd_exit.c
-void	cmd_exit(t_msvar *msvar, char **cmd);
+// // cmd_exit.c
+// void	cmd_exit(t_msvar *msvar, char **cmd);
 
 // // cmd_export.c
 // int	ft_export(char **args, t_env *env, t_env *secret);
@@ -164,6 +164,7 @@ char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
 
 // pipe_children_process.c execute the commande
+int		ft_heredoc(char *infile);
 int		checkbuiltin(char *cmd);
 int		execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
 int		child_process(t_list *list_cmds, int fd[], t_msvar *ms_env);

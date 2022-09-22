@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/09/22 14:32:09 by tlefebvr         ###   ########.fr        #
+#    Updated: 2022/09/22 16:12:20 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ _SRCS 			= 	env_analyze.c\
 					pipe_children_process.c\
 					pipe_utils.c\
 					minishell.c \
-					builtins/cmd_pwd.c\
+					#builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\
 					builtins/env_utils.c\
 					builtins/cmd_echo.c\

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:19:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:10:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	ft_heredoc(char *infile)
 	while(1)
 	{
 		text = readline("> ");
-		if (ft_strcmp(text, infile))
+		if (!ft_strcmp(text, infile))
 			break ;
-		write(file, &text, ft_strlen(text));
+		write(file, text, ft_strlen(text));
+		write(file, "\n", 1);
 	}
 	return (file);
 }
@@ -146,6 +147,12 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 		close(fd[0]);
 	if (fd[1] > -1)
 		close(fd[1]);
+	if (list_cmds->cmd_with_flags[0] == NULL);
+	{
+		if (list_cmds->infileflag == 2)
+			unlink(".heredoc");
+		exit(1);
+	}
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
 	{
