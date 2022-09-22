@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-CFLAGS 			=  -g -lreadline  -fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
+CFLAGS 			=  -g -lreadline  #-fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
 TARGET 			= minishell
 SRCS_DIR 		= ./src
 OBJS_DIR 		= ./obj
@@ -54,8 +54,7 @@ all: $(TARGET)
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
-	rm -d $(OBJS_DIR)
+	rm -rf $(OBJS_DIR)
 
 
 fclean: clean

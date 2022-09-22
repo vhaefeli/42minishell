@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 20:07:30 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:51:34 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void checklistcmd(t_list *cmd)
 	while (cmd && (i + 1))
 	{
 		printf("********\n%d eme commande\n", i++ + 1);
+		printf("cmd_tmp:%s-\n", cmd->cmd_tmp);
 		printf("path_cmd:%s\n", cmd->path_cmd);
 		a = 0;
 		while (cmd->cmd_with_flags[a])
@@ -30,7 +31,8 @@ void checklistcmd(t_list *cmd)
 		printf("outfileflag:%d\n", cmd->outfileflag);
 		printf("address cmd: %p\n", cmd);
 		printf("address previous: %p\n", cmd->previous);
-		printf("address next: %p\n\n", cmd->next);
+		printf("address next: %p\n", cmd->next);
+		printf("********\n\n");
 		cmd = cmd->next;
 	}
 }
@@ -79,6 +81,8 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 				child_process(*list_cmds, fd, ms_env);
 			waitpid(pid1, NULL, 0);
 			close(fd[1]);
+			if ((*list_cmds)->infileflag == 2)
+				unlink(".heredoc");
 			*list_cmds = (*list_cmds)->next;
 		}
 		close(fd[0]);

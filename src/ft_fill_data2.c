@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 20:29:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:03:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_fillcmd_flag(t_list *cmds)
 {
 	while (cmds)
 	{
-		printf("cmd_tmp:%s-\n", cmds->cmd_tmp);
+		printf("********\ncmd_tmp:%s-\n", cmds->cmd_tmp);
 		cmds->cmd_with_flags = ft_splitcmd(cmds->cmd_tmp);
 		cmds = cmds->next;
 	}
