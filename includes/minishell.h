@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 11:53:55 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:10:39 by tlefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <dirent.h>
 # include <curses.h>
 # include <term.h>
+
+#define BUFF_SIZE 4096
 
 typedef struct s_list
 {
@@ -82,10 +84,10 @@ int	ft_cd(char **args, t_env *env);
 int	ft_echo(char **args);
 
 // cmd_env.c
-int	ft_env(t_msvar *env);
+int	ft_env(t_env *env);
 
 // cmd_exit.c
-int	cmd_exit(t_list list, char **cmd);
+void	cmd_exit(t_msvar *msvar, char **cmd);
 
 // cmd_export.c
 int	ft_export(char **args, t_env *env, t_env *secret);

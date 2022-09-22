@@ -1,21 +1,21 @@
-#include "minishell.c"
+#include "../../includes/minishell.h"
 
 static int	print_error(int error, const char *arg)
 {
 	int		i;
 
 	if (error == -1)
-		ft_putstr_fd("export: not valid in this context: ", STDERR);
+		ft_putstr_fd("export: not valid in this context: ", 2);
 	else if (error == 0 || error == -3)
-		ft_putstr_fd("export: not a valid identifier: ", STDERR);
+		ft_putstr_fd("export: not a valid identifier: ", 2);
 	i = 0;
 	while (arg[i] && (arg[i] != '=' || error == -3))
 	{
-		write(STDERR, &arg[i], 1);
+		write(2, &arg[i], 1);
 		i++;
 	}
-	write(STDERR, "\n", 1);
-	return (ERROR);
+	write(2, "\n", 1);
+	return (1);
 }
 
 int			ft_export(char **args, t_env *env, t_env *secret)
@@ -27,7 +27,7 @@ int			ft_export(char **args, t_env *env, t_env *secret)
 	if (!args[1])
 	{
 		print_sorted_env(secret);
-		return (SUCCESS);
+		return (0);
 	}
 	else
 	{
@@ -44,5 +44,5 @@ int			ft_export(char **args, t_env *env, t_env *secret)
 			env_add(args[1], secret);
 		}
 	}
-	return (SUCCESS);
+	return (0);
 }

@@ -1,4 +1,4 @@
-#include "../../i"
+#include "../../includes/minishell.h"
 
 int			env_add(const char *value, t_env *env)
 {
@@ -8,7 +8,7 @@ int			env_add(const char *value, t_env *env)
 	if (env && env->value == NULL)
 	{
 		env->value = ft_strdup(value);
-		return (SUCCESS);
+		return (0);
 	}
 	if (!(new = malloc(sizeof(t_env))))
 		return (-1);
@@ -18,7 +18,7 @@ int			env_add(const char *value, t_env *env)
 	tmp = env->next;
 	env->next = new;
 	new->next = tmp;
-	return (SUCCESS);
+	return (0);
 }
 
 char		*get_env_name(char *dest, const char *src)
@@ -52,6 +52,6 @@ int			is_in_env(t_env *env, char *args)
 		}
 		env = env->next;
 	}
-	return (SUCCESS);
+	return (0);
 }
 

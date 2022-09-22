@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/09/22 13:14:38 by tlefebvr         ###   ########.fr        #
+#    Updated: 2022/09/22 14:32:09 by tlefebvr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,12 @@ _SRCS 			= 	env_analyze.c\
 					minishell.c \
 					builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\
-					builtins/env_utils.c
-					#builtins/cmd_echo.c\
-					#builtins/cmd_env.c\
-					#builtins/cmd_exit.c\
-					#builtins/cmd_export.c\
-					builtins/cmd_pwd.c\
+					builtins/env_utils.c\
+					builtins/cmd_echo.c\
+					builtins/cmd_env.c\
+					builtins/cmd_exit.c\
+					builtins/cmd_export.c\
+					#builtins/cmd_pwd.c\
 					#builtins/cmd_unset.c\
 					#builtins/env.c\
 					#builtins/get_env.c

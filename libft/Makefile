@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 16:28:28 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/09/22 11:53:15 by tlefebvr         ###   ########.fr        #
+#    Updated: 2022/09/22 14:18:46 by tlefebvr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,14 @@ SRCS =	ft_isalpha.c\
 		ft_memmove.c\
 		ft_memchr.c\
 		ft_memcmp.c\
+		ft_memdel.c\
 		ft_atoi.c\
 		ft_calloc.c\
 		ft_strdup.c\
 		ft_substr.c\
 		ft_strjoin.c\
 		ft_strtrim.c\
+		ft_strisnum.c\
 		ft_split.c\
 		ft_itoa.c\
 		ft_strmapi.c\

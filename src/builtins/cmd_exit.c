@@ -1,24 +1,24 @@
-#include "minishell.c"
+#include "../../includes/minishell.h"
 
-int cmd_exit(t_list list, char **cmd)
+void cmd_exit(t_msvar *msvar, char **cmd)
 {
-	list->exit = 1;
-	ft_putstr_fd("exit ", STDERR);
-	cmd[1] ? ft_putendl_fd("❤️", STDERR) : ft_putendl_fd("💚", STDERR);
+	msvar->exit = 1;
+	ft_putstr_fd("exit ", 2);
+	cmd[1] ? ft_putendl_fd("❤️", 2) : ft_putendl_fd("💚", 2);
 	if (cmd[1] && cmd[2])
 	{
-		//error
-		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
+		msvar->ret =1;
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
 	{
-		//error
-		ft_putstr_fd("minishell: exit: ", STDERR);
-		ft_putstr_fd(cmd[1], STDERR);
-		ft_putendl_fd(": numeric argument required", STDERR);
+		msvar->ret = 1;
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putendl_fd(": numeric argument required", 2);
 	}
 	else if (cmd[1])
-		//error 
+		msvar->ret = ft_atoi(cmd[1]);
 	else
-		mini->ret = 0;
+		msvar->ret = 0;
 }

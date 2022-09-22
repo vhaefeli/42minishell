@@ -1,3 +1,4 @@
+#include "../../includes/minishell.h"
 
 static int nb_args (char **args)
 {
@@ -25,7 +26,7 @@ int ft_echo(char **args)
 			n_option = 1 ;
 			i++;
 		}
-		while
+		while (args[1])
 		{
 		ft_putstr_fd(args[i], 1);
 		if (args[i + 1] && args[1][0] != '\0')
@@ -33,8 +34,8 @@ int ft_echo(char **args)
 		i++;
 		}
 	}	
-	if(n_option == 0);
+	if(n_option == 0)
 		write(1,"\n",1);
-	return(SUCCESS);
+	return(0);
 
 }
