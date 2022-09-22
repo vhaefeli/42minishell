@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/09/22 10:20:36 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/09/22 11:33:46 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ _SRCS 			= 	builtins/cmd_cd.c\
 					builtins/cmd_unset.c\
 					builtins/env_utils.c\
 					builtins/env.c\
-					builtins/get_env.c\
+					builtins/get_env.c
 					env_analyze.c\
 					ft_del.c\
 					ft_error_exit.c\
@@ -65,7 +65,7 @@ fclean: clean
 re: fclean all
 
 $(OBJS_DIR):
-	@mkdir -p $@
+	@mkdir -p $(dir $(OBJS))
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 10:14:28 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 11:03:47 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct	s_env
 
 typedef struct	s_mini
 {
-	t_token			*start;
 	t_env			*env;
 	t_env			*secret_env;
 	int				in;
