@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:03:59 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:41:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	while (cmds)
 	{
-		cmds->path_cmd = cmd_path(ms_env->all_path, cmds->cmd_with_flags[0]);
-		if (cmds->path_cmd == NULL)
+		if (cmds->cmd_with_flags[0][0] != '\0' )
 		{
-			printf("error: command not found: %s\n", cmds->cmd_with_flags[0]);
-			ft_cmd_error(cmds, 1);
-			return (1);
+			cmds->path_cmd = cmd_path(ms_env->all_path,
+				cmds->cmd_with_flags[0]);
+			if (cmds->path_cmd == NULL)
+			{
+				printf("error: command not found: %s\n",
+					cmds->cmd_with_flags[0]);
+				ft_cmd_error(cmds, 1);
+				return (1);
+			}
 		}
 		cmds = cmds->next;
 	}

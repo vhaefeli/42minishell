@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 18:33:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:41:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ int main (int argc, char **argv, char **envp)
 	{
 		cmdline = readline("➜ minishell: ");
 		if (!cmdline)
+		{
 			break ;
-		ft_pipe( cmdline, ms_env);
+		}
+		if (cmdline[0] != '\0')
+			ft_pipe( cmdline, ms_env);
 		free(cmdline);
 	}
 	return (0);
