@@ -150,7 +150,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	// printf("fd[0]%d\n", fd[0]);
 	// printf("fd[1]%d\n", fd[1]);
 	if (fd[0] > -1)
-		close(fd[0])s;
+		close(fd[0]);
 	// printf("childprocess2a\n");
 	if (fd[1] > -1)
 		close(fd[1]);
