@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 14:12:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:40:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct	s_sig
 
  // //cmd_echo.c
  int	ft_echo(char **args);
+ int	ft_echo2(char *src);
  // // cmd_env.c
  int	ft_env(t_env *env);
 
@@ -157,6 +158,7 @@ void	ft_in_out_files(t_list *cmds);
 void	ft_fill_infile(t_list *cmd, size_t infile_len);
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
 void	ft_clean_cmdline(t_list *cmd);
+int		no_space(char *src, int i);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);

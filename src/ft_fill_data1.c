@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 10:49:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:50:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 		}
 	}
 	cmd->infile[j] = 0;
-	printf("fill infile : %s\n", cmd->infile);
+	// printf("fill infile : %s\n", cmd->infile);
 }
 
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
@@ -124,7 +124,7 @@ static int	pass_outfile(char *src, int i)
 
 void	cpy_between_cotes(char *src, char *dst, int *i, int *j)
 {
-	printf("cpy_between_cotes1\n");
+	// printf("cpy_between_cotes1\n");
 	if (src[*i] == '\'')
 	{
 		(*i)++;
@@ -144,11 +144,11 @@ void	cpy_between_cotes(char *src, char *dst, int *i, int *j)
 			dst[*j] = src[*i];
 			(*i)++;
 			(*j)++;
-			printf("i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
+			// printf("i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
 		}
 		(*i)++;
 	}
-	printf("cpy_between_cotes2\n");
+	// printf("cpy_between_cotes2\n");
 }
 
 void	ft_clean_cmdline(t_list *cmd)
@@ -178,7 +178,7 @@ void	ft_clean_cmdline(t_list *cmd)
 			j++;
 			// printf("i %d, j %d c=%c-\n", i ,j, cmd->cmd_tmp[i]);
 		}
-		printf("i %d, j %d c=%c- cmdtemp2:%s-\n", i ,j, cmd->cmd_tmp[i], cmdtemp2);
+		// printf("i %d, j %d c=%c- cmdtemp2:%s-\n", i ,j, cmd->cmd_tmp[i], cmdtemp2);
 	}
 	while(cmdtemp2[j])
 	{

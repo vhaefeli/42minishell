@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 14:49:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:50:20 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_cntchar(char *s, char c, int i)
 		else
 			i++;
 	}
-	printf("cntchar: %d\n", i - start);
+	// printf("cntchar: %d\n", i - start);
 	return (i - start);
 }
 
@@ -111,9 +111,9 @@ char	*cpycmdflag(t_varchar *listcmd)
 {
 	int		linesize;
 
-	printf("cpycmdflag\n");
-	printf("listcmd-%s\n", listcmd->str);
-	printf("i %d\n", listcmd->i);
+	// printf("cpycmdflag\n");
+	// printf("listcmd-%s\n", listcmd->str);
+	// printf("i %d\n", listcmd->i);
 	if (listcmd->str2)
 	{
 		free (listcmd->str2);
@@ -122,7 +122,7 @@ char	*cpycmdflag(t_varchar *listcmd)
 	while (listcmd->str[listcmd->i] == ' ')
 		(listcmd->i)++;
 	linesize = ft_cntchar(listcmd->str, ' ', listcmd->i);
-	printf("linesize-%d\n", linesize);
+	// printf("linesize-%d\n", linesize);
 	listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
 	if (!listcmd->str2 || linesize == 0)
 		return (NULL);
@@ -138,6 +138,6 @@ char	*cpycmdflag(t_varchar *listcmd)
 		}
 	}
 	listcmd->str2[listcmd->i - listcmd->j] = '\0';
-	printf("listcmd2-%s-\n", listcmd->str2);
+	// printf("listcmd2-%s-\n", listcmd->str2);
 	return (listcmd->str2);
 }

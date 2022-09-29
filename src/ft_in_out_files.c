@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 13:07:19 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:50:31 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	check_infile(char *cmdline)
 	if (cmdline[i] == '<')
 	{
 		i++;
-		printf("checkinfile1 c: %c\n", cmdline[i]);
+		// printf("checkinfile1 c: %c\n", cmdline[i]);
 		if (cmdline[i] == '<')
 			i++;
 		//j = size_between_spaces(cmdline, i);
@@ -64,16 +64,16 @@ void	ft_check_in_out(t_list *cmd)
 	size_t	cmd_wflag_len;
 
 	cmdline_len = ft_strlen(cmd->cmd_tmp);
-	printf("ft_check_in_out cmdline_len %zu\n", cmdline_len);
+	// printf("ft_check_in_out cmdline_len %zu\n", cmdline_len);
 	infile_len = check_infile(cmd->cmd_tmp);
-	printf("ft_check_in_out infile_len %zu\n", infile_len);
+	// printf("ft_check_in_out infile_len %zu\n", infile_len);
 	outfile_len = check_outfile(cmd->cmd_tmp);
-	printf("ft_check_in_out outfile_len %zu\n", outfile_len);
+	// printf("ft_check_in_out outfile_len %zu\n", outfile_len);
 	if (infile_len > 0)
 		ft_fill_infile(cmd, infile_len);
 	if (outfile_len > 0)
 		ft_fill_outfile(cmd, outfile_len);
-	printf("ft_check_in_out infile outfile -%s-%s-\n", cmd->infile, cmd->outfile);
+	// printf("ft_check_in_out infile outfile -%s-%s-\n", cmd->infile, cmd->outfile);
 }
 
 void	ft_in_out_files(t_list *cmds)
