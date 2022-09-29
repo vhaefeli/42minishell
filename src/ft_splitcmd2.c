@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 13:08:02 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:59:55 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,42 @@ char	**ft_filltab(char *s, int nbline)
 	dst[l] = NULL;
 	free (lignecmd->str2);
 	free (lignecmd);
+
+	// // quote_here = 0 no quote - 1 single - 2 double
 	// int		i;
 	// int		j;
+	// int		quote_here;
 	// size_t	cmdsize;
 	// char	*cmdflag;
 
 	// i = 0;
 	// j = 0;
-	// cmdsize = size_between_spaces(cmdline, i) + 1;
-	// cmdflag = malloc(cmdsize);
+	// quote_here = 0;
+	// cmdsize = size_between_spaces(cmdline, i);
+	// cmdflag = malloc(cmdsize + 1);
 	// while (cmdsize--)
 	// {
-	// 	if (s[i] !=
-	// 	cmdflag[j] =
+	// 	if (cmdline[i] == '\'' && quote_here != 2)
+	// 	{
+	// 		i++;
+	// 		if (quote_here == 1)
+	// 			quote_here = 0;
+	// 		else
+	// 			quote_here = 1;
+	// 	}
+	// 	if (cmdline[i] == '\"' && quote_here != 1)
+	// 	{
+	// 		i++;
+	// 		if (quote_here == 2)
+	// 			quote_here = 0;
+	// 		else
+	// 			quote_here = 2;
+	// 	}
+	// 	cmdflag[j] = cmdline[i];
+	// 	i++;
+	// 	j++;
 	// }
-
-
-
+	// cmdflag[j] = 0;
 	return (dst);
 }
 
