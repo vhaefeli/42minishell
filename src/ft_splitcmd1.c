@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/31 16:55:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 12:26:55 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	quotesize(char *s, int i, char quotetype)
 	int	quotesize;
 	int	j;
 
-	quotesize = 2;
+	quotesize = 0;
 	j = i;
 	i++;
 	while(s[i] != quotetype && s[i] != '\0')
@@ -66,14 +66,12 @@ int	ft_cntchar(char *s, char c, int i)
 	int	start;
 
 	start = i;
-	while (s[i] == ' ')
-		i++;
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'')
-			i += quotesize(s, i, '\'');
+			i += quotesize(s, i, '\'') + 2;
 		else if (s[i] == '\"')
-			i += quotesize(s, i, '\"');
+			i += quotesize(s, i, '\"') + 2;
 		else
 			i++;
 	}
@@ -114,6 +112,8 @@ char	*cpycmdflag(t_varchar *listcmd)
 	int		j;
 	int		linesize;
 
+	printf("cpycmdflag\n");
+	printf("listcmd-%s\n", listcmd->str);
 	if (listcmd->str2)
 	{
 		free (listcmd->str2);
@@ -137,5 +137,6 @@ char	*cpycmdflag(t_varchar *listcmd)
 		}
 	}
 	listcmd->str2[listcmd->i - j] = '\0';
+	printf("listcmd2-%s\n", listcmd->str2);
 	return (listcmd->str2);
 }

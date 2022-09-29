@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/01 19:13:17 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:35:24 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 	int		i;
 
 	i = 0;
-	// printf("cmdline:-%s-\n", cmdline);
+	printf("list cmds: cmdline:-%s-\n", cmdline);
 	// step 1 create the list with the correct nbr of elements
 	first_cmd = ft_ininewlst_el();
 	i = ft_pipe_split(cmdline, first_cmd, i);

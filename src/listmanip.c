@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/23 17:41:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:58:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ t_list	*ft_ininewlst_el(void)
 	list->outfileflag = 0;
 	list->previous = NULL;
 	list->next = NULL;
+	list->cmd_with_flags = NULL;
+	list->path_cmd = NULL;
 	return (list);
 }
