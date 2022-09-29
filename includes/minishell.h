@@ -156,7 +156,8 @@ void	ft_in_out_files(t_list *cmds);
 // chained list of commands
 void	ft_fill_infile(t_list *cmd, size_t infile_len);
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
-void	ft_clean_cmdline(t_list *cmd);
+char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen);
+void	ft_clean_cmdline(t_list *cmd)
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
