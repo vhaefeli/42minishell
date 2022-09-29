@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-CFLAGS 			=  -g -lreadline  #-fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
+CFLAGS 			=  -g -lreadline  -fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
 TARGET 			= minishell
 SRCS_DIR 		= ./src
 OBJS_DIR 		= ./obj
@@ -33,13 +33,15 @@ _SRCS 			= 	env_analyze.c\
 					pipe_children_process.c\
 					pipe_utils.c\
 					minishell.c \
-					#builtins/cmd_pwd.c\
+					builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\
 					builtins/env_utils.c\
 					builtins/cmd_echo.c\
 					builtins/cmd_env.c\
 					builtins/cmd_exit.c\
 					builtins/cmd_export.c\
+					builtins/get_env.c\
+					builtins/print_env.c\
 					#builtins/cmd_pwd.c\
 					#builtins/cmd_unset.c\
 					#builtins/env.c\
