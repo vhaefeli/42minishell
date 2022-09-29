@@ -86,8 +86,8 @@ typedef struct	s_sig
 // // cmd_cd.c
  int	ft_cd(char **args, t_env *env);
 
-// // cmd_echo.c
-// int	ft_echo(char **args);
+ // //cmd_echo.c
+ int	ft_echo(char **args);
 
 // // cmd_env.c
 // int	ft_env(t_env *env);
@@ -96,10 +96,10 @@ typedef struct	s_sig
 // void	cmd_exit(t_msvar *msvar, char **cmd);
 
 // // cmd_export.c
- int	ft_export(char **args, t_env *env, t_env *secret);
+// int	ft_export(char **args, t_env *env, t_env *secret);
 
-// int mini_pwd(void);
-// int	ft_unset(char **a, t_msvar *msvar);
+int cmd_pwd(void);
+int	ft_unset(char **a, t_msvar *msvar);
 
 // // en_utils.c
  int		env_add(const char *value, t_env *env);
@@ -121,7 +121,7 @@ typedef struct	s_sig
 
 // // print_env.c
 int 	str_env_len(char **env);
-void 	sort_env(char **tab, int env_len);
+void 	sort_env(char **tabl, int env_len);
 void  	print_sorted_env(t_env *env);
 
 // env_analzye.c fonction using the original envp to find data

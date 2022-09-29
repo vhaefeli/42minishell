@@ -85,7 +85,7 @@ static int	check_file_out(t_list *cmd, int *fd)
 int	checkbuiltin(char *cmd)
 {
 	size_t	n;
-
+	printf("cmd ici je vois \n");
 	n = ft_strlen(cmd);
 	if (!ft_strncmp("echo", cmd, n))
 		return (1);
@@ -108,21 +108,21 @@ int	checkbuiltin(char *cmd)
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
 
-	// if (builtincmd_nb == 1)
-	// 	return (ft_echo(cmds, ms_env));
-	// if (builtincmd_nb == 2)
-	// 	return (ft_cd(cmds, ms_env));
-	// if (builtincmd_nb == 3)
-	// 	return (ft_pwd(cmds, ms_env));
-	// if (builtincmd_nb == 4)
-	// 	return (ft_export(cmds, ms_env));
-	// if (builtincmd_nb == 5)
-	// 	return (ft_unset(cmds, ms_env));
-	// if (builtincmd_nb == 6)
-	// 	return (ft_env(cmds, ms_env));
-	// if (builtincmd_nb == 7)
-	// 	return (ft_exit(cmds, ms_env));
-	// else
+	if (builtincmd_nb == 1)
+	 	return (ft_echo(cmds));
+	 if (builtincmd_nb == 2)
+	 	return (ft_cd(cmds, ms_env->env));
+	 if (builtincmd_nb == 3)
+	 	return (cmd_pwd());
+	 //if (builtincmd_nb == 4)
+	 //	return (ft_export(cmds, ms_env, ms_env));
+	 //if (builtincmd_nb == 5)
+	 //	return (ft_unset(cmds, ms_env));
+	//if (builtincmd_nb == 6)
+	//	return (ft_env(cmds, ms_env));
+	//if (builtincmd_nb == 7)
+	//	return (cmd_exit(cmds, ms_env));
+	else
 		return (4); //cmd builtin error
 }
 

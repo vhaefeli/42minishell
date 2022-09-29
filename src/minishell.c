@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+t_sig g_sig;
 void	welcometext(void)
 {
 	printf("\nW       W   EEEEEE   L       CCCC    OOOO      MM");

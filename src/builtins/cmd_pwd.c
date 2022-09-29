@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int mini_pwd(void)
+int cmd_pwd(void)
 {
 	char *buf;
 
