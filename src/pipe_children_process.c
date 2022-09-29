@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 17:10:04 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:01:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	check_file_out(t_list *cmd, int *fd)
 		if (access(cmd->outfile, F_OK) != 0)
 		{
 			file = open(cmd->outfile, O_CREAT, 0644);
-			close(file);
+			// close(file);
 		}
 		if (access(cmd->outfile, W_OK) != 0)
 		{
@@ -85,7 +85,6 @@ static int	check_file_out(t_list *cmd, int *fd)
 int	checkbuiltin(char *cmd)
 {
 	size_t	n;
-	printf("cmd ici je vois \n");
 	n = ft_strlen(cmd);
 	if (!ft_strncmp("echo", cmd, n))
 		return (1);
@@ -118,7 +117,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 //	return (ft_export(cmds, ms_env, ms_env));
 	 //if (builtincmd_nb == 5)
 	 //	return (ft_unset(cmds, ms_env));
-	//if (builtincmd_nb == 6)
+	//	if (builtincmd_nb == 6)
 	//	return (ft_env(cmds, ms_env));
 	//if (builtincmd_nb == 7)
 	//	return (cmd_exit(cmds, ms_env));
@@ -132,8 +131,12 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	int		outfile;
 	int		builtincmd_nb;
 
+	// printf("childprocess\n");
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
+	// printf("childprocessn");
+	// printf("infile %d\n", infile);
+	// printf("outfile %d\n", outfile);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
@@ -143,26 +146,36 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	}
 	dup2(infile, STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
+	// printf("childprocess2\n");
+	// printf("fd[0]%d\n", fd[0]);
+	// printf("fd[1]%d\n", fd[1]);
 	if (fd[0] > -1)
-		close(fd[0]);
+		close(fd[0])s;
+	// printf("childprocess2a\n");
 	if (fd[1] > -1)
 		close(fd[1]);
-	if (list_cmds->cmd_with_flags[0] == NULL);
+	// printf("childprocess2b\n");
+	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
+		// printf("childprocess3\n");
 		if (list_cmds->infileflag == 2)
 			unlink(".heredoc");
 		exit(1);
 	}
+	// printf("childprocess4\n");
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
+	// printf("childprocess5\n");
 	if (builtincmd_nb)
 	{
-		printf("builtin cmd\n");
+		// printf("builtin cmd\n");
 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
 		exit (1);
 	}
 	else
+	{
+		// printf("execve\n");
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
-
+	}
 	printf("error execve\n");
 	exit (1);
 	return (2);

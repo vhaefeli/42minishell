@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 14:51:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:25:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void checklistcmd(t_list *cmd)
 		printf("cmd_tmp:%s-\n", cmd->cmd_tmp);
 		printf("path_cmd:%s\n", cmd->path_cmd);
 		a = 0;
-		while (cmd->cmd_with_flags[a])
-			printf("cmd with flag:%s\n", cmd->cmd_with_flags[a++]);
-		printf("infile:%s\n", cmd->infile);
+		if (!cmd->cmd_with_flags)
+			printf("cmd with flag:%s-\n", cmd->cmd_with_flags);
+		while (cmd->cmd_with_flags && cmd->cmd_with_flags[a])
+			printf("cmd with flag:%s-\n", cmd->cmd_with_flags[a++]);
+		printf("infile:%s-\n", cmd->infile);
 		printf("infileflag:%d\n", cmd->infileflag);
-		printf("outfile:%s\n", cmd->outfile);
+		printf("outfile:%s-\n", cmd->outfile);
 		printf("outfileflag:%d\n", cmd->outfileflag);
 		printf("address cmd: %p\n", cmd);
 		printf("address previous: %p\n", cmd->previous);
@@ -54,8 +56,12 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 	n_cmd = 0;
 	temp_fd[0] = -1;
 	pid1 = -1;
+	fd[0] = dup(STDIN_FILENO);
+	fd[1] = dup(STDOUT_FILENO);
+	printf("pipex\n");
 	if(!(*list_cmds)->next)
 	{
+		printf("only one cmd\n");
 		pid1 = fork();
 		if (pid1 < 0 && printf("Fork %d : ", n_cmd))
 			exit(0);
@@ -64,6 +70,9 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 			child_process(*list_cmds, fd, ms_env);
 		waitpid(pid1, NULL, 0);
 		close(fd[1]);
+// a reactiver des que le heredoc est ok
+		// if ((*list_cmds)->infileflag == 2)
+		// 		unlink(".heredoc");
 	}
 	else
 	{
@@ -81,10 +90,11 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 				child_process(*list_cmds, fd, ms_env);
 			waitpid(pid1, NULL, 0);
 			close(fd[1]);
-			if ((*list_cmds)->infileflag == 2)
-				unlink(".heredoc");
 			*list_cmds = (*list_cmds)->next;
 		}
+// a reactiver des que le heredoc est ok
+		// if ((*list_cmds)->infileflag == 2)
+		// 	unlink(".heredoc");
 		close(fd[0]);
 		while (n_cmd--)
 			waitpid(pid1, NULL, 0);
@@ -95,6 +105,7 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
 
+	printf("pipe cmdline:%s\n", cmdline);
 	cmd_list = list_cmds(cmdline, ms_env);
 	checklistcmd(cmd_list);
 	if (cmd_list == NULL)

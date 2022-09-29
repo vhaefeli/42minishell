@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/22 16:26:06 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 12:56:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ void	ft_in_out_files(t_list *cmds);
 // chained list of commands
 void	ft_fill_infile(t_list *cmd, size_t infile_len);
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
-char	*ft_clean_cmdline(char *cmd_tmp, size_t cmdlen);
+void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
+int		no_space(char *src, int i);
+void	ft_clean_cmdline(t_list *cmd);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
@@ -168,6 +170,7 @@ int		ft_cntcmdline(char *s);
 int		ft_cntchar(char *s, char c, int i);
 void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
+size_t	size_between_spaces(char *s, int i);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
 
