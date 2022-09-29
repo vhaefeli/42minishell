@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 12:26:55 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:01:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ char	*cpycmdflag(t_varchar *listcmd)
 		}
 	}
 	listcmd->str2[listcmd->i - j] = '\0';
-	printf("listcmd2-%s\n", listcmd->str2);
 	return (listcmd->str2);
 }
