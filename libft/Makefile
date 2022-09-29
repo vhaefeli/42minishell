@@ -14,7 +14,7 @@ CC = gcc
 
 NAME = libft.a
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	ft_isalpha.c\
 		ft_isdigit.c\

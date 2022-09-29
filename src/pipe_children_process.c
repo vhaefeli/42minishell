@@ -107,20 +107,20 @@ int	checkbuiltin(char *cmd)
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
 
-	if (builtincmd_nb == 1)
-	 	return (ft_echo(cmds));
+	//if (builtincmd_nb == 1)
+	 //	return (ft_echo(cmds));
 	 if (builtincmd_nb == 2)
-	 	return (ft_cd(cmds, ms_env->env));
+	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
 	 if (builtincmd_nb == 3)
 	 	return (cmd_pwd());
-	 //if (builtincmd_nb == 4)
-	 //	return (ft_export(cmds, ms_env, ms_env));
-	 //if (builtincmd_nb == 5)
-	 //	return (ft_unset(cmds, ms_env));
-	//	if (builtincmd_nb == 6)
-	//	return (ft_env(cmds, ms_env));
+	//if (builtincmd_nb == 4)
+	//	return (ft_export(cmds, ms_env, ms_env));
+	//if (builtincmd_nb == 5)
+	//	return (ft_unset(cmds, ms_env));
+	if (builtincmd_nb == 6)
+		return (ft_env(ms_env->envp_ms));
 	//if (builtincmd_nb == 7)
-	//	return (cmd_exit(cmds, ms_env));
+	//	return (cmd_exit(ms_env, cmds));
 	else
 		return (4); //cmd builtin error
 }

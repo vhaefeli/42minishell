@@ -27,7 +27,7 @@ size_t	check_infile(char *cmdline)
 		printf("checkinfile1 c: %c\n", cmdline[i]);
 		if (cmdline[i] == '<')
 			i++;
-		j = size_between_spaces(cmdline, i);
+		//j = size_between_spaces(cmdline, i);
 	}
 	return (j);
 }
@@ -51,7 +51,7 @@ size_t	check_outfile(char *cmdline)
 		i++;
 		if (cmdline[i] == '>')
 			i++;
-		j = size_between_spaces(cmdline, i);
+		//j = size_between_spaces(cmdline, i);
 	}
 	return (j);
 }

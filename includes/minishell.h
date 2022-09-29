@@ -84,15 +84,15 @@ typedef struct	s_sig
 
 // // Builtins
 // // cmd_cd.c
- int	ft_cd(char **args, t_env *env);
+ int	cmd_cd(char **args, t_env *env);
 
  // //cmd_echo.c
  int	ft_echo(char **args);
  // // cmd_env.c
- //int	ft_env(t_env *env);
+ int	ft_env(t_env *env);
 
 // // cmd_exit.c
-// void	cmd_exit(t_msvar *msvar, char **cmd);
+ void	cmd_exit(t_msvar *msvar, char **cmd);
 
 // // cmd_export.c
 // int	ft_export(char **args, t_env *env, t_env *secret);
@@ -171,7 +171,6 @@ void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
-size_t	size_between_spaces(char *s, int i);
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);

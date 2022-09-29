@@ -86,7 +86,7 @@ static int		go_to_path(int option, t_env *env)
 	return (ret);
 }
 
-int				ft_cd(char **args, t_env *env)
+int				cmd_cd(char **args, t_env *env)
 {
 	int		cd_ret;
 
