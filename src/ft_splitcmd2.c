@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 13:59:55 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:42:27 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	**ft_filltab(char *s, int nbline)
 	{
 		dst[l] = ft_strdup(cpycmdflag(lignecmd));
 		l++;
+		printf("i: %d\n", lignecmd->i);
 	}
 	dst[l] = NULL;
 	free (lignecmd->str2);
