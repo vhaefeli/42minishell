@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 12:56:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:38:12 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int		ft_cntchar(char *s, char c, int i);
 void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
 size_t	size_between_spaces(char *s, int i);
-char	**ft_filltab(char *s, int nbline);
+char	**ft_filltab(char *cmdline, int nbline);
 char	**ft_splitcmd(char *s);
 
 // pipe_children_process.c execute the commande
