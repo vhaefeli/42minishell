@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 14:42:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:50:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ size_t	size_between_spaces(char *s, int i)
 	j = 0;
 	while (s[i] == ' ')
 		i++;
-	printf("size_between_spaces2 c: %c\n", s[i]);
+	// printf("size_between_spaces2 c: %c\n", s[i]);
 	while (s[i] != ' ' && s[i] != 0)
 	{
-		printf("size_between_spaces3 c: %c\n", s[i]);
+		// printf("size_between_spaces3 c: %c\n", s[i]);
 		if (s[i] == '\'')
 		{
 			j += quotesize(s, i, '\'');
@@ -37,7 +37,7 @@ size_t	size_between_spaces(char *s, int i)
 			i++;
 			j++;
 		}
-		printf("size_between_spaces c: %c\n", s[i]);
+		// printf("size_between_spaces c: %c\n", s[i]);
 	}
 	return (j);
 }
@@ -59,7 +59,7 @@ char	**ft_filltab(char *s, int nbline)
 	{
 		dst[l] = ft_strdup(cpycmdflag(lignecmd));
 		l++;
-		printf("i: %d\n", lignecmd->i);
+		// printf("i: %d\n", lignecmd->i);
 	}
 	dst[l] = NULL;
 	free (lignecmd->str2);
@@ -111,7 +111,7 @@ char	**ft_splitcmd(char *s)
 	if (!s)
 		return (NULL);
 	line = ft_cntcmdline(s);
-	printf("line:%zu\n", line);
+	// printf("line:%zu\n", line);
 	dst = (char **)malloc(line * sizeof(char *));
 	if (!dst)
 		return (NULL);
