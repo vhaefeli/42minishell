@@ -74,11 +74,17 @@ typedef	struct s_varchar
 	char	*str2;
 } t_varchar;
 
-
+typedef struct	s_sig
+{
+	int				sigint;
+	int				sigquit;
+	int				exit_status;
+	pid_t			pid;
+}				t_sig;
 
 // // Builtins
 // // cmd_cd.c
-// int	ft_cd(char **args, t_env *env);
+ int	ft_cd(char **args, t_env *env);
 
 // // cmd_echo.c
 // int	ft_echo(char **args);
@@ -90,31 +96,33 @@ typedef	struct s_varchar
 // void	cmd_exit(t_msvar *msvar, char **cmd);
 
 // // cmd_export.c
-// int	ft_export(char **args, t_env *env, t_env *secret);
+ int	ft_export(char **args, t_env *env, t_env *secret);
 
 // int mini_pwd(void);
 // int	ft_unset(char **a, t_msvar *msvar);
 
 // // en_utils.c
-// int		env_add(const char *value, t_env *env);
-// char	*get_env_name(char *dest, const char *src);
-// int		is_in_env(t_env *env, char *args);
+ int		env_add(const char *value, t_env *env);
+ char	*get_env_name(char *dest, const char *src);
+ int		is_in_env(t_env *env, char *args);
 
 // // env.c
-// size_t	size_env(t_env *lst);
-// char	*env_to_str(t_env *lst);
-// int		env_init(t_msvar *msvar, char **env_array);
-// int		secret_env_init(t_msvar *msvar, char **env_array);
+ size_t	size_env(t_env *lst);
+ char	*env_to_str(t_env *lst);
+ int		env_init(t_msvar *msvar, char **env_array);
+ int		secret_env_init(t_msvar *msvar, char **env_array);
 
 // // get_env.c
-// int		is_env_char(int c);
-// int		is_valid_env(const char *env);
-// int		env_value_len(const char *env);
-// char	*env_value(char *env);
-// char	*get_env_value(char *arg, t_env *env);
+ int		is_env_char(int c);
+ int		is_valid_env(const char *env);
+ int		env_value_len(const char *env);
+ char	*env_value(char *env);
+ char	*get_env_value(char *arg, t_env *env);
 
-// // memdel.c
-// void *ft_memdel(void *ptr);
+// // print_env.c
+int 	str_env_len(char **env);
+void 	sort_env(char **tab, int env_len);
+void  	print_sorted_env(t_env *env);
 
 // env_analzye.c fonction using the original envp to find data
 // and initialisation
