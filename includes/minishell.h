@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 12:56:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:26:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ typedef struct	s_sig
 
  // //cmd_echo.c
  int	ft_echo(char **args);
-
-// // cmd_env.c
-// int	ft_env(t_env *env);
+ // // cmd_env.c
+ //int	ft_env(t_env *env);
 
 // // cmd_exit.c
 // void	cmd_exit(t_msvar *msvar, char **cmd);
@@ -99,6 +98,7 @@ typedef struct	s_sig
 // int	ft_export(char **args, t_env *env, t_env *secret);
 
 int cmd_pwd(void);
+
 int	ft_unset(char **a, t_msvar *msvar);
 
 // // en_utils.c
@@ -156,12 +156,11 @@ void	ft_in_out_files(t_list *cmds);
 // chained list of commands
 void	ft_fill_infile(t_list *cmd, size_t infile_len);
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
-void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
-int		no_space(char *src, int i);
 void	ft_clean_cmdline(t_list *cmd);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
+void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
 
 // ft_splitcmd1.c and ft_splitcmd1.c used to split the string
 // with the complete commande in a table
@@ -170,7 +169,6 @@ int		ft_cntcmdline(char *s);
 int		ft_cntchar(char *s, char c, int i);
 void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
-size_t	size_between_spaces(char *s, int i);
 char	**ft_filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
 
