@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:50:20 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/04 09:43:33 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	quotesize(char *s, int i, char quotetype)
 			return (- j - 1);
 		}
 	}
+	printf("quotesize: %d\n", quotesize);
 	return (quotesize);
 }
 
@@ -83,26 +84,26 @@ void	ft_writequote(t_varchar *listcmd, int j)
 {
 		if (listcmd->str[listcmd->i] == '\'')
 		{
-			listcmd->str2[listcmd->i - j] = '\'';
+			// listcmd->str2[listcmd->i - j] = '\'';
 			(listcmd->i)++;
 			while (listcmd->str[listcmd->i] != '\'')
 			{
 				listcmd->str2[listcmd->i - j] = listcmd->str[listcmd->i];
 				(listcmd->i)++;
 			}
-			listcmd->str2[listcmd->i - j] = '\'';
+			// listcmd->str2[listcmd->i - j] = '\'';
 			(listcmd->i)++;
 		}
 		else if (listcmd->str[listcmd->i] == '\"')
 		{
-			listcmd->str2[listcmd->i - j] = '\"';
+			// listcmd->str2[listcmd->i - j] = '\"';
 			(listcmd->i)++;
 			while (listcmd->str[listcmd->i] != '\"')
 			{
 				listcmd->str2[listcmd->i - j] = listcmd->str[(listcmd->i)];
 				(listcmd->i)++;
 			}
-			listcmd->str2[listcmd->i - j] = '\"';
+			// listcmd->str2[listcmd->i - j] = '\"';
 			(listcmd->i)++;
 		}
 }
