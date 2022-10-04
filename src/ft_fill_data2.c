@@ -38,7 +38,9 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	while (cmds)
 	{
-		if (cmds->cmd_with_flags
+		if (checkbuiltin(cmds->cmd_with_flags[0]) || cmds->cmd_with_flags[0][0] == '/') 
+			cmds->path_cmd = cmds->cmd_with_flags[0];
+		else if (cmds->cmd_with_flags
 			&& cmds->cmd_with_flags[0][0] != '/')
 		{
 			cmds->path_cmd = cmd_path(ms_env->all_path,

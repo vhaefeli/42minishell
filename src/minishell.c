@@ -31,13 +31,17 @@ int main (int argc, char **argv, char **envp)
 
 	ms_env = ini_ms(envp);
 	welcometext();
-	while (1)
+	env_init(ms_env,envp);
+	secret_env_init(ms_env,envp);	
+	ms_env->exit = 0;
+	while (ms_env->exit == 0)
 	{
 		cmdline = readline("➜ minishell: ");
 		if (!cmdline)
 		{
 			break ;
 		}
+
 		if (cmdline[0] != '\0')
 			ft_pipe( cmdline, ms_env);
 		free(cmdline);

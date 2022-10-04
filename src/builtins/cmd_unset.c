@@ -30,12 +30,12 @@ int	ft_unset(char **a, t_msvar *msvar)
 
 	env = msvar->env;
 	if (!(a[1]))
-		return (SUCCESS);
+		return (0);
 	if (ft_strncmp(a[1], env->value, env_size(env->value)) == 0)
 	{
 		msvar->env = (env->next) ? env->next : msvar->env;
 		free_node(msvar, env);
-		return (SUCCESS);
+		return (0);
 	}
 	while (env && env->next)
 	{
@@ -44,9 +44,9 @@ int	ft_unset(char **a, t_msvar *msvar)
 			tmp = env->next->next;
 			free_node(msvar, env->next);
 			env->next = tmp;
-			return (SUCCESS);
+			return (0);
 		}
 		env = env->next;
 	}
-	return (SUCCESS);
+	return (0);
 }

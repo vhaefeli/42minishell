@@ -40,11 +40,11 @@ _SRCS 			= 	env_analyze.c\
 					builtins/cmd_env.c\
 					builtins/env.c\
 					builtins/get_env.c\
-					builtins/print_env.c
-					#builtins/cmd_exit.c\
+					builtins/print_env.c\
+					builtins/cmd_unset.c\
+					builtins/cmd_exit.c\
 					#builtins/cmd_export.c\
-					#builtins/env.c
-					#builtins/cmd_unset.c\
+					
 
 
 OBJS 			= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS))
