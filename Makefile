@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/03 18:51:38 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/04 14:19:46 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ _SRCS 			= 	env_analyze.c\
 					ft_pipe_split.c\
 					ft_splitcmd1.c\
 					ft_splitcmd2.c\
+					quotes_utiles.c\
 					list_cmds.c\
 					listmanip.c\
 					pipe_children_process.c\
