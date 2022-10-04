@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 09:39:33 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:38:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,13 @@ void	cpy_between_cotes(char *src, char *dst, int *i, int *j)
 			dst[*j] = src[*i];
 			(*i)++;
 			(*j)++;
-			printf("B i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
+			// printf("B i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
 		}
 		dst[*j] = src[*i];
 		(*i)++;
 		(*j)++;
 	}
-	printf("cpy_between_cotes2\n");
+	// printf("cpy_between_cotes2\n");
 }
 
 void	ft_clean_cmdline(t_list *cmd)
@@ -198,5 +198,5 @@ void	ft_clean_cmdline(t_list *cmd)
 	free (cmd->cmd_tmp);
 	cmd->cmd_tmp = ft_strdup(cmdtemp2);
 	free (cmdtemp2);
-	printf("********\nclean cmd :%s-\n", cmd->cmd_tmp);
+	// printf("********\nclean cmd :%s-\n", cmd->cmd_tmp);
 }
