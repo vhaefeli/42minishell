@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 10:49:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/04 09:39:33 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 		}
 	}
 	cmd->infile[j] = 0;
-	printf("fill infile : %s\n", cmd->infile);
+	// printf("fill infile : %s\n", cmd->infile);
 }
 
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
@@ -124,29 +124,39 @@ static int	pass_outfile(char *src, int i)
 
 void	cpy_between_cotes(char *src, char *dst, int *i, int *j)
 {
-	printf("cpy_between_cotes1\n");
+	// printf("cpy_between_cotes1\n");
 	if (src[*i] == '\'')
 	{
+		dst[*j] = src[*i];
 		(*i)++;
+		(*j)++;
 		while (src[*i] && src[*i] != '\'')
 		{
+			// printf("i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
 			dst[*j] = src[*i];
 			(*i)++;
 			(*j)++;
 		}
+		dst[*j] = src[*i];
 		(*i)++;
+		(*j)++;
 	}
 	else if (src[*i] == '\"')
 	{
+		dst[*j] = src[*i];
 		(*i)++;
+		(*j)++;
 		while (src[*i] && src[*i] != '\"')
 		{
+			// printf("A i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
 			dst[*j] = src[*i];
 			(*i)++;
 			(*j)++;
-			printf("i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
+			printf("B i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
 		}
+		dst[*j] = src[*i];
 		(*i)++;
+		(*j)++;
 	}
 	printf("cpy_between_cotes2\n");
 }
@@ -178,7 +188,7 @@ void	ft_clean_cmdline(t_list *cmd)
 			j++;
 			// printf("i %d, j %d c=%c-\n", i ,j, cmd->cmd_tmp[i]);
 		}
-		printf("i %d, j %d c=%c- cmdtemp2:%s-\n", i ,j, cmd->cmd_tmp[i], cmdtemp2);
+		// printf("i %d, j %d c=%c- cmdtemp2:%s-\n", i ,j, cmd->cmd_tmp[i], cmdtemp2);
 	}
 	while(cmdtemp2[j])
 	{
@@ -188,5 +198,5 @@ void	ft_clean_cmdline(t_list *cmd)
 	free (cmd->cmd_tmp);
 	cmd->cmd_tmp = ft_strdup(cmdtemp2);
 	free (cmdtemp2);
-	// printf("********\nclean cmd :%s-\n", cmd->cmd_tmp);
+	printf("********\nclean cmd :%s-\n", cmd->cmd_tmp);
 }

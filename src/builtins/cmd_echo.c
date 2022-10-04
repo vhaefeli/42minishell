@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int nb_args (char **args)
 {
@@ -38,4 +38,19 @@ int ft_echo(char **args)
 		write(1,"\n",1);
 	return(0);
 
+}
+
+int ft_echo2(char *src)
+{
+	int i;
+
+	i = 4;
+	i = no_space(src, i);
+	while (src[i])
+	{
+		write(1, &src[i], 1);
+		i++;
+	}
+	write(1, "\n", 1);
+	return (0);
 }
