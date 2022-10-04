@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:40:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:43:08 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,13 @@ size_t	check_outfile(char *cmdline);
 void	ft_check_in_out(t_list *cmd);
 void	ft_in_out_files(t_list *cmds);
 
+// quotes_utiles.c
+int	quotesize(char *s, int i, char quotetype);
+int	quotesize_incl(char *s, int i, char quotetype);
+void	cpy_text_wquote(t_varchar *cpytext);
+void	cpy_text_noquote(t_varchar *cpytext);
+t_varchar	*fillvarchar(char *str, char *str2, int i, int j);
+
 // ft_fill_data1.c et ft_fill_data2.c filling of the different data of
 // chained list of commands
 void	ft_fill_infile(t_list *cmd, size_t infile_len);
@@ -162,18 +169,18 @@ int		no_space(char *src, int i);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
-void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
+// void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
 
-// ft_splitcmd1.c and ft_splitcmd1.c used to split the string
+// ft_splitcmd1.c and ft_splitcmd2.c used to split the string
 // with the complete commande in a table
-int		quotesize(char *s, int i, char quotetype);
-int		ft_cntcmdline(char *s);
-int		ft_cntchar(char *s, char c, int i);
-void	ft_writequote(t_varchar *listcmd, int j);
+int		cntcmdline(char *s);
+int		cntchar(char *s, char c, int i);
+int		cntchar_noquote(char *s, char c, int i);
+// void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
-char	**ft_filltab(char *s, int nbline);
+char	**filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
-size_t	size_between_spaces(char *s, int i);
+// size_t	size_between_spaces(char *s, int i);
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);
