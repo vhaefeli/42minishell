@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 17:27:43 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:56:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	cntchar(char *s, char c, int i)
 		else
 			i++;
 	}
-	printf("cntchar: %d\n", i - start);
+	// printf("cntchar: %d\n", i - start);
 	return (i - start);
 }
 
@@ -79,7 +79,7 @@ int	cntchar_noquote(char *s, char c, int i)
 		else
 			i++;
 	}
-	printf("cntchar: %d\n", i - start - j);
+	// printf("cntchar: %d\n", i - start - j);
 	return (i - start - j);
 }
 

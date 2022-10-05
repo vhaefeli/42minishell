@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 16:44:36 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 09:18:57 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	**filltab(char *s, int nbline)
 	lignecmd->i = 0;
 	lignecmd->j = 0;
 	l = 0;
+	
 	dst = malloc(sizeof(char *) * nbline);
 	while (l < nbline - 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 15:43:08 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:06:37 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ typedef struct	s_sig
  int	ft_cd(char **args, t_env *env);
 
  // //cmd_echo.c
- int	ft_echo(char **args);
- int	ft_echo2(char *src);
+int		ft_echo(char **args);
+int		checknoecho(t_list *cmds);
+void	fillechoflag(t_list *cmds);
+int		chech_echo_flag(t_list *cmds);
+
  // // cmd_env.c
  //int	ft_env(t_env *env);
 
@@ -169,18 +172,16 @@ int		no_space(char *src, int i);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
 void	ft_fillcmd_flag(t_list *cmds);
-// void	cpy_between_cotes(char *src, char *dst, int *i, int *j);
 
 // ft_splitcmd1.c and ft_splitcmd2.c used to split the string
 // with the complete commande in a table
 int		cntcmdline(char *s);
 int		cntchar(char *s, char c, int i);
 int		cntchar_noquote(char *s, char c, int i);
-// void	ft_writequote(t_varchar *listcmd, int j);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
-// size_t	size_between_spaces(char *s, int i);
+
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);
