@@ -38,12 +38,8 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	while (cmds)
 	{
-<<<<<<< HEAD
-		if (checkbuiltin(cmds->cmd_with_flags[0]) || cmds->cmd_with_flags[0][0] == '/') 
-=======
 		if (cmds->cmd_with_flags[0][0] == '/'
 			|| checkbuiltin(cmds->cmd_with_flags[0]))
->>>>>>> 176f7745ccb6fb3b454ec95863b8f210ae76d19a
 			cmds->path_cmd = cmds->cmd_with_flags[0];
 		else if (cmds->cmd_with_flags
 			&& cmds->cmd_with_flags[0][0] != '/')

@@ -28,13 +28,9 @@ size_t	check_infile(char *cmdline)
 		// printf("checkinfile1 c: %c\n", cmdline[i]);
 		if (cmdline[i] == '<')
 			i++;
-<<<<<<< HEAD
-		//j = size_between_spaces(cmdline, i);
-=======
 		i = no_space(cmdline, i);
 		// printf("i= %zu\n",i);
 		j = cntchar_noquote(cmdline, ' ', i);
->>>>>>> vanessa
 	}
 	// printf("infile len :%zu\n", j);
 	return (j);
@@ -54,12 +50,8 @@ size_t	check_outfile(char *cmdline)
 		i++;
 		if (cmdline[i] == '>')
 			i++;
-<<<<<<< HEAD
-		//j = size_between_spaces(cmdline, i);
-=======
 		i = no_space(cmdline, i);
 		j = cntchar_noquote(cmdline, ' ', i);
->>>>>>> vanessa
 	}
 	return (j);
 }

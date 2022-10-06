@@ -6,11 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/09/29 18:57:37 by vhaefeli         ###   ########.fr       */
-=======
 /*   Updated: 2022/10/05 15:55:52 by vhaefeli         ###   ########.fr       */
->>>>>>> vanessa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +110,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 1)
 	 	return (ft_echo(cmds->cmd_with_flags));
 	 if (builtincmd_nb == 2)
-<<<<<<< HEAD
 	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
-=======
-	 	return (ft_cd(cmds->cmd_with_flags, ms_env->env));
->>>>>>> vanessa
 	 if (builtincmd_nb == 3)
 	 	return (cmd_pwd());
 	//if (builtincmd_nb == 4)

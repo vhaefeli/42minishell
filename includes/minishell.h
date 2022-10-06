@@ -182,10 +182,6 @@ int		cntchar_noquote(char *s, char c, int i);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
-<<<<<<< HEAD
-=======
-
->>>>>>> vanessa
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);
