@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/05 16:06:37 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/06 16:51:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct	s_env
 typedef struct s_msvar
 {
 	char	**envp_origin;
-	char	**envp_ms;
+	t_env	*envp_ms;
 	t_env 	*env;
 	t_env	*secret_env;
 	int 	ret;
@@ -84,13 +84,11 @@ typedef struct	s_sig
 
 // // Builtins
 // // cmd_cd.c
- int	cmd_cd(char **args, t_env *env);
+char	*get_env_path(t_env *env, const char *var, size_t len);
+int	cmd_cd(char **args, t_env *env);
 
  // //cmd_echo.c
-int		ft_echo(char **args);
-int		checknoecho(t_list *cmds);
-void	fillechoflag(t_list *cmds);
-int		chech_echo_flag(t_list *cmds);
+int		cmd_echo(char **args);
 
  // // cmd_env.c
  int	ft_env(t_env *env);
@@ -133,6 +131,8 @@ void  	print_sorted_env(t_env *env);
 // and initialisation
 t_msvar	*ini_ms(char **envp);
 char	**path_finder(char **envp);
+
+char	*dollar_data(char *str, int i, t_msvar *env);
 
 // listmanip.c fonctions to manipulate a list
 t_list	*ft_lstlast(t_list *lst);
@@ -182,10 +182,6 @@ int		cntchar_noquote(char *s, char c, int i);
 char	*cpycmdflag(t_varchar *listcmd);
 char	**filltab(char *s, int nbline);
 char	**ft_splitcmd(char *s);
-<<<<<<< HEAD
-=======
-
->>>>>>> vanessa
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);

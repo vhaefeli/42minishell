@@ -13,7 +13,7 @@ static void print_error(char **args)
 	ft_putendl_fd(args[1], 2);
 }
 
-static char	*get_env_path(t_env *env, const char *var, size_t len)
+char	*get_env_path(t_env *env, const char *var, size_t len)
 {
 	char *oldpwd;
 	int i;

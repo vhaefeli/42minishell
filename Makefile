@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/04 14:19:46 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/06 15:08:45 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ _SRCS 			= 	env_analyze.c\
 					builtins/print_env.c\
 					builtins/cmd_unset.c\
 					builtins/cmd_exit.c\
+					builtins/dollar_data.c\
 					#builtins/cmd_export.c\
-					
+
 
 
 OBJS 			= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS))
