@@ -85,6 +85,7 @@ typedef struct	s_sig
 // // Builtins
 // // cmd_cd.c
  int	cmd_cd(char **args, t_env *env);
+ int	ft_cd(char **args, t_env *env);
 
  // //cmd_echo.c
 int		ft_echo(char **args);
@@ -103,6 +104,9 @@ int		chech_echo_flag(t_list *cmds);
 // int	ft_export(char **args, t_env *env, t_env *secret);
 
 int cmd_pwd(void);
+
+// //shlvl.c
+void	increment_shell_level(t_env *env);
 
 int	ft_unset(char **a, t_msvar *msvar);
 

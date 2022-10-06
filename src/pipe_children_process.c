@@ -170,7 +170,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	// printf("childprocess5\n");
 	if (builtincmd_nb)
 	{
-		// printf("builtin cmd\n");
+		printf("builtin cmd\n");
 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
 		exit (1);
 	}

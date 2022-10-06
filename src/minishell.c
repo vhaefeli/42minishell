@@ -30,12 +30,14 @@ int main (int argc, char **argv, char **envp)
 	char	*cmdline;
 
 	ms_env = ini_ms(envp);
-	welcometext();
 	env_init(ms_env,envp);
-	secret_env_init(ms_env,envp);	
+	secret_env_init(ms_env,envp);
+	welcometext();
+	increment_shell_level(ms_env->env);
 	ms_env->exit = 0;
 	while (ms_env->exit == 0)
 	{
+		printf("\n %s",getcwd(NULL,1));
 		cmdline = readline("➜ minishell: ");
 		if (!cmdline)
 		{
@@ -46,5 +48,6 @@ int main (int argc, char **argv, char **envp)
 			ft_pipe( cmdline, ms_env);
 		free(cmdline);
 	}
+	
 	return (0);
 }

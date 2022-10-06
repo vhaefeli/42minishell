@@ -44,6 +44,7 @@ _SRCS 			= 	env_analyze.c\
 					builtins/print_env.c\
 					builtins/cmd_unset.c\
 					builtins/cmd_exit.c\
+					builtins/shlvl.c\
 					#builtins/cmd_export.c\
 					
 
