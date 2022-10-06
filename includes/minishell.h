@@ -94,6 +94,7 @@ typedef struct	s_sig
 
 // // cmd_exit.c
  void	cmd_exit(t_msvar *msvar, char **cmd);
+ int	ft_exit(t_msvar *msvar);
 
 // // cmd_export.c
 // int	ft_export(char **args, t_env *env, t_env *secret);
