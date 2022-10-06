@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:50:18 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 22:14:02 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,65 +14,60 @@
 
 void	ft_fill_infile(t_list *cmd, size_t infile_len)
 {
-	int	i;
-	int j;
+	t_varchar	*cpyin;
 
-	i = 0;
-	j = 0;
 	cmd->infile = malloc(infile_len + 1);
-	while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != '<')
-		i+= ft_cntchar(cmd->cmd_tmp, '<', i);
-	if (cmd->cmd_tmp[i++] == '<')
+	cpyin = fillvarchar(cmd->cmd_tmp, cmd->infile, 0, 0);
+	while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != '<')
+		cpyin->i+= cntchar(cmd->cmd_tmp, '<', cpyin->i);
+	if (cmd->cmd_tmp[cpyin->i++] == '<')
 	{
-		if (cmd->cmd_tmp[i] == '<')
+		if (cmd->cmd_tmp[cpyin->i] == '<')
 		{
-			i++;
+			cpyin->i++;
 			cmd->infileflag = 2;
 		}
 		else
 			cmd->infileflag = 1;
-		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] == ' ')
-			i++;
-		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != ' ')
+		cpyin->i = no_space(cmd->cmd_tmp, cpyin->i);
+		while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != ' ')
 		{
-			// printf("c: %c\n",cmd->cmd_tmp[i]);
-			cpy_between_cotes(cmd->cmd_tmp, cmd->infile, &i, &j);
-			// printf("i %d, j %d c=%c cmdinfile %s-\n", i ,j, cmd->cmd_tmp[i], cmd->infile);
-			cmd->infile[j++] = cmd->cmd_tmp[i++];
+			if (cmd->cmd_tmp[cpyin->i] == ('\"') || cmd->cmd_tmp[cpyin->i] == ('\''))
+				cpy_text_noquote(cpyin);
+			cmd->infile[cpyin->j++] = cmd->cmd_tmp[cpyin->i++];
 		}
 	}
-	cmd->infile[j] = 0;
-	// printf("fill infile : %s\n", cmd->infile);
+	cmd->infile[cpyin->j] = 0;
+	free(cpyin);
 }
 
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
 {
-	int	i;
-	int j;
+	t_varchar	*cpyin;
 
-	i = 0;
-	j = 0;
 	cmd->outfile = malloc(outfile_len + 1);
-	while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != '>')
-		i+= ft_cntchar(cmd->cmd_tmp, '>', i);
-	if (cmd->cmd_tmp[i++] == '>')
+	cpyin = fillvarchar(cmd->cmd_tmp, cmd->outfile, 0, 0);
+	while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != '>')
+		cpyin->i+= cntchar(cmd->cmd_tmp, '>', cpyin->i);
+	if (cmd->cmd_tmp[cpyin->i++] == '>')
 	{
-		if (cmd->cmd_tmp[i] == '>')
+		if (cmd->cmd_tmp[cpyin->i] == '>')
 		{
-			i++;
+			cpyin->i++;
 			cmd->outfileflag = 2;
 		}
 		else
 			cmd->outfileflag = 1;
-		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] == ' ')
-			i++;
-		while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != ' ')
+		cpyin->i = no_space(cmd->cmd_tmp, cpyin->i);
+		while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != ' ')
 		{
-			cpy_between_cotes(cmd->cmd_tmp, cmd->outfile, &i, &j);
-			cmd->outfile[j++] = cmd->cmd_tmp[i++];
+			if (cmd->cmd_tmp[cpyin->i] == ('\"') || cmd->cmd_tmp[cpyin->i] == ('\''))
+				cpy_text_noquote(cpyin);
+			cmd->outfile[cpyin->j++] = cmd->cmd_tmp[cpyin->i++];
 		}
 	}
-	cmd->outfile[j] = 0;
+	cmd->outfile[cpyin->j] = 0;
+	free(cpyin);
 }
 
 int	no_space(char *src, int i)
@@ -92,9 +87,9 @@ static int	pass_infile(char *src, int i)
 	while(src[i] == ' ')
 		i++;
 	if (src[i] == '\''  )
-		i += quotesize(src, i, '\'');
+		i += quotesize_incl(src, i, '\'');
 	else if (src[i] == '\"')
-		i += quotesize(src, i, '\"');
+		i += quotesize_incl(src, i, '\"');
 	while(src[i] != ' ' && src[i] != 0)
 		i++;
 	while(src[i] == ' '&& src[i] != 0)
@@ -112,9 +107,9 @@ static int	pass_outfile(char *src, int i)
 	while(src[i] == ' ')
 		i++;
 	if (src[i] == '\''  )
-		i += quotesize(src, i, '\'');
+		i += quotesize_incl(src, i, '\'');
 	else if (src[i] == '\"')
-		i += quotesize(src, i, '\"');
+		i += quotesize_incl(src, i, '\"');
 	while(src[i] != ' ' && src[i] != 0)
 		i++;
 	while(src[i] == ' '&& src[i] != 0)
@@ -122,71 +117,30 @@ static int	pass_outfile(char *src, int i)
 	return (i);
 }
 
-void	cpy_between_cotes(char *src, char *dst, int *i, int *j)
-{
-	// printf("cpy_between_cotes1\n");
-	if (src[*i] == '\'')
-	{
-		(*i)++;
-		while (src[*i] && src[*i] != '\'')
-		{
-			dst[*j] = src[*i];
-			(*i)++;
-			(*j)++;
-		}
-		(*i)++;
-	}
-	else if (src[*i] == '\"')
-	{
-		(*i)++;
-		while (src[*i] && src[*i] != '\"')
-		{
-			dst[*j] = src[*i];
-			(*i)++;
-			(*j)++;
-			// printf("i: %d, j:%i src[i] %c, dst[j] %c\n", *i, *j, src[*i], dst[*j]);
-		}
-		(*i)++;
-	}
-	// printf("cpy_between_cotes2\n");
-}
-
 void	ft_clean_cmdline(t_list *cmd)
 {
-	char	*cmdtemp2;
-	int		i;
-	int		j;
-	int		k;
-	char	first_c;
+	t_varchar	*cmdclean;
 
-	i = 0;
-	j = 0;
-	cmdtemp2 = ft_strdup(cmd->cmd_tmp);
-	i = no_space(cmd->cmd_tmp, i);
-	while(cmd->cmd_tmp[i] && cmd->cmd_tmp[i])
+	cmdclean = fillvarchar(cmd->cmd_tmp, ft_strdup(cmd->cmd_tmp), 0, 0);
+	cmdclean->i = no_space(cmd->cmd_tmp, cmdclean->i);
+	while(cmd->cmd_tmp[cmdclean->i] && cmd->cmd_tmp[cmdclean->i])
 	{
-		if (cmd->cmd_tmp[i] == '\'' || cmd->cmd_tmp[i] == '\"')
-			cpy_between_cotes(cmdtemp2, cmd->cmd_tmp, &i, &j);
-		if (cmd->cmd_tmp[i] == '<')
-			i = pass_infile(cmd->cmd_tmp,i);
-		else if (cmd->cmd_tmp[i] == '>')
-			i = pass_outfile(cmd->cmd_tmp,i);
-		else if (cmd->cmd_tmp[i])
-		{
-			cmdtemp2[j]= cmd->cmd_tmp[i];
-			i++;
-			j++;
-			// printf("i %d, j %d c=%c-\n", i ,j, cmd->cmd_tmp[i]);
-		}
-		// printf("i %d, j %d c=%c- cmdtemp2:%s-\n", i ,j, cmd->cmd_tmp[i], cmdtemp2);
+		if (cmd->cmd_tmp[cmdclean->i] == '\''
+			|| cmd->cmd_tmp[cmdclean->i] == '\"')
+			cpy_text_wquote(cmdclean);
+		if (cmd->cmd_tmp[cmdclean->i] == '<')
+			cmdclean->i = pass_infile(cmd->cmd_tmp, cmdclean->i);
+		else if (cmd->cmd_tmp[cmdclean->i] == '>')
+			cmdclean->i = pass_outfile(cmd->cmd_tmp, cmdclean->i);
+		else if (cmd->cmd_tmp[cmdclean->i])
+			cmdclean->str2[cmdclean->j++]= cmd->cmd_tmp[cmdclean->i++];
 	}
-	while(cmdtemp2[j])
-	{
-		cmdtemp2[j] = 0;
-		j++;
-	}
+	while(cmdclean->str2[cmdclean->j])
+		cmdclean->str2[cmdclean->j++] = 0;
+	while(cmdclean->str2[--cmdclean->j] == ' ')
+		cmdclean->str2[cmdclean->j] = 0;
 	free (cmd->cmd_tmp);
-	cmd->cmd_tmp = ft_strdup(cmdtemp2);
-	free (cmdtemp2);
-	// printf("********\nclean cmd :%s-\n", cmd->cmd_tmp);
+	cmd->cmd_tmp = ft_strdup(cmdclean->str2);
+	free (cmdclean->str2);
+	free(cmdclean);
 }

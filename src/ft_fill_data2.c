@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:50:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 22:20:27 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	while (cmds)
 	{
+<<<<<<< HEAD
 		if (checkbuiltin(cmds->cmd_with_flags[0]) || cmds->cmd_with_flags[0][0] == '/') 
+=======
+		if (cmds->cmd_with_flags[0][0] == '/'
+			|| checkbuiltin(cmds->cmd_with_flags[0]))
+>>>>>>> 176f7745ccb6fb3b454ec95863b8f210ae76d19a
 			cmds->path_cmd = cmds->cmd_with_flags[0];
 		else if (cmds->cmd_with_flags
 			&& cmds->cmd_with_flags[0][0] != '/')
@@ -62,10 +67,10 @@ void	ft_fillcmd_flag(t_list *cmds)
 {
 	while (cmds)
 	{
-		// printf("********\ncmd_tmp1:%s-\n", cmds->cmd_tmp);
+		printf("********\ncmd_tmp1:%s-\n", cmds->cmd_tmp);
 		ft_clean_cmdline(cmds);
-		// printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
-		if (cmds->cmd_tmp[0] != 0)
+		printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
+		if (cmds->cmd_tmp[0] != 0 && checknoecho(cmds))
 		{
 			cmds->cmd_with_flags = ft_splitcmd(cmds->cmd_tmp);
 		}
