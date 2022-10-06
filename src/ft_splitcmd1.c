@@ -6,35 +6,13 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:50:20 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:56:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	quotesize(char *s, int i, char quotetype)
-{
-	int	quotesize;
-	int	j;
-
-	quotesize = 0;
-	j = i;
-	i++;
-	while(s[i] != quotetype && s[i] != '\0')
-	{
-		i++;
-		quotesize++;
-		if (s[i] == '\0')
-		{
-			printf("error : you can have only an even ");
-			printf("number of %c quotes\n", quotetype);
-			return (- j - 1);
-		}
-	}
-	return (quotesize);
-}
-
-int	ft_cntcmdline(char *s)
+int	cntcmdline(char *s)
 {
 	int	i;
 	int	nline;
@@ -50,9 +28,9 @@ int	ft_cntcmdline(char *s)
 		else if (s[i] != ' ' && s[i + 1] == '\0' && nline++)
 			i++;
 		else if (s[i] == '\''  )
-			i += quotesize(s, i, '\'');
+			i += quotesize_incl(s, i, '\'');
 		else if (s[i] == '\"')
-			i += quotesize(s, i, '\"');
+			i += quotesize_incl(s, i, '\"');
 		else
 			i++;
 	}
@@ -61,7 +39,7 @@ int	ft_cntcmdline(char *s)
 	return (nline);
 }
 
-int	ft_cntchar(char *s, char c, int i)
+int	cntchar(char *s, char c, int i)
 {
 	int	start;
 
@@ -69,9 +47,9 @@ int	ft_cntchar(char *s, char c, int i)
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'')
-			i += quotesize(s, i, '\'') + 2;
+			i += quotesize_incl(s, i, '\'');
 		else if (s[i] == '\"')
-			i += quotesize(s, i, '\"') + 2;
+			i += quotesize_incl(s, i, '\"');
 		else
 			i++;
 	}
@@ -79,41 +57,64 @@ int	ft_cntchar(char *s, char c, int i)
 	return (i - start);
 }
 
-void	ft_writequote(t_varchar *listcmd, int j)
+int	cntchar_noquote(char *s, char c, int i)
 {
-		if (listcmd->str[listcmd->i] == '\'')
+	int	start;
+	int j;
+
+	start = i;
+	j = 0;
+	while (s[i] != c && s[i] != '\0')
+	{
+		if (s[i] == '\'')
 		{
-			listcmd->str2[listcmd->i - j] = '\'';
-			(listcmd->i)++;
-			while (listcmd->str[listcmd->i] != '\'')
-			{
-				listcmd->str2[listcmd->i - j] = listcmd->str[listcmd->i];
-				(listcmd->i)++;
-			}
-			listcmd->str2[listcmd->i - j] = '\'';
-			(listcmd->i)++;
+			i += quotesize_incl(s, i, '\'');
+			j+= 2;
 		}
-		else if (listcmd->str[listcmd->i] == '\"')
+		else if (s[i] == '\"')
 		{
-			listcmd->str2[listcmd->i - j] = '\"';
-			(listcmd->i)++;
-			while (listcmd->str[listcmd->i] != '\"')
-			{
-				listcmd->str2[listcmd->i - j] = listcmd->str[(listcmd->i)];
-				(listcmd->i)++;
-			}
-			listcmd->str2[listcmd->i - j] = '\"';
-			(listcmd->i)++;
+			i += quotesize_incl(s, i, '\"');
+			j+= 2;
 		}
+		else
+			i++;
+	}
+	// printf("cntchar: %d\n", i - start - j);
+	return (i - start - j);
 }
+
+// void	ft_writequote(t_varchar *listcmd, int j)
+// {
+// 		if (listcmd->str[listcmd->i] == '\'')
+// 		{
+// 			// listcmd->str2[listcmd->i - j] = '\'';
+// 			(listcmd->i)++;
+// 			while (listcmd->str[listcmd->i] != '\'')
+// 			{
+// 				listcmd->str2[listcmd->i - j] = listcmd->str[listcmd->i];
+// 				(listcmd->i)++;
+// 			}
+// 			// listcmd->str2[listcmd->i - j] = '\'';
+// 			(listcmd->i)++;
+// 		}
+// 		else if (listcmd->str[listcmd->i] == '\"')
+// 		{
+// 			// listcmd->str2[listcmd->i - j] = '\"';
+// 			(listcmd->i)++;
+// 			while (listcmd->str[listcmd->i] != '\"')
+// 			{
+// 				listcmd->str2[listcmd->i - j] = listcmd->str[(listcmd->i)];
+// 				(listcmd->i)++;
+// 			}
+// 			// listcmd->str2[listcmd->i - j] = '\"';
+// 			(listcmd->i)++;
+// 		}
+// }
 
 char	*cpycmdflag(t_varchar *listcmd)
 {
 	int		linesize;
 
-	// printf("cpycmdflag\n");
-	// printf("listcmd-%s\n", listcmd->str);
-	// printf("i %d\n", listcmd->i);
 	if (listcmd->str2)
 	{
 		free (listcmd->str2);
@@ -121,23 +122,19 @@ char	*cpycmdflag(t_varchar *listcmd)
 	}
 	while (listcmd->str[listcmd->i] == ' ')
 		(listcmd->i)++;
-	linesize = ft_cntchar(listcmd->str, ' ', listcmd->i);
-	// printf("linesize-%d\n", linesize);
+	linesize = cntchar_noquote(listcmd->str, ' ', listcmd->i);
 	listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
 	if (!listcmd->str2 || linesize == 0)
 		return (NULL);
-	listcmd->j = listcmd->i;
+	listcmd->j = 0;
 	while (listcmd->str[listcmd->i] != ' ' && listcmd->str[listcmd->i] != '\0')
 	{
 		if (listcmd->str[listcmd->i] == '\'' || listcmd->str[listcmd->i] == '\"')
-			ft_writequote(listcmd, listcmd->j);
+			cpy_text_noquote(listcmd);
 		else
-		{
-			listcmd->str2[listcmd->i - listcmd->j] = listcmd->str[listcmd->i];
-			(listcmd->i)++;
-		}
+			listcmd->str2[listcmd->j++] = listcmd->str[listcmd->i++];
 	}
-	listcmd->str2[listcmd->i - listcmd->j] = '\0';
+	listcmd->str2[listcmd->j] = '\0';
 	// printf("listcmd2-%s-\n", listcmd->str2);
 	return (listcmd->str2);
 }

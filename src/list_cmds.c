@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/29 18:53:05 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:37:53 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 	// printf("list_cmds step4\n");
 	ft_fillpath_cmd(first_cmd, ms_env);
 	// printf("list_cmds end\n");
-	// free(cmdline);  ' remettre quand cmdline ne sera pas le char * du main...
+	// free(cmdline);
 	return (first_cmd);
 }
