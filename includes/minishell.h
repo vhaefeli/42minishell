@@ -184,9 +184,15 @@ void	ft_fillcmd_flag(t_list *cmds, t_msvar *env);
 int		cntcmdline(char *s);
 int		cntchar(char *s, char c, int i);
 int		cntchar_noquote(char *s, char c, int i);
+<<<<<<< HEAD
 char	*cpycmdflag(t_varchar *listcmd, t_msvar *env);
 char	**filltab(char *s, int nbline, t_msvar *env);
 char	**ft_splitcmd(char *s, t_msvar *ms_env);
+=======
+char	*cpycmdflag(t_varchar *listcmd);
+char	**filltab(char *s, int nbline);
+char	**ft_splitcmd(char *s);
+>>>>>>> 853857560b2feb94efefae27555fdf77c365704a
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);
