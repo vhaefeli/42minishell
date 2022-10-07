@@ -6,13 +6,13 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/05 22:14:02 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:30:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_fill_infile(t_list *cmd, size_t infile_len)
+void	ft_fill_infile(t_list *cmd, size_t infile_len, t_msvar *env)
 {
 	t_varchar	*cpyin;
 
@@ -33,7 +33,7 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 		while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != ' ')
 		{
 			if (cmd->cmd_tmp[cpyin->i] == ('\"') || cmd->cmd_tmp[cpyin->i] == ('\''))
-				cpy_text_noquote(cpyin);
+				cpy_text_noquote(cpyin, env);
 			cmd->infile[cpyin->j++] = cmd->cmd_tmp[cpyin->i++];
 		}
 	}
@@ -41,7 +41,7 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len)
 	free(cpyin);
 }
 
-void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
+void	ft_fill_outfile(t_list *cmd, size_t outfile_len, t_msvar *env)
 {
 	t_varchar	*cpyin;
 
@@ -62,7 +62,7 @@ void	ft_fill_outfile(t_list *cmd, size_t outfile_len)
 		while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != ' ')
 		{
 			if (cmd->cmd_tmp[cpyin->i] == ('\"') || cmd->cmd_tmp[cpyin->i] == ('\''))
-				cpy_text_noquote(cpyin);
+				cpy_text_noquote(cpyin, env);
 			cmd->outfile[cpyin->j++] = cmd->cmd_tmp[cpyin->i++];
 		}
 	}

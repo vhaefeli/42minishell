@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/06 10:53:50 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:53:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ size_t	check_outfile(char *cmdline)
 	return (j);
 }
 
-void	ft_check_in_out(t_list *cmd)
+void	ft_check_in_out(t_list *cmd, t_msvar *ms_env)
 {
 	size_t	cmdline_len;
 	size_t	infile_len;
@@ -70,17 +70,17 @@ void	ft_check_in_out(t_list *cmd)
 	outfile_len = check_outfile(cmd->cmd_tmp);
 	// printf("ft_check_in_out outfile_len %zu\n", outfile_len);
 	if (infile_len > 0)
-		ft_fill_infile(cmd, infile_len);
+		ft_fill_infile(cmd, infile_len, ms_env);
 	if (outfile_len > 0)
-		ft_fill_outfile(cmd, outfile_len);
+		ft_fill_outfile(cmd, outfile_len, ms_env);
 	// printf("ft_check_in_out infile outfile -%s-%s-\n", cmd->infile, cmd->outfile);
 }
 
-void	ft_in_out_files(t_list *cmds)
+void	ft_in_out_files(t_list *cmds, t_msvar *ms_env)
 {
 	while (cmds)
 	{
-		ft_check_in_out(cmds);
+		ft_check_in_out(cmds, ms_env);
 		cmds = (cmds)->next;
 	}
 }

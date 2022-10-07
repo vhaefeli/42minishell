@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/05 22:04:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:15:29 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 	pid1 = -1;
 	fd[0] = dup(STDIN_FILENO);
 	fd[1] = dup(STDOUT_FILENO);
-	// printf("pipex\n");
+	printf("pipex\n");
 	if(!(*list_cmds)->next)
 	{
 		// printf("only one cmd\n");
@@ -70,9 +70,8 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 			child_process(*list_cmds, fd, ms_env);
 		waitpid(pid1, NULL, 0);
 		close(fd[1]);
-// a reactiver des que le heredoc est ok
-		// if ((*list_cmds)->infileflag == 2)
-		// 		unlink(".heredoc");
+		if ((*list_cmds)->infileflag == 2)
+				unlink(".heredoc");
 	}
 	else
 	{
@@ -92,9 +91,8 @@ void	pipex(t_list **list_cmds, t_msvar *ms_env)
 			close(fd[1]);
 			*list_cmds = (*list_cmds)->next;
 		}
-// a reactiver des que le heredoc est ok
-		// if ((*list_cmds)->infileflag == 2)
-		// 	unlink(".heredoc");
+		if ((*list_cmds)->infileflag == 2)
+			unlink(".heredoc");
 		close(fd[0]);
 		while (n_cmd--)
 			waitpid(pid1, NULL, 0);

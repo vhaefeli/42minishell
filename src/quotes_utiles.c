@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:49:48 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 17:48:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:28:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cpy_text_wquote(t_varchar *cpytext)
 	cpytext->j++;
 }
 
-void	cpy_text_noquote(t_varchar *cpytext)
+void	cpy_text_noquote(t_varchar *cpytext, t_msvar *env)
 {
 	char	quotetype;
 
@@ -87,9 +87,14 @@ void	cpy_text_noquote(t_varchar *cpytext)
 	cpytext->i++;
 	while (cpytext->str[cpytext->i] != quotetype)
 	{
-		cpytext->str2[cpytext->j] = cpytext->str[cpytext->i];
-		cpytext->i++;
-		cpytext->j++;
+		if (quotetype == '\"' && cpytext->str[cpytext->i] == '$')
+			add_dollar_data(cpytext, env);
+		else
+		{
+			cpytext->str2[cpytext->j] = cpytext->str[cpytext->i];
+			cpytext->i++;
+			cpytext->j++;
+		}
 	}
 	cpytext->i++;
 }

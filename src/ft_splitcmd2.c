@@ -6,13 +6,13 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/06 15:08:49 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:59:31 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**filltab(char *s, int nbline)
+char	**filltab(char *s, int nbline, t_msvar *env)
 {
 	t_varchar	*lignecmd;
 	int			l;
@@ -28,7 +28,7 @@ char	**filltab(char *s, int nbline)
 	dst = malloc(sizeof(char *) * nbline);
 	while (l < nbline - 1)
 	{
-		dst[l] = ft_strdup(cpycmdflag(lignecmd));
+		dst[l] = ft_strdup(cpycmdflag(lignecmd, env));
 		l++;
 		// printf"i: %d\n", lignecmd->i);
 	}
@@ -38,7 +38,7 @@ char	**filltab(char *s, int nbline)
 	return (dst);
 }
 
-char	**ft_splitcmd(char *s)
+char	**ft_splitcmd(char *s, t_msvar *env)
 {
 	char	**dst;
 	size_t	line;
@@ -50,7 +50,7 @@ char	**ft_splitcmd(char *s)
 	dst = (char **)malloc(line * sizeof(char *));
 	if (!dst)
 		return (NULL);
-	dst = filltab(s, line);
+	dst = filltab(s, line, env);
 	return (dst);
 }
 

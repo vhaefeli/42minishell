@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/09 21:44:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:52:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ void	del_list(t_list *list_cmds)
 
 	if (!list_cmds)
 		return ;
-	printf("addresse listcmd: %p", list_cmds);
-	printf("addresse &listcmd: %p", &list_cmds);
 	el1 = ft_lstfirst(list_cmds);
-	printf("addresse el1: %p", el1);
-	printf("addresse el1: %p", &el1);
 	while (el1)
 	{
 

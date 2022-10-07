@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/06 14:08:58 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:08:27 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,10 @@ int	cntchar_noquote(char *s, char c, int i)
 	return (i - start - j);
 }
 
-char	*cpycmdflag(t_varchar *listcmd)
+char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 {
 	int		linesize;
+	char	*flag;
 
 	printf("A\n");
 	if (listcmd->str2)
@@ -95,19 +96,26 @@ char	*cpycmdflag(t_varchar *listcmd)
 	}
 	while (listcmd->str[listcmd->i] == ' ')
 		(listcmd->i)++;
-	linesize = cntchar_noquote(listcmd->str, ' ', listcmd->i);
-	listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
+	// linesize = cntchar_noquote(listcmd->str, ' ', listcmd->i);
+	// listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
+	listcmd->str2 = ft_strdup(listcmd->str);
 	if (!listcmd->str2 || linesize == 0)
 		return (NULL);
 	listcmd->j = 0;
 	while (listcmd->str[listcmd->i] != ' ' && listcmd->str[listcmd->i] != '\0')
 	{
-		if (listcmd->str[listcmd->i] == '\'' || listcmd->str[listcmd->i] == '\"')
-			cpy_text_noquote(listcmd);
+		if (listcmd->str[listcmd->i] == '$')
+				add_dollar_data(listcmd, env);
+		else if (listcmd->str[listcmd->i] == '\'' || listcmd->str[listcmd->i] == '\"')
+			cpy_text_noquote(listcmd, env);
 		else
 			listcmd->str2[listcmd->j++] = listcmd->str[listcmd->i++];
 	}
 	listcmd->str2[listcmd->j] = '\0';
-	// printf("listcmd2-%s-\n", listcmd->str2);
+	printf("listcmd2-%s-\n", listcmd->str2);
+	flag = ft_strdup(listcmd->str2);
+	free(listcmd->str2);
+	listcmd->str2 = ft_strdup(flag);
+	free(flag);
 	return (listcmd->str2);
 }

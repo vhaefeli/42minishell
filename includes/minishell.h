@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/06 16:51:07 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:59:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,12 @@ void  	print_sorted_env(t_env *env);
 t_msvar	*ini_ms(char **envp);
 char	**path_finder(char **envp);
 
-char	*dollar_data(char *str, int i, t_msvar *env);
+t_varchar	*dollar_data(char *str, int i, t_msvar *env);
+
+// cpy_text.c
+void	cpy_text_between_space(t_varchar *src, t_msvar *env);
+void	add_dollar_data(t_varchar *src, t_msvar *env);
+char	*ft_realloc(char *src, int diff);
 
 // listmanip.c fonctions to manipulate a list
 t_list	*ft_lstlast(t_list *lst);
@@ -154,34 +159,34 @@ int ft_pipe_split(char *cmdline, t_list *cmd, int i);
 // ft_in_out_files.c check the infile and outfile and fill them in the list
 size_t	check_infile(char *cmdline);
 size_t	check_outfile(char *cmdline);
-void	ft_check_in_out(t_list *cmd);
-void	ft_in_out_files(t_list *cmds);
+void	ft_check_in_out(t_list *cmd, t_msvar *ms_env);
+void	ft_in_out_files(t_list *cmds, t_msvar *ms_env);
 
 // quotes_utiles.c
 int	quotesize(char *s, int i, char quotetype);
 int	quotesize_incl(char *s, int i, char quotetype);
 void	cpy_text_wquote(t_varchar *cpytext);
-void	cpy_text_noquote(t_varchar *cpytext);
+void	cpy_text_noquote(t_varchar *cpytext, t_msvar *env);
 t_varchar	*fillvarchar(char *str, char *str2, int i, int j);
 
 // ft_fill_data1.c et ft_fill_data2.c filling of the different data of
 // chained list of commands
-void	ft_fill_infile(t_list *cmd, size_t infile_len);
-void	ft_fill_outfile(t_list *cmd, size_t outfile_len);
+void	ft_fill_infile(t_list *cmd, size_t infile_len, t_msvar *env);
+void	ft_fill_outfile(t_list *cmd, size_t outfile_len, t_msvar *env);
 void	ft_clean_cmdline(t_list *cmd);
 int		no_space(char *src, int i);
 char	*cmd_path(char **path, char *cmd);
 int		ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env);
-void	ft_fillcmd_flag(t_list *cmds);
+void	ft_fillcmd_flag(t_list *cmds, t_msvar *env);
 
 // ft_splitcmd1.c and ft_splitcmd2.c used to split the string
 // with the complete commande in a table
 int		cntcmdline(char *s);
 int		cntchar(char *s, char c, int i);
 int		cntchar_noquote(char *s, char c, int i);
-char	*cpycmdflag(t_varchar *listcmd);
-char	**filltab(char *s, int nbline);
-char	**ft_splitcmd(char *s);
+char	*cpycmdflag(t_varchar *listcmd, t_msvar *env);
+char	**filltab(char *s, int nbline, t_msvar *env);
+char	**ft_splitcmd(char *s, t_msvar *ms_env);
 
 // pipe_children_process.c execute the commande
 int		ft_heredoc(char *infile);

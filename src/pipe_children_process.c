@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/06 14:56:35 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:46:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ static int	check_file_out(t_list *cmd, int *fd)
 int	checkbuiltin(char *cmd)
 {
 	size_t	n;
-	char	*cmd_small;
 
-	cmd_small =
+	cmd = ft_strtolower(cmd);
 	n = ft_strlen(cmd);
 	if (!ft_strncmp("echo", cmd, n))
 		return (1);
@@ -139,6 +138,8 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
+	ft_fillpath_cmd(list_cmds, ms_env);
+	printf("path:%s\n", list_cmds->path_cmd);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
