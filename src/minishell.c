@@ -22,6 +22,28 @@ void	welcometext(void)
 	printf("  W   W     EEEEEE   LLLLL   CCCC    OOOO      M     M   EEEEEE\n");
 	printf("\n");
 }
+char    last_name(char *str)
+{
+    int    len;
+    int    i;
+    int    j;
+    char    *dst;
+
+    len = ft_strlen(str);
+    i = len - 1;
+    j = 0;
+    while (str[i] && str[i] != '/')
+    {
+        i--;
+    }
+    dst = malloc(len - i);
+    i++;
+    while (i < len)
+    {
+        dst[j++] = str[i++];
+    }
+    return (dst);
+}
 
 int main (int argc, char **argv, char **envp)
 {

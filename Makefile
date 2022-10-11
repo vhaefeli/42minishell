@@ -46,7 +46,7 @@ _SRCS 			= 	env_analyze.c\
 					builtins/cmd_unset.c\
 					builtins/cmd_exit.c\
 					builtins/dollar_data.c\
-					#builtins/cmd_export.c\
+					builtins/cmd_export.c\
 
 
 

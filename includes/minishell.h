@@ -96,7 +96,7 @@ int		cmd_echo(char **args);
  int	ft_exit(t_msvar *msvar);
 
 // // cmd_export.c
-// int	ft_export(char **args, t_env *env, t_env *secret);
+ int	ft_export(char **args, t_env *env, t_env *secret);
 
 int cmd_pwd(void);
 
