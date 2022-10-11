@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:55:29 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:45:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
 	 if (builtincmd_nb == 3)
 	 	return (cmd_pwd());
-	//if (builtincmd_nb == 4)
-	//	return (ft_export(cmds, ms_env, ms_env));
-	//if (builtincmd_nb == 5)
-	//	return (ft_unset(cmds, ms_env));
+	// if (builtincmd_nb == 4)
+	// 	return (ft_export(cmds, ms_env, ms_env));
+	// if (builtincmd_nb == 5)
+	// 	return (ft_unset(cmds, ms_env));
 	if (builtincmd_nb == 6)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 7)
@@ -173,5 +173,5 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	}
 	printf("error execve\n");
 	exit (1);
-	return (2);
+	// return (2);
 }

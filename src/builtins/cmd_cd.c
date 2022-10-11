@@ -81,6 +81,7 @@ static int		go_to_path(int option, t_env *env)
 			return (1);
 		update_oldpwd(env);
 	}
+	printf("env_path: %s\n", env_path);
 	ret = chdir(env_path);
 	ft_memdel(env_path);
 	return (ret);
@@ -97,6 +98,7 @@ int				cmd_cd(char **args, t_env *env)
 	else
 	{
 		update_oldpwd(env);
+		printf("args1 : %s", args[1]);
 		cd_ret = chdir(args[1]);
 		if (cd_ret < 0)
 			cd_ret *= -1;

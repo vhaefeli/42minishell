@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:08:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:47:42 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 	int		linesize;
 	char	*flag;
 
-	printf("A\n");
+	// printf("A\n");
 	if (listcmd->str2)
 	{
 		free (listcmd->str2);
@@ -112,7 +112,7 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 			listcmd->str2[listcmd->j++] = listcmd->str[listcmd->i++];
 	}
 	listcmd->str2[listcmd->j] = '\0';
-	printf("listcmd2-%s-\n", listcmd->str2);
+	// printf("listcmd2-%s-\n", listcmd->str2);
 	flag = ft_strdup(listcmd->str2);
 	free(listcmd->str2);
 	listcmd->str2 = ft_strdup(flag);

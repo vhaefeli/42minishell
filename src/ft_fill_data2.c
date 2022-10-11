@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:05:50 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:48:03 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	// while (cmds)
 	// {
-		printf("fill_path");
+		// printf("fill_path");
 		if (cmds->cmd_with_flags[0][0] == '/'
 			|| checkbuiltin(cmds->cmd_with_flags[0]))
 			cmds->path_cmd = cmds->cmd_with_flags[0];
@@ -65,10 +65,10 @@ void	ft_fillcmd_flag(t_list *cmds, t_msvar *env)
 	while (cmds)
 	{
 		ft_clean_cmdline(cmds);
-		printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
+		// printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
 		if (cmds->cmd_tmp[0] != 0)
 		{
-			printf("fillcmd_flag\n");
+			// printf("fillcmd_flag\n");
 			cmds->cmd_with_flags = ft_splitcmd(cmds->cmd_tmp, env);
 		}
 		// printf("cmds->next = %p\n", cmds->next);

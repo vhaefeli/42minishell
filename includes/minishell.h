@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:57:49 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:38:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ typedef struct	s_env
 typedef struct s_msvar
 {
 	char	**envp_origin;
-	t_env	*envp_ms;
+	char	**envp_ms;
 	t_env 	*env;
 	t_env	*secret_env;
 	int 	ret;
 	int 	exit;
 	char	**all_path;
-	int		cmd_historyfile;
-	int		return_historyfile;
 }	t_msvar;
 
 typedef	struct s_varchar
@@ -212,7 +210,7 @@ int		ft_exit_minishell(t_msvar *ms_env);
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c
-void	pipex(t_list **list_cmds, t_msvar *ms_env);
+void	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/23 17:41:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:38:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int main (int argc, char **argv, char **envp)
 	ms_env = ini_ms(envp);
 	welcometext();
 	env_init(ms_env,envp);
-	secret_env_init(ms_env,envp);	
-	ms_env->exit = 0;
+	secret_env_init(ms_env,envp);
 	while (ms_env->exit == 0)
 	{
 		cmdline = readline("➜ minishell: ");
@@ -41,10 +40,11 @@ int main (int argc, char **argv, char **envp)
 		{
 			break ;
 		}
-
+		add_history(cmdline);
 		if (cmdline[0] != '\0')
-			ft_pipe( cmdline, ms_env);
+			ft_pipe(cmdline, ms_env);
 		free(cmdline);
+		printf("3ms_env->exit: %d\n", ms_env->exit);
 	}
 	return (0);
 }

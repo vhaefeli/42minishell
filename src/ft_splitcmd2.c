@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 17:59:31 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:47:41 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**ft_splitcmd(char *s, t_msvar *env)
 	if (!s)
 		return (NULL);
 	line = cntcmdline(s);
-	printf("line:%zu\n", line);
+	// printf("line:%zu\n", line);
 	dst = (char **)malloc(line * sizeof(char *));
 	if (!dst)
 		return (NULL);

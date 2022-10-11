@@ -25,7 +25,8 @@ void cmd_exit(t_msvar *msvar, char **cmd)
 
 int ft_exit(t_msvar *msvar)
 {
-	printf("exit ");
+	printf("1ms_env->exit: %d\n", msvar->exit);
 	msvar->exit = 1;
+	printf("2ms_env->exit: %d\n", msvar->exit);
 	return(0);
 }
