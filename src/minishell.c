@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 14:38:45 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:55:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main (int argc, char **argv, char **envp)
 	secret_env_init(ms_env,envp);
 	while (ms_env->exit == 0)
 	{
+		printf("\n %s",getcwd(NULL,1));
 		cmdline = readline("➜ minishell: ");
 		if (!cmdline)
 		{
