@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 17:56:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:05:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,14 +144,11 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	{
 		close(fd[1]);
 		close(fd[0]);
-		perror("1Fork");
-		return (3); // infile outfile error
+		perror("Fork");
+		exit(0); // infile outfile error
 	}
 	printf("infile %d\n", infile);
 	printf("outfile %d\n", outfile);
-
-
-	fprintf(stderr, "KJSLHLSFH\n");
 	if (infile > 2)
 	{
 		dup2(infile, STDIN_FILENO);
