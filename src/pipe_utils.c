@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 14:36:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	n_cmd = 0;
 	temp_fd[0] = -1;
 	pid1 = -1;
-	fd[0] = dup(STDIN_FILENO);
-	fd[1] = dup(STDOUT_FILENO);
+	fd[0] = 0;
+	fd[1] = 1;
 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
 	if(!(list_cmds)->next)
 	{
@@ -80,30 +80,21 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 			if (pid1 == 0)
 				child_process(list_cmds, fd, ms_env);
 			waitpid(pid1, NULL, 0);
-			close(fd[1]);
+			// close(fd[1]);
 		}
-		pid1 = fork();
-		if (pid1 < 0 && printf("Fork %d : ", n_cmd))
-			exit(0);
-		if (pid1 == 0)
-			child_process(list_cmds, fd, ms_env);
-		waitpid(pid1, NULL, 0);
-		close(fd[1]);
 	}
 	else
 	{
 		while (list_cmds && ++n_cmd)
 		{
-			if (pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
-				exit (0);
-				// ft_error(*list_cmds, NULL);
-			printf("before exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+			if (list_cmds->next && pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
+				perror("Pipe");
+			printf("fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 			fd_value_exchange(fd, temp_fd);
-			printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+			// printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 			pid1 = fork();
 			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
-				exit(0);
-				// ft_error(*list_cmds, NULL);
+				exit(1);
 			if (pid1 == 0)
 				child_process(list_cmds, fd, ms_env);
 			waitpid(pid1, NULL, 0);
@@ -122,7 +113,7 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
 
-	// printf("pipe cmdline:%s\n", cmdline);
+	printf("pipe cmdline:%s\n", cmdline);
 	cmd_list = list_cmds(cmdline, ms_env);
 	checklistcmd(cmd_list);
 	if (cmd_list == NULL)

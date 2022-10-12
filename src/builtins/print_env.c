@@ -17,6 +17,7 @@ void 	sort_env(char **tabl, int env_len)
 	char	*tmp;
 
 	ordered = 0;
+	i = 0;
 	while (tabl[i] && ordered == 0)
 	{
 		ordered = 1;
