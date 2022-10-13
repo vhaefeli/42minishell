@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 16:28:28 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/07 16:49:04 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/12 13:19:36 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRCS =	ft_isalpha.c\
 		ft_putendl.c\
 		ft_strcpyfrom.c\
 		ft_strcpytill.c\
-		ft_strtolower.c
+		ft_strtolower.c\
+		ft_strshorten.c
 
 
 OBJS = $(SRCS:.c=.o)

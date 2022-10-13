@@ -6,12 +6,13 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/07 18:01:23 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/12 13:34:45 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS 			=  -g -lreadline  #-fsanitize=address -fno-omit-frame-pointer #-Wall -Wextra -Werror
+CFLAGS 			= -g -Wall -Wextra -Werror # -fsanitize=address -fno-omit-frame-pointer
+LDFLAGS			= -lreadline
 TARGET 			= minishell
 SRCS_DIR 		= ./src
 OBJS_DIR 		= ./obj
@@ -75,7 +76,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)
 
 $(TARGET): $(LIBFT_DIR)/libft.a $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS) $(LDFLAGS)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -sC $(LIBFT_DIR)

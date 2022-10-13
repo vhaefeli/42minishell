@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 14:45:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:05:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_heredoc(char *infile)
 
 static int	check_file_in(t_list *cmd, int *fd)
 {
-
+	printf("infile %s\n", cmd->infile);
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)
@@ -136,35 +136,41 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	int		outfile;
 	int		builtincmd_nb;
 
+	ft_fillpath_cmd(list_cmds, ms_env);
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
-	ft_fillpath_cmd(list_cmds, ms_env);
 	printf("path:%s\n", list_cmds->path_cmd);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
 		close(fd[0]);
 		perror("Fork");
-		return (3); // infile outfile error
+		exit(0); // infile outfile error
 	}
-	dup2(infile, STDIN_FILENO);
-	dup2(outfile, STDOUT_FILENO);
-	if (fd[0] > -1)
-		close(fd[0]);
-	if (fd[1] > -1)
-		close(fd[1]);
+	printf("infile %d\n", infile);
+	printf("outfile %d\n", outfile);
+	if (infile > 2)
+	{
+		dup2(infile, STDIN_FILENO);
+		close(infile);
+	}
+	if (outfile > 2)
+	{
+		dup2(outfile, STDOUT_FILENO);
+		close(outfile);
+	}
 	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
 		if (list_cmds->infileflag == 2)
 			unlink(".heredoc");
-		exit(1);
+		exit(0);
 	}
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
 	{
 		printf("builtin\n");
 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
-		exit (1);
+		exit (0);
 	}
 	else
 	{

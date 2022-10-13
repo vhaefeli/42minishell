@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 17:53:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 12:07:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_check_in_out(t_list *cmd, t_msvar *ms_env)
 	size_t	cmdline_len;
 	size_t	infile_len;
 	size_t	outfile_len;
-	size_t	cmd_wflag_len;
 
 	cmdline_len = ft_strlen(cmd->cmd_tmp);
 	// printf("ft_check_in_out cmdline_len %zu\n", cmdline_len);

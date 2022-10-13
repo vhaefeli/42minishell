@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 11:47:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 13:51:44 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ char	**filltab(char *s, int nbline, t_msvar *env)
 	dst = malloc(sizeof(char *) * nbline);
 	while (l < nbline - 1)
 	{
-		dst[l] = ft_strdup(cpycmdflag(lignecmd, env));
+		dst[l] = cpycmdflag(lignecmd, env);
+		printf("dst[l]:%s\n", dst[l]);
 		l++;
 		// printf"i: %d\n", lignecmd->i);
 	}
 	dst[l] = NULL;
-	free (lignecmd->str2);
+	// free (lignecmd->str2);
 	free (lignecmd);
 	return (dst);
 }
