@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 14:56:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:24:53 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ static char	*last_name(char *str)
 	}
 	dst = malloc(len - i);
 	i++;
-	while (i < len)
+	while (i < len && str[i])
 	{
 		dst[j++] = str[i++];
 	}
+	dst[j] = 0;
 	return (dst);
 }
 

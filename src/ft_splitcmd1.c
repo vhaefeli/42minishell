@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 13:37:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:53:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 {
 	if (listcmd->str2)
 	{
+		printf("str2: %s %p\n", listcmd->str2, listcmd->str2);
 		free (listcmd->str2);
 		listcmd->str2 = NULL;
 	}

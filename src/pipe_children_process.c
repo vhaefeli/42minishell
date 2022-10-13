@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 17:05:00 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:24:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	check_file_in(t_list *cmd, int *fd)
 				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
 				return (-1);
 			}
+			close (fd[0]);
 			return (open(cmd->infile, O_RDONLY));
 		}
 		if (cmd->infileflag == 2)
@@ -75,9 +76,15 @@ static int	check_file_out(t_list *cmd, int *fd)
 			return (-1);
 		}
 		if (cmd->outfileflag == 1)
+		{
+			close(fd[1]);
 			return (open(cmd->outfile, O_WRONLY | O_TRUNC));
+		}
 		if (cmd->outfileflag == 2)
+		{
+			close(fd[1]);
 			return (open(cmd->outfile, O_WRONLY | O_APPEND));
+		}
 	}
 	return (fd[1]);
 }
@@ -135,6 +142,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	int		infile;
 	int		outfile;
 	int		builtincmd_nb;
+	int		a = 0;
 
 	ft_fillpath_cmd(list_cmds, ms_env);
 	infile = check_file_in(list_cmds, fd);
@@ -175,9 +183,20 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	else
 	{
 		printf("execve\n");
-		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
+		printf("path_cmd:%s\n", list_cmds->path_cmd);
+		a = 0;
+		if (!list_cmds->cmd_with_flags)
+			printf("cmd with flag:%s-\n", "NULL");
+		while (list_cmds->cmd_with_flags && list_cmds->cmd_with_flags[a])
+			printf("cmd with flag:%s-\n", list_cmds->cmd_with_flags[a++]);
+		printf("infile:%s-\n", list_cmds->infile);
+		printf("infileflag:%d\n", list_cmds->infileflag);
+		printf("outfile:%s-\n", list_cmds->outfile);
+		printf("outfileflag:%d\n", list_cmds->outfileflag);
+		printf("********\n");
+		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
 	}
 	printf("error execve\n");
-	exit (1);
+	exit (0);
 	// return (2);
 }
