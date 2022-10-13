@@ -121,6 +121,10 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		printf("error with cmds listing");
 		return (1);
 	}
+	if(g_sig.sigint == 1)
+	{
+		return(g_sig.exit_status);
+	}
 	pipex(cmd_list, ms_env);
 	free(cmd_list);
 	return (0);

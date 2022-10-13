@@ -36,6 +36,8 @@ _SRCS 			= 	env_analyze.c\
 					pipe_children_process.c\
 					pipe_utils.c\
 					minishell.c \
+					signal.c \
+					builtins/shlvl.c\
 					builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\
 					builtins/env_utils.c\
@@ -47,7 +49,7 @@ _SRCS 			= 	env_analyze.c\
 					builtins/cmd_unset.c\
 					builtins/cmd_exit.c\
 					builtins/dollar_data.c\
-					builtins/cmd_export.c\
+					builtins/cmd_export.c
 
 
 

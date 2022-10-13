@@ -28,6 +28,6 @@ char *ft_strshorten(char *src)
 		i++;
 	}
 	shortstr[i] = 0;
-	free(src);
+	//free(src);
 	return (shortstr);
 }

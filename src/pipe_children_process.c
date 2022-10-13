@@ -118,14 +118,15 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 if (builtincmd_nb == 4)
 	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
 	 if (builtincmd_nb == 5)
-	 	return (ft_unset(cmds->cmd_with_flags, ms_env->env));
+	 	return (ft_unset(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 6)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 7)
 	{
-	 	ft_exit(ms_env);
+		cmd_exit(ms_env,cmds->cmd_with_flags);
 		return(0);
 	}
+
 	else
 		return (4); //cmd builtin error
 }

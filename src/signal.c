@@ -22,7 +22,7 @@ void	sig_int(int code)
 void	sig_quit(int code)
 {
 	char	*nbr;
-
+	
 	nbr = ft_itoa(code);
 	if (g_sig.pid != 0)
 	{
@@ -32,7 +32,7 @@ void	sig_quit(int code)
 		g_sig.sigquit = 1;
 	}
 	else
-		ft_putstr_fd("\b\b  \b\b", 2);
+		ft_putstr_fd("", 2);
 	ft_memdel(nbr);
 }
 

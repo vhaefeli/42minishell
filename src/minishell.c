@@ -22,7 +22,7 @@ void	welcometext(void)
 	printf("  W   W     EEEEEE   LLLLL   CCCC    OOOO      M     M   EEEEEE\n");
 	printf("\n");
 }
-char    last_name(char *str)
+char    *last_name(char *str)
 {
     int    len;
     int    i;
@@ -44,7 +44,7 @@ char    last_name(char *str)
     }
     return (dst);
 }
-
+/*
 static char	*last_name(char *str)
 {
 	int	len;
@@ -67,7 +67,7 @@ static char	*last_name(char *str)
 	}
 	return (dst);
 }
-
+*/
 int	not_only_space(char *src)
 {
 	int i;
@@ -83,6 +83,7 @@ int	not_only_space(char *src)
 		return (1);
 }
 
+
 int main (int argc, char **argv, char **envp)
 {
 	t_msvar *ms_env;
@@ -95,19 +96,31 @@ int main (int argc, char **argv, char **envp)
 	welcometext();
 	env_init(ms_env,envp);
 	secret_env_init(ms_env,envp);
+	increment_shell_level(ms_env->env);
+	signal(SIGINT,&sig_int);
+	signal(SIGQUIT,&sig_quit);
 	while (ms_env->exit == 0)
 	{
+
 		printf("%s",last_name(getcwd(NULL,1)));
+		sig_init();
+
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0'&& not_only_space(cmdline))
 		{
 			add_history(cmdline);
-			ft_pipe(cmdline, ms_env);
+			if(g_sig.sigint != 1)
+			{
+				ft_pipe(cmdline, ms_env);
+			}
 		}
+
 		free(cmdline);
 		cmdline = NULL;
 	}
+	free_env(ms_env->env);
+	free_env(ms_env->secret_env);
 	return (0);
 }

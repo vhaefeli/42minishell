@@ -68,6 +68,7 @@ int	env_init(t_msvar *msvar, char **env_array)
 		env = new;
 		i++;
 	}
+	msvar->envp_ms = env_array;
 	return (0);
 }
 
@@ -94,4 +95,19 @@ int	secret_env_init(t_msvar *msvar, char **env_array)
 		i++;
 	}
 	return (0);
+}
+
+void free_env(t_env *env)
+{
+	t_env *tmp;
+
+	while(env && env->next)
+	{
+		tmp = env;
+		env = env->next;
+		ft_memdel(tmp->value);
+		ft_memdel(tmp);
+	}
+	ft_memdel(env->value);
+	ft_memdel(env);
 }
