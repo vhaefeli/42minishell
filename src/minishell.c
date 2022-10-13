@@ -101,7 +101,6 @@ int main (int argc, char **argv, char **envp)
 	signal(SIGQUIT,&sig_quit);
 	while (ms_env->exit == 0)
 	{
-
 		printf("%s",last_name(getcwd(NULL,1)));
 		sig_init();
 
@@ -116,7 +115,6 @@ int main (int argc, char **argv, char **envp)
 				ft_pipe(cmdline, ms_env);
 			}
 		}
-
 		free(cmdline);
 		cmdline = NULL;
 	}

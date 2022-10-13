@@ -6,9 +6,9 @@ void	sig_int(int code)
 	(void)code;
 	if (g_sig.pid == 0)
 	{
-		ft_putstr_fd("\b\b  ", 2);
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd("\033[0;36m\033[1m🤬 minishell ▸ \033[0m", 2);
+		//ft_putstr_fd("\b\b  ", 2);
+		//ft_putstr_fd("\n", 2);
+		//ft_putstr_fd(" ➜ minishell: ", 2);
 		g_sig.exit_status = 1;
 	}
 	else

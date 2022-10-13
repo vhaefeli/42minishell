@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int cmd_echo(char **args)
+int	cmd_echo(char **args)
 {
 	int	nflag;
 	int	i;
@@ -15,15 +15,14 @@ int cmd_echo(char **args)
 		i = 1;
 	else
 		i = 2;
-	while(args[i])
+	while (args[i])
 	{
-		printf("%s", args[i++]);
-		if(args[i])
-			printf(" ");
+		printf ("%s", args[i++]);
+		if (args[i])
+			printf (" ");
 	}
 	if (nflag)
-
-		printf("\n");
+		printf ("\n");
 	return (0);
 }
 

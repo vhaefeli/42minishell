@@ -88,19 +88,19 @@ int	checkbuiltin(char *cmd)
 
 	cmd = ft_strtolower(cmd);
 	n = ft_strlen(cmd);
-	if (!ft_strncmp("echo", cmd, n))
+	if (!ft_strcmp("echo", cmd))
 		return (1);
-	if (!ft_strncmp("cd", cmd, n))
+	if (!ft_strcmp("cd", cmd))
 		return (2);
-	if (!ft_strncmp("pwd", cmd, n))
+	if (!ft_strcmp("pwd", cmd))
 		return (3);
-	if (!ft_strncmp("export", cmd, n))
+	if (!ft_strcmp("export", cmd))
 		return (4);
-	if (!ft_strncmp("unset", cmd, n))
+	if (!ft_strcmp("unset", cmd))
 		return (5);
-	if (!ft_strncmp("env", cmd, n))
+	if (!ft_strcmp("env", cmd))
 		return (6);
-	if (!ft_strncmp("exit", cmd, n))
+	if (!ft_strcmp("exit", cmd))
 		return (7);
 	else
 		return (0);
