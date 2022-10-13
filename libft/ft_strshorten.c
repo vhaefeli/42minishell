@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:11:38 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 13:42:26 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:53:08 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // function who realloc the correct memory when you shorten a str by puting a \0
 // somwhere in the middle
 
-char *ft_strshorten(char *src)
+char	*ft_strshorten(char *src)
 {
 	char	*shortstr;
 	int		i;

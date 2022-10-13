@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 18:01:06 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:49:26 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
 	if(!(list_cmds)->next)
 	{
-		// printf("only one cmd\n");
+		printf("only one cmd\n");
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		if (builtincmd_nb)
 		{
@@ -74,6 +74,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 		}
 		else
 		{
+			// pipe(fd);
 			pid1 = fork();
 			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
 				exit(0);
@@ -97,13 +98,13 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 				exit(1);
 			if (pid1 == 0)
 				child_process(list_cmds, fd, ms_env);
-			waitpid(pid1, NULL, 0);
+			waitpid(pid1, &ms_env->ret, 0);
 			close(fd[1]);
 			list_cmds = list_cmds->next;
 		}
 		close(fd[0]);
 		while (n_cmd--)
-			waitpid(pid1, NULL, 0);
+			waitpid(pid1, &ms_env->ret, 0);
 	}
 	if (access(".heredoc", F_OK) != 0)
 		unlink(".heredoc");
