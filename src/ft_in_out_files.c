@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 12:07:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/14 12:08:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	check_infile(char *cmdline)
 	i = 0;
 	j = 0;
 	while (cmdline[i] && cmdline[i] != '<')
-		i+= cntchar(cmdline, '<', i);
+		i+= cntlchar(cmdline, '<', i);
 	// printf("i= %zu\n",i);
 	if (cmdline[i] == '<')
 	{

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 11:24:06 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/14 12:08:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,62 +31,6 @@ int	ft_heredoc(char *infile)
 		write(file, "\n", 1);
 	}
 	return (file);
-}
-
-static int	check_file_in(t_list *cmd, int *fd)
-{
-	printf("infile %s\n", cmd->infile);
-	if (cmd->infile != NULL)
-	{
-		if (cmd->infileflag == 1)
-		{
-			if (access(cmd->infile, F_OK) != 0)
-			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
-				return (-1);
-			}
-			if (access(cmd->infile, R_OK) != 0)
-			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
-				return (-1);
-			}
-			close (fd[0]);
-			return (open(cmd->infile, O_RDONLY));
-		}
-		if (cmd->infileflag == 2)
-			return (ft_heredoc(cmd->infile));
-	}
-	return (fd[0]);
-}
-
-static int	check_file_out(t_list *cmd, int *fd)
-{
-	int	file;
-
-	if (cmd->outfile != NULL)
-	{
-		if (access(cmd->outfile, F_OK) != 0)
-		{
-			file = open(cmd->outfile, O_CREAT, 0644);
-			// close(file);
-		}
-		if (access(cmd->outfile, W_OK) != 0)
-		{
-			printf("(Error) %s : %s \n", strerror(errno), cmd->outfile);
-			return (-1);
-		}
-		if (cmd->outfileflag == 1)
-		{
-			close(fd[1]);
-			return (open(cmd->outfile, O_WRONLY | O_TRUNC));
-		}
-		if (cmd->outfileflag == 2)
-		{
-			close(fd[1]);
-			return (open(cmd->outfile, O_WRONLY | O_APPEND));
-		}
-	}
-	return (fd[1]);
 }
 
 int	checkbuiltin(char *cmd)
@@ -145,59 +89,23 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	int		builtincmd_nb;
 	int		a = 0;
 
-	ft_fillpath_cmd(list_cmds, ms_env);
-	infile = check_file_in(list_cmds, fd);
-	outfile = check_file_out(list_cmds, fd);
-	printf("path:%s\n", list_cmds->path_cmd);
-	if (infile < 0 || outfile < 0)
-	{
-		close(fd[1]);
-		close(fd[0]);
-		perror("Fork");
-		exit(0); // infile outfile error
-	}
-	printf("infile %d\n", infile);
-	printf("outfile %d\n", outfile);
-	if (infile > 2)
-	{
-		dup2(infile, STDIN_FILENO);
-		close(infile);
-	}
-	if (outfile > 2)
-	{
-		dup2(outfile, STDOUT_FILENO);
-		close(outfile);
-	}
+	printf("child fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+
+	printf("bloque?\n");
 	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
 		if (list_cmds->infileflag == 2)
 			unlink(".heredoc");
 		exit(0);
 	}
-	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
-	if (builtincmd_nb)
-	{
-		printf("builtin\n");
-		execbuiltin(list_cmds, builtincmd_nb, ms_env);
-		exit (0);
-	}
+
 	else
 	{
 		printf("execve\n");
-		printf("path_cmd:%s\n", list_cmds->path_cmd);
-		a = 0;
-		if (!list_cmds->cmd_with_flags)
-			printf("cmd with flag:%s-\n", "NULL");
-		while (list_cmds->cmd_with_flags && list_cmds->cmd_with_flags[a])
-			printf("cmd with flag:%s-\n", list_cmds->cmd_with_flags[a++]);
-		printf("infile:%s-\n", list_cmds->infile);
-		printf("infileflag:%d\n", list_cmds->infileflag);
-		printf("outfile:%s-\n", list_cmds->outfile);
-		printf("outfileflag:%d\n", list_cmds->outfileflag);
-		printf("********\n");
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
 	}
 	printf("error execve\n");
 	exit (0);
 	// return (2);
 }
+=
