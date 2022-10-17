@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/23 17:41:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:24:53 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,104 @@ void	welcometext(void)
 	printf("  W   W     EEEEEE   LLLLL   CCCC    OOOO      M     M   EEEEEE\n");
 	printf("\n");
 }
+char    *last_name(char *str)
+{
+    int    len;
+    int    i;
+    int    j;
+    char    *dst;
+
+    len = ft_strlen(str);
+    i = len - 1;
+    j = 0;
+    while (str[i] && str[i] != '/')
+    {
+        i--;
+    }
+    dst = malloc(len - i);
+    i++;
+    while (i < len)
+    {
+        dst[j++] = str[i++];
+    }
+    return (dst);
+}
+/*
+static char	*last_name(char *str)
+{
+	int	len;
+	int	i;
+	int	j;
+	char	*dst;
+
+	len = ft_strlen(str);
+	i = len - 1;
+	j = 0;
+	while (str[i] && str[i] != '/')
+	{
+		i--;
+	}
+	dst = malloc(len - i);
+	i++;
+	while (i < len && str[i])
+	{
+		dst[j++] = str[i++];
+	}
+	dst[j] = 0;
+	return (dst);
+}
+*/
+int	not_only_space(char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] && src[i] == ' ')
+	{
+		i++;
+	}
+	if (!src[i])
+		return (0);
+	else
+		return (1);
+}
+
 
 int main (int argc, char **argv, char **envp)
 {
 	t_msvar *ms_env;
-	t_list	*cmdslist;
 	char	*cmdline;
 
+	(void)argv;
+	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
+		return (1);
 	ms_env = ini_ms(envp);
 	welcometext();
 	env_init(ms_env,envp);
-	secret_env_init(ms_env,envp);	
-	ms_env->exit = 0;
+	secret_env_init(ms_env,envp);
+	increment_shell_level(ms_env->env);
+	signal(SIGINT,&sig_int);
+	signal(SIGQUIT,&sig_quit);
 	while (ms_env->exit == 0)
 	{
-		cmdline = readline("➜ minishell: ");
-		if (!cmdline)
-		{
-			break ;
-		}
+		printf("%s",last_name(getcwd(NULL,1)));
+		sig_init();
 
-		if (cmdline[0] != '\0')
-			ft_pipe( cmdline, ms_env);
+		cmdline = readline(" ➜ minishell: ");
+		if (!cmdline)
+			break ;
+		if (cmdline[0] != '\0'&& not_only_space(cmdline))
+		{
+			add_history(cmdline);
+			if(g_sig.sigint != 1)
+			{
+				ft_pipe(cmdline, ms_env);
+			}
+		}
 		free(cmdline);
+		cmdline = NULL;
 	}
+	free_env(ms_env->env);
+	free_env(ms_env->secret_env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:57:49 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:38:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ typedef struct	s_env
 typedef struct s_msvar
 {
 	char	**envp_origin;
-	t_env	*envp_ms;
+	char	**envp_ms;
 	t_env 	*env;
 	t_env	*secret_env;
 	int 	ret;
 	int 	exit;
 	char	**all_path;
-	int		cmd_historyfile;
-	int		return_historyfile;
 }	t_msvar;
 
 typedef	struct s_varchar
@@ -97,8 +95,15 @@ int		cmd_echo(char **args);
  void	cmd_exit(t_msvar *msvar, char **cmd);
  int	ft_exit(t_msvar *msvar);
 
+// // signal.c
+void 	sig_init(void);
+void	sig_quit(int code);
+void	sig_int(int code);
+
+extern t_sig g_sig;
+
 // // cmd_export.c
-// int	ft_export(char **args, t_env *env, t_env *secret);
+ int	ft_export(char **args, t_env *env, t_env *secret);
 
 int cmd_pwd(void);
 
@@ -109,11 +114,15 @@ int	ft_unset(char **a, t_msvar *msvar);
  char	*get_env_name(char *dest, const char *src);
  int		is_in_env(t_env *env, char *args);
 
+// // shlvl.c
+void		increment_shell_level(t_env *env);
+
 // // env.c
  size_t	size_env(t_env *lst);
  char	*env_to_str(t_env *lst);
  int		env_init(t_msvar *msvar, char **env_array);
  int		secret_env_init(t_msvar *msvar, char **env_array);
+ void 		free_env(t_env *env);
 
 // // get_env.c
  int		is_env_char(int c);
@@ -212,7 +221,7 @@ int		ft_exit_minishell(t_msvar *ms_env);
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c
-void	pipex(t_list **list_cmds, t_msvar *ms_env);
+void	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif

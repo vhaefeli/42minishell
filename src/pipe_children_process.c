@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:55:29 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 11:24:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_heredoc(char *infile)
 
 static int	check_file_in(t_list *cmd, int *fd)
 {
-
+	printf("infile %s\n", cmd->infile);
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)
@@ -50,6 +50,7 @@ static int	check_file_in(t_list *cmd, int *fd)
 				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
 				return (-1);
 			}
+			close (fd[0]);
 			return (open(cmd->infile, O_RDONLY));
 		}
 		if (cmd->infileflag == 2)
@@ -75,9 +76,15 @@ static int	check_file_out(t_list *cmd, int *fd)
 			return (-1);
 		}
 		if (cmd->outfileflag == 1)
+		{
+			close(fd[1]);
 			return (open(cmd->outfile, O_WRONLY | O_TRUNC));
+		}
 		if (cmd->outfileflag == 2)
+		{
+			close(fd[1]);
 			return (open(cmd->outfile, O_WRONLY | O_APPEND));
+		}
 	}
 	return (fd[1]);
 }
@@ -88,19 +95,19 @@ int	checkbuiltin(char *cmd)
 
 	cmd = ft_strtolower(cmd);
 	n = ft_strlen(cmd);
-	if (!ft_strncmp("echo", cmd, n))
+	if (!ft_strcmp("echo", cmd))
 		return (1);
-	if (!ft_strncmp("cd", cmd, n))
+	if (!ft_strcmp("cd", cmd))
 		return (2);
-	if (!ft_strncmp("pwd", cmd, n))
+	if (!ft_strcmp("pwd", cmd))
 		return (3);
-	if (!ft_strncmp("export", cmd, n))
+	if (!ft_strcmp("export", cmd))
 		return (4);
-	if (!ft_strncmp("unset", cmd, n))
+	if (!ft_strcmp("unset", cmd))
 		return (5);
-	if (!ft_strncmp("env", cmd, n))
+	if (!ft_strcmp("env", cmd))
 		return (6);
-	if (!ft_strncmp("exit", cmd, n))
+	if (!ft_strcmp("exit", cmd))
 		return (7);
 	else
 		return (0);
@@ -115,17 +122,18 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
 	 if (builtincmd_nb == 3)
 	 	return (cmd_pwd());
-	//if (builtincmd_nb == 4)
-	//	return (ft_export(cmds, ms_env, ms_env));
-	//if (builtincmd_nb == 5)
-	//	return (ft_unset(cmds, ms_env));
+	 if (builtincmd_nb == 4)
+	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
+	 if (builtincmd_nb == 5)
+	 	return (ft_unset(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 6)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 7)
 	{
-	 	ft_exit(ms_env);
+		cmd_exit(ms_env,cmds->cmd_with_flags);
 		return(0);
 	}
+
 	else
 		return (4); //cmd builtin error
 }
@@ -135,43 +143,61 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	int		infile;
 	int		outfile;
 	int		builtincmd_nb;
+	int		a = 0;
 
+	ft_fillpath_cmd(list_cmds, ms_env);
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
-	ft_fillpath_cmd(list_cmds, ms_env);
 	printf("path:%s\n", list_cmds->path_cmd);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
 		close(fd[0]);
 		perror("Fork");
-		return (3); // infile outfile error
+		exit(0); // infile outfile error
 	}
-	dup2(infile, STDIN_FILENO);
-	dup2(outfile, STDOUT_FILENO);
-	if (fd[0] > -1)
-		close(fd[0]);
-	if (fd[1] > -1)
-		close(fd[1]);
+	printf("infile %d\n", infile);
+	printf("outfile %d\n", outfile);
+	if (infile > 2)
+	{
+		dup2(infile, STDIN_FILENO);
+		close(infile);
+	}
+	if (outfile > 2)
+	{
+		dup2(outfile, STDOUT_FILENO);
+		close(outfile);
+	}
 	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
 		if (list_cmds->infileflag == 2)
 			unlink(".heredoc");
-		exit(1);
+		exit(0);
 	}
 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 	if (builtincmd_nb)
 	{
 		printf("builtin\n");
 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
-		exit (1);
+		exit (0);
 	}
 	else
 	{
 		printf("execve\n");
-		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_ms);
+		printf("path_cmd:%s\n", list_cmds->path_cmd);
+		a = 0;
+		if (!list_cmds->cmd_with_flags)
+			printf("cmd with flag:%s-\n", "NULL");
+		while (list_cmds->cmd_with_flags && list_cmds->cmd_with_flags[a])
+			printf("cmd with flag:%s-\n", list_cmds->cmd_with_flags[a++]);
+		printf("infile:%s-\n", list_cmds->infile);
+		printf("infileflag:%d\n", list_cmds->infileflag);
+		printf("outfile:%s-\n", list_cmds->outfile);
+		printf("outfileflag:%d\n", list_cmds->outfileflag);
+		printf("********\n");
+		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
 	}
 	printf("error execve\n");
-	exit (1);
-	return (2);
+	exit (0);
+	// return (2);
 }

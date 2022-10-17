@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 18:08:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:12:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,13 @@ int	cntchar_noquote(char *s, char c, int i)
 	return (i - start - j);
 }
 
+
+
 char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 {
-	int		linesize;
-	char	*flag;
-
-	printf("A\n");
 	if (listcmd->str2)
 	{
+		// printf("str2: %s %p\n", listcmd->str2, listcmd->str2);
 		free (listcmd->str2);
 		listcmd->str2 = NULL;
 	}
@@ -99,7 +98,7 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 	// linesize = cntchar_noquote(listcmd->str, ' ', listcmd->i);
 	// listcmd->str2 = (char *)malloc(linesize * sizeof(char) + 1);
 	listcmd->str2 = ft_strdup(listcmd->str);
-	if (!listcmd->str2 || linesize == 0)
+	if (!listcmd->str2)
 		return (NULL);
 	listcmd->j = 0;
 	while (listcmd->str[listcmd->i] != ' ' && listcmd->str[listcmd->i] != '\0')
@@ -113,9 +112,5 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 	}
 	listcmd->str2[listcmd->j] = '\0';
 	printf("listcmd2-%s-\n", listcmd->str2);
-	flag = ft_strdup(listcmd->str2);
-	free(listcmd->str2);
-	listcmd->str2 = ft_strdup(flag);
-	free(flag);
-	return (listcmd->str2);
+	return (ft_strshorten(listcmd->str2));
 }
