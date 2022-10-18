@@ -44,7 +44,6 @@ t_varchar	*dollar_data(char *str, int i, t_msvar *env)
 		env_data->str = ft_strdup(env_datatmp);
 		env_data->i = ft_strlen(env_data->str);
 		env_data->str2 = get_env_value(env_datatmp, env->env);
-		printf("get_env_path:%s\n", env_data->str2);
 		env_data->j = ft_strlen(env_data->str2);
 	}
 	free(env_datatmp);
