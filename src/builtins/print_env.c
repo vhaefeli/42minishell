@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_env.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 11:45:52 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 11:45:54 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int			str_env_len(char **env)
+int	str_env_len(char **env)
 {
 	int		i;
 
@@ -10,7 +22,7 @@ int			str_env_len(char **env)
 	return (i);
 }
 
-void 	sort_env(char **tabl, int env_len)
+void	sort_env(char **tabl, int env_len)
 {
 	int		ordered;
 	int		i;
@@ -37,24 +49,24 @@ void 	sort_env(char **tabl, int env_len)
 	}
 }
 
-void free_tab(char **tabl)
+void	free_tab(char **tabl)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tabl[i])
 	{
-		if(tabl[i])
+		if (tabl[i])
 			ft_memdel(tabl[i]);
 		i++;
 	}
-	if(tabl)
+	if (tabl)
 		ft_memdel(tabl);
 }
 
-void		print_sorted_env(t_env *env)
+void	print_sorted_env(t_env *env)
 {
-	int	i;
+	int		i;
 	char	**tabl;
 	char	*str_env;
 
@@ -65,10 +77,9 @@ void		print_sorted_env(t_env *env)
 	i = 0;
 	while (tabl[i])
 	{
-		ft_putstr_fd("declare -x ",1);
+		ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(tabl[i], 1);
 		i++;
 	}
 	free_tab(tabl);
 }
-

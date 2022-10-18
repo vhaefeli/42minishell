@@ -103,7 +103,7 @@ void	sig_int(int code);
 extern t_sig g_sig;
 
 // // cmd_export.c
- int	ft_export(char **args, t_env *env, t_env *secret);
+ int	ft_export(char **args, t_env *env);
 
 int cmd_pwd(void);
 

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 11:59:56 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 11:59:58 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int			env_add(const char *value, t_env *env)
+int	env_add(const char *value, t_env *env)
 {
 	t_env	*new;
 	t_env	*tmp;
@@ -10,7 +22,8 @@ int			env_add(const char *value, t_env *env)
 		env->value = ft_strdup(value);
 		return (0);
 	}
-	if (!(new = malloc(sizeof(t_env))))
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (-1);
 	new->value = ft_strdup(value);
 	while (env && env->next && env->next->next)
@@ -21,7 +34,7 @@ int			env_add(const char *value, t_env *env)
 	return (0);
 }
 
-char		*get_env_name(char *dest, const char *src)
+char	*get_env_name(char *dest, const char *src)
 {
 	int		i;
 
@@ -35,7 +48,7 @@ char		*get_env_name(char *dest, const char *src)
 	return (dest);
 }
 
-int			is_in_env(t_env *env, char *args)
+int	is_in_env(t_env *env, char *args)
 {
 	char	var_name[BUFF_SIZE];
 	char	env_name[BUFF_SIZE];
@@ -54,4 +67,3 @@ int			is_in_env(t_env *env, char *args)
 	}
 	return (0);
 }
-

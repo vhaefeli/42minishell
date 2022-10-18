@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_unset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 11:36:45 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 11:36:47 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static size_t	env_size(char *env)
@@ -10,7 +22,7 @@ static size_t	env_size(char *env)
 	return (i);
 }
 
-static void		free_node(t_msvar *msvar, t_env *env)
+static void	free_node(t_msvar *msvar, t_env *env)
 {
 	if (msvar->env == env && env->next == NULL)
 	{
@@ -33,7 +45,8 @@ int	ft_unset(char **a, t_msvar *msvar)
 		return (0);
 	if (ft_strncmp(a[1], env->value, env_size(env->value)) == 0)
 	{
-		msvar->env = (env->next) ? env->next : msvar->env;
+		if (env->next)
+			msvar->env = env->next;
 		free_node(msvar, env);
 		return (0);
 	}

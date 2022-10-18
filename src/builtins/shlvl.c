@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 11:12:31 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 11:12:33 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int			invalid_lvl(const char *str)
+static int	invalid_lvl(const char *str)
 {
 	int		i;
 
@@ -13,15 +25,15 @@ static int			invalid_lvl(const char *str)
 	}
 	return (0);
 }
-void skip_spacenl(const char *str, int *i)
+
+void	skip_spacenl(const char *str, int *i)
 {
-    while((str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n')
-    || (str[*i] == '\r' || str[*i] == '\v' || str[*i] == '\f'))
-        (*i)++;
+	while ((str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n')
+		|| (str[*i] == '\r' || str[*i] == '\v' || str[*i] == '\f'))
+		(*i)++;
 }
 
-
-static int			get_lvl(const char *str)
+static int	get_lvl(const char *str)
 {
 	int	i;
 	int	sign;
@@ -42,7 +54,7 @@ static int			get_lvl(const char *str)
 	return (num * sign);
 }
 
-void				increment_shell_level(t_env *env)
+void	increment_shell_level(t_env *env)
 {
 	int		shell_level;
 	char	env_name[BUFF_SIZE];
