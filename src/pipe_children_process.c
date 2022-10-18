@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 13:01:24 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:31:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,4 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	}
 	printf("error execve\n");
 	exit (0);
-	// return (2);
 }

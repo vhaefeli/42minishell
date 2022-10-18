@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 15:41:07 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:17:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,20 +105,18 @@ int main (int argc, char **argv, char **envp)
 		printf("%s",last_name(getcwd(NULL,1)));
 		sig_init();
 		cmdline = readline(" ➜ minishell: ");
-		printf("salut");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0'&& not_only_space(cmdline))
 		{
+			add_history(cmdline);
 			if(g_sig.sigint != 1)
 			{
-				add_history(cmdline);
 				ft_pipe(cmdline, ms_env);
 			}
 		}
 		free(cmdline);
 		cmdline = NULL;
-		printf("ms_env->exit = %d\n", ms_env->exit);
 	}
 	free_env(ms_env->env);
 	free_env(ms_env->secret_env);
