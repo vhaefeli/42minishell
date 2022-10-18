@@ -6,29 +6,38 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 17:30:28 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:06:14 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_fill_infile(t_list *cmd, size_t infile_len, t_msvar *env)
+int infileflag_ini(t_list *cmd, int i)
 {
-	t_varchar	*cpyin;
-
-	cmd->infile = malloc(infile_len + 1);
-	cpyin = fillvarchar(cmd->cmd_tmp, cmd->infile, 0, 0);
-	while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != '<')
-		cpyin->i+= cntchar(cmd->cmd_tmp, '<', cpyin->i);
-	if (cmd->cmd_tmp[cpyin->i++] == '<')
-	{
-		if (cmd->cmd_tmp[cpyin->i] == '<')
+	if (cmd->cmd_tmp[i] == '<')
 		{
-			cpyin->i++;
+			i++;
 			cmd->infileflag = 2;
 		}
-		else
-			cmd->infileflag = 1;
+	else
+		cmd->infileflag = 1;
+	return (i);
+}
+
+
+int	ft_fill_infile(t_list *cmd, t_msvar *env, int i)
+{
+	t_varchar	*cpyin;
+	size_t infile_len;
+
+	infile_len = check_infile(cmd->cmd_tmp, i);
+	cmd->infile = malloc(infile_len + 1);
+	cpyin = fillvarchar(cmd->cmd_tmp, cmd->infile, i, 0);
+	while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != '<')
+		cpyin->i+= cntchar(cmd->cmd_tmp, '<', cpyin->i);
+	if (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i++] == '<')
+	{
+		[cpyin->i] = infileflag_ini(cmd, cpyin->i);
 		cpyin->i = no_space(cmd->cmd_tmp, cpyin->i);
 		while (cmd->cmd_tmp[cpyin->i] && cmd->cmd_tmp[cpyin->i] != ' ')
 		{
@@ -38,7 +47,11 @@ void	ft_fill_infile(t_list *cmd, size_t infile_len, t_msvar *env)
 		}
 	}
 	cmd->infile[cpyin->j] = 0;
+	printf("infile: %s- flag> %d\n", cmd->infile, cmd->infileflag);
 	free(cpyin);
+	if (cmd->infileflag > 1)
+		return (i + 2);
+	return (i + 1);
 }
 
 void	ft_fill_outfile(t_list *cmd, size_t outfile_len, t_msvar *env)

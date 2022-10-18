@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 17:48:59 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:23:33 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,5 +223,7 @@ int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 // pipe_utils.c
 void	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
+
+int	infile_ok(t_list *cmd);
 
 #endif

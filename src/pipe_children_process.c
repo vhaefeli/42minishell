@@ -6,31 +6,37 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/14 12:08:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:44:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int	ft_heredoc(char *infile)
+
+int	ft_heredoc(t_list *cmd)
 {
 	int		file;
 	char	*text;
 
-	if (!infile)
+	if (!cmd->infile)
 	{
 		printf("minishell: no end delimiter for heredoc");
 		return (-1);
 	}
-	file = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
+	if (access(".heredoc", F_OK) = 0)
+	{
+		close(cmd->infileflag);
+		unlink(".heredoc");
+	}
+	cmd->infileflag = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
 	while(1)
 	{
 		text = readline("> ");
-		if (!ft_strcmp(text, infile))
+		if (!ft_strcmp(text, cmd->infile))
 			break ;
-		write(file, text, ft_strlen(text));
-		write(file, "\n", 1);
+		write(cmd->infileflag, text, ft_strlen(text));
+		write(cmd->infileflag, "\n", 1);
 	}
-	return (file);
+	return (cmd->infileflag);
 }
 
 int	checkbuiltin(char *cmd)
@@ -84,21 +90,16 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 
 int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 {
-	int		infile;
-	int		outfile;
-	int		builtincmd_nb;
-	int		a = 0;
-
 	printf("child fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
-
-	printf("bloque?\n");
 	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
-		if (list_cmds->infileflag == 2)
-			unlink(".heredoc");
+		if (list_cmds->infileflag > 1)
+		{
+		close(list_cmds->infileflag);
+		unlink(".heredoc");
+		}	
 		exit(0);
 	}
-
 	else
 	{
 		printf("execve\n");

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/14 12:08:19 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:25:48 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_file_in(t_list *cmd, int *fd)
 			return (open(cmd->infile, O_RDONLY));
 		}
 		if (cmd->infileflag == 2)
-			return (ft_heredoc(cmd->infile));
+			return (open(".heredoc", O_RDONLY));
 	}
 	return (fd[0]);
 }
@@ -108,6 +108,9 @@ static void	fd_value_exchange(int fd[], int temp_fd[])
 
 int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
+	int		infile;
+	int		outfile;
+	
 	ft_fillpath_cmd(list_cmds, ms_env);
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
@@ -136,7 +139,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	int		fd[2];
 	int		temp_fd[2];
 	int		n_cmd;
-	// int		builtincmd_nb;
+	int		builtincmd_nb;
 
 	n_cmd = 0;
 	temp_fd[0] = -1;

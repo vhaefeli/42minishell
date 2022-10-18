@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/13 13:56:29 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/17 23:25:46 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ _SRCS 			= 	env_analyze.c\
 					pipe_utils.c\
 					minishell.c \
 					signal.c \
+					check.c\
 					builtins/shlvl.c\
 					builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\
