@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 14:03:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:39:31 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void checklistcmd(t_list *cmd)
 	}
 }
 
-static void	fd_value_exchange(int fd[], int temp_fd[])
-{
-	if (temp_fd[0] != -1)
-	{
-		temp_fd[1] = fd[0];
-		fd[0] = temp_fd[0];
-		temp_fd[0] = temp_fd[1];
-	}
-}
+// static void	fd_value_exchange(int fd[], int temp_fd[])
+// {
+// 	if (temp_fd[0] != -1)
+// 	{
+// 		temp_fd[1] = fd[0];
+// 		fd[0] = temp_fd[0];
+// 		temp_fd[0] = temp_fd[1];
+// 	}
+// }
 
 int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
@@ -68,13 +68,9 @@ int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 	printf("fd infile %d\n", infile);
 	printf("fd outfile %d\n", outfile);
 	if (infile > 2)
-	{
 		dup2(infile, STDIN_FILENO);
-	}
 	if (outfile > 2)
-	{
 		dup2(outfile, STDOUT_FILENO);
-	}
 	return (0);
 }
 
@@ -91,36 +87,34 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	pid1 = -1;
 	fd[0] = 0;
 	fd[1] = 1;
-	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
 	while (list_cmds && ++n_cmd)
 	{
-		in_out_fd(list_cmds, ms_env, fd);
 		if (list_cmds->next && pipe(fd) == -1)
 		{
 			perror("Pipe");
 			break;
 		}
+		in_out_fd(list_cmds, ms_env, fd);
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
+		printf("builtincmd_nb:%d\n",builtincmd_nb);
 		if (builtincmd_nb)
 		{
 			printf("builtin\n");
-			execbuiltin(list_cmds, builtincmd_nb, ms_env);
+			ms_env->ret = execbuiltin(list_cmds, builtincmd_nb, ms_env);
 		}
-		else
-		if (list_cmds->next && pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
-			perror("Pipe");
-		printf("fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
-		fd_value_exchange(fd, temp_fd);
+		// fd_value_exchange(fd, temp_fd);
 		// printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
-		pid1 = fork();
-		if (pid1 < 0 && printf("Fork %d : ", n_cmd))
-			exit(1);
-		if (pid1 == 0)
-			child_process(list_cmds, fd, ms_env);
-		if (pid1 > 0)
-			printf("master fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
-		waitpid(pid1, &ms_env->ret, 0);
-		close(fd[1]);
+		if (!builtincmd_nb)
+		{
+			pid1 = fork();
+			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
+				exit(1);
+			if (pid1 == 0)
+				child_process(list_cmds, fd, ms_env);
+			waitpid(pid1, &ms_env->ret, 0);
+		}
+		// close(fd[1]);
+		printf("fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 		list_cmds = list_cmds->next;
 	}
 	close(fd[0]);
@@ -128,6 +122,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 		waitpid(pid1, &ms_env->ret, 0);
 	if (access(".heredoc", F_OK) != 0)
 		unlink(".heredoc");
+	printf("end cmd\n");
 }
 
 int	ft_pipe(char *cmdline, t_msvar *ms_env)
