@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/17 23:25:46 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/10/18 11:58:53 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ _SRCS 			= 	env_analyze.c\
 					ft_error_exit.c\
 					ft_fill_data1.c\
 					ft_fill_data2.c\
-					ft_in_out_files.c\
+					ft_in_out_files1.c\
+					ft_in_out_files2.c\
+					ft_in_out_files3.c\
 					ft_pipe_split.c\
 					ft_splitcmd1.c\
 					ft_splitcmd2.c\
@@ -37,7 +39,6 @@ _SRCS 			= 	env_analyze.c\
 					pipe_utils.c\
 					minishell.c \
 					signal.c \
-					check.c\
 					builtins/shlvl.c\
 					builtins/cmd_pwd.c\
 					builtins/cmd_cd.c\

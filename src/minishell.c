@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 18:24:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:48:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int main (int argc, char **argv, char **envp)
 	signal(SIGQUIT,&sig_quit);
 	while (ms_env->exit == 0)
 	{
-
 		printf("%s",last_name(getcwd(NULL,1)));
 		sig_init();
 
@@ -111,13 +110,12 @@ int main (int argc, char **argv, char **envp)
 			break ;
 		if (cmdline[0] != '\0'&& not_only_space(cmdline))
 		{
-			add_history(cmdline);
 			if(g_sig.sigint != 1)
 			{
+				add_history(cmdline);
 				ft_pipe(cmdline, ms_env);
 			}
 		}
-
 		free(cmdline);
 		cmdline = NULL;
 	}

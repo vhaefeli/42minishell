@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/17 23:44:28 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:01:24 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_heredoc(t_list *cmd)
 {
-	int		file;
 	char	*text;
 
 	if (!cmd->infile)
@@ -22,7 +21,7 @@ int	ft_heredoc(t_list *cmd)
 		printf("minishell: no end delimiter for heredoc");
 		return (-1);
 	}
-	if (access(".heredoc", F_OK) = 0)
+	if (access(".heredoc", F_OK) == 0)
 	{
 		close(cmd->infileflag);
 		unlink(".heredoc");
@@ -97,7 +96,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 		{
 		close(list_cmds->infileflag);
 		unlink(".heredoc");
-		}	
+		}
 		exit(0);
 	}
 	else
@@ -109,4 +108,3 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 	exit (0);
 	// return (2);
 }
-=

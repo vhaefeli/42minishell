@@ -6,68 +6,11 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/17 23:25:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:03:44 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	check_file_in(t_list *cmd, int *fd)
-{
-	printf("infile %s\n", cmd->infile);
-	if (cmd->infile != NULL)
-	{
-		if (cmd->infileflag == 1)
-		{
-			if (access(cmd->infile, F_OK) != 0)
-			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
-				return (-1);
-			}
-			if (access(cmd->infile, R_OK) != 0)
-			{
-				printf("(Error) %s : %s \n", strerror(errno), cmd->infile);
-				return (-1);
-			}
-			close (fd[0]);
-			return (open(cmd->infile, O_RDONLY));
-		}
-		if (cmd->infileflag == 2)
-			return (open(".heredoc", O_RDONLY));
-	}
-	return (fd[0]);
-}
-
-static int	check_file_out(t_list *cmd, int *fd)
-{
-	int	file;
-
-	if (cmd->outfile != NULL)
-	{
-		if (access(cmd->outfile, F_OK) != 0)
-		{
-			file = open(cmd->outfile, O_CREAT, 0644);
-			// close(file);
-		}
-		if (access(cmd->outfile, W_OK) != 0)
-		{
-			printf("(Error) %s : %s \n", strerror(errno), cmd->outfile);
-			return (-1);
-		}
-		if (cmd->outfileflag == 1)
-		{
-			close(fd[1]);
-			return (open(cmd->outfile, O_WRONLY | O_TRUNC));
-		}
-		if (cmd->outfileflag == 2)
-		{
-			close(fd[1]);
-			return (open(cmd->outfile, O_WRONLY | O_APPEND));
-		}
-	}
-	return (fd[1]);
-}
-
 
 void checklistcmd(t_list *cmd)
 {
@@ -110,7 +53,7 @@ int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
 	int		infile;
 	int		outfile;
-	
+
 	ft_fillpath_cmd(list_cmds, ms_env);
 	infile = check_file_in(list_cmds, fd);
 	outfile = check_file_out(list_cmds, fd);
@@ -119,10 +62,11 @@ int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 	{
 		close(fd[1]);
 		close(fd[0]);
-		return (perror("Fork"));
+		perror("Fork");
+		return (1);
 	}
-	printf("infile %d\n", infile);
-	printf("outfile %d\n", outfile);
+	printf("fd infile %d\n", infile);
+	printf("fd outfile %d\n", outfile);
 	if (infile > 2)
 	{
 		dup2(infile, STDIN_FILENO);
@@ -131,6 +75,7 @@ int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 	{
 		dup2(outfile, STDOUT_FILENO);
 	}
+	return (0);
 }
 
 void	pipex(t_list *list_cmds, t_msvar *ms_env)
@@ -194,7 +139,7 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 	checklistcmd(cmd_list);
 	if (cmd_list == NULL)
 	{
-		printf("error with cmds listing");
+		// printf("error with cmds listing\n");
 		return (1);
 	}
 	if(g_sig.sigint == 1)

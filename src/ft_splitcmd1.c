@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 17:05:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:27:47 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	cntchar(char *s, char c, int i)
 	int	start;
 
 	start = i;
+	printf("s[i] = %c, c = %c\n", s[i], c);
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'')
@@ -53,7 +54,7 @@ int	cntchar(char *s, char c, int i)
 		else
 			i++;
 	}
-	// printf("cntchar: %d\n", i - start);
+	printf("cntchar: %d\n", i - start);
 	return (i - start);
 }
 
