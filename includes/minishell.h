@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 14:38:15 by vhaefeli         ###   ########.fr       */
+/*   Created: 2022/10/19 10:40:56 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/19 10:41:10 by tlefebvr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-
 # include "libft.h"
 # include "keys.h"
 # include <stddef.h>
@@ -106,13 +105,15 @@ extern t_sig g_sig;
  int	ft_export(char **args, t_env *env);
 
 int cmd_pwd(void);
+char	*last_name(char *str);
 
 int	ft_unset(char **a, t_msvar *msvar);
 
 // // en_utils.c
- int		env_add(const char *value, t_env *env);
- char	*get_env_name(char *dest, const char *src);
- int		is_in_env(t_env *env, char *args);
+int		env_add(const char *value, t_env *env);
+char	*get_env_name(char *dest, const char *src);
+int		is_in_env(t_env *env, char *args);
+int		update_pwd(t_env *env);
 
 // // shlvl.c
 void		increment_shell_level(t_env *env);

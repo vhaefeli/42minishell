@@ -110,6 +110,7 @@ int	cmd_cd(char **args, t_env *env)
 	{
 		update_oldpwd(env);
 		cd_ret = chdir(args[1]);
+		update_pwd(env);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)

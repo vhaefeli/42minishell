@@ -23,7 +23,7 @@ int	env_add(const char *value, t_env *env)
 		return (0);
 	}
 	new = malloc(sizeof(t_env));
-	if (!new)
+	if (!(new))
 		return (-1);
 	new->value = ft_strdup(value);
 	while (env && env->next && env->next->next)
@@ -65,5 +65,21 @@ int	is_in_env(t_env *env, char *args)
 		}
 		env = env->next;
 	}
+	return (0);
+}
+
+int	update_pwd(t_env *env)
+{
+	char	cwd[PATH_MAX];
+	char	*pwd;
+
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return (1);
+	pwd = ft_strjoin("PWD=", cwd);
+	if (!pwd)
+		return (1);
+	if (is_in_env(env, pwd) == 0)
+		env_add(pwd, env);
+	ft_memdel(pwd);
 	return (0);
 }
