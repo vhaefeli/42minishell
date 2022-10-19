@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:35:23 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 14:10:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:48:29 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_fill_infile(t_list *cmd, t_msvar *env, int i)
 	}
 	cmd->infile[ci->j] = 0;
 	free(ci);
-	printf("infile: %s- flag> %d\n", cmd->infile, cmd->infileflag);
+	// printf("infile: %s- flag> %d\n", cmd->infile, cmd->infileflag);
 	if (cmd->infileflag > 1)
 		return (i + 2);
 	return (i + 1);
@@ -117,7 +117,7 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i)
 	}
 	cmd->outfile[co->j] = 0;
 	free(co);
-	printf("outfile: %s- flag> %d\n", cmd->outfile, cmd->outfileflag);
+	// printf("outfile: %s- flag> %d\n", cmd->outfile, cmd->outfileflag);
 	if (cmd->outfileflag > 1)
 		return (i + 2);
 	return (i + 1);

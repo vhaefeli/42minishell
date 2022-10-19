@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 14:49:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:48:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	cntchar(char *s, char c, int i)
 		else
 			i++;
 	}
-	printf("cntchar: %d\n", i - start);
+	// printf("cntchar: %d\n", i - start);
 	return (i - start);
 }
 
@@ -81,7 +81,7 @@ int	cntlastchar(char *s, char c)
 			i++;
 		}
 	}
-	printf("cntlastchar: %d\n", tmp);
+	// printf("cntlastchar: %d\n", tmp);
 	return (tmp);
 }
 
@@ -139,6 +139,6 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 			listcmd->str2[listcmd->j++] = listcmd->str[listcmd->i++];
 	}
 	listcmd->str2[listcmd->j] = '\0';
-	printf("listcmd2-%s-\n", listcmd->str2);
+	// printf("listcmd2-%s-\n", listcmd->str2);
 	return (ft_strshorten(listcmd->str2));
 }

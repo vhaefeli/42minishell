@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 12:59:46 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:25:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,8 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i);
 // ft_in_out_files3.c check the infile and outfile
 int	pass_infile(char *src, int i);
 int	pass_outfile(char *src, int i);
-int	check_file_in(t_list *cmd, int *fd);
-int	check_file_out(t_list *cmd, int *fd);
+int	check_file_in(t_list *cmd, int *fd, int *startfd);
+int	check_file_out(t_list *cmd, int *fd, int *startfd);
 
 // quotes_utiles.c
 int	quotesize(char *s, int i, char quotetype);
@@ -222,6 +222,7 @@ int		ft_exit_minishell(t_msvar *ms_env);
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c
+int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd, int *startfd);
 void	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 

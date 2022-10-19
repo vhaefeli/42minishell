@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 17:31:39 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:51:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,20 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 
 int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 {
-	printf("child fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+	// printf("child fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 	if (list_cmds->cmd_with_flags[0] == NULL)
 	{
 		if (list_cmds->infileflag > 1)
 		{
-		close(list_cmds->infileflag);
-		unlink(".heredoc");
+			close(fd[0]);
+			close(fd[1]);
+			unlink(".heredoc");
 		}
 		exit(0);
 	}
 	else
 	{
-		printf("execve\n");
+		// printf("execve\n");
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
 	}
 	printf("error execve\n");

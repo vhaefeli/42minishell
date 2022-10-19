@@ -81,7 +81,7 @@ static int		go_to_path(int option, t_env *env)
 			return (1);
 		update_oldpwd(env);
 	}
-	printf("env_path: %s\n", env_path);
+	// printf("env_path: %s\n", env_path);
 	ret = chdir(env_path);
 	ft_memdel(env_path);
 	return (ret);

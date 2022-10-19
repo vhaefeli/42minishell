@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 14:08:38 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:48:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	infile_ok(t_list *cmd)
 {
-	printf("infile %s\n", cmd->infile);
+	// printf("infile %s\n", cmd->infile);
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)
@@ -45,13 +45,13 @@ int	outfile_ok(t_list *cmd)
 {
 	int	file;
 
-	printf("outfile %s\n", cmd->outfile);
+	// printf("outfile %s\n", cmd->outfile);
 	if (cmd->outfile != NULL)
 	{
 		if (access(cmd->outfile, F_OK) != 0)
 		{
 			file = open(cmd->outfile, O_CREAT, 0644);
-			// close(file);
+			close(file);
 		}
 		if (access(cmd->outfile, W_OK) != 0)
 		{
