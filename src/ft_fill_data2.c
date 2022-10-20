@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 18:48:39 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:43:19 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 
 void	ft_fillcmd_flag(t_list *cmds, t_msvar *env)
 {
+	env->nbrofcmds = 0
 	while (cmds)
 	{
+		env->nbrofcmds++;
 		ft_clean_cmdline(cmds);
 		// printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
 		if (cmds->cmd_tmp[0] != 0)

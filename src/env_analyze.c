@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 14:39:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:23:35 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_msvar	*ini_ms(char **envp)
 	}
 	msvar->all_path = path_finder(envp);
 	msvar->exit = 0;
+	msvar->stdin_fd = dup(STDIN_FILENO);
+	msvar->stdout_fd = dup(STDOUT_FILENO);
 
 	return (msvar);
 }

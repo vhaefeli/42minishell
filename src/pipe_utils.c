@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/19 09:31:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:06:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,31 @@ void checklistcmd(t_list *cmd)
 	}
 }
 
-// static void	fd_value_exchange(int fd[], int temp_fd[])
-// {
-// 	if (temp_fd[0] != -1)
-// 	{
-// 		temp_fd[1] = fd[0];
-// 		fd[0] = temp_fd[0];
-// 		temp_fd[0] = temp_fd[1];
-// 	}
-// }
+static void	fd_value_exchange(int fd[], int temp_fd[])
+{
+	if (temp_fd[0] != -1)
+	{
+		temp_fd[1] = fd[0];
+		fd[0] = temp_fd[0];
+		temp_fd[0] = temp_fd[1];
+	}
+}
 
-int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd, int *startfd)
+int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
 	int		infile;
 	int		outfile;
 
 	ft_fillpath_cmd(list_cmds, ms_env);
-	infile = check_file_in(list_cmds, fd, startfd);
-	outfile = check_file_out(list_cmds, fd, startfd);
-	printf("fd infile %d\n", infile);
-	printf("fd outfile %d\n", outfile);
-	ft_putstr_fd("infile ", startfd[1]);
-	ft_putnbr_fd(infile, startfd[1]);
-	ft_putstr_fd("\noutfile ", startfd[1]);
-	ft_putnbr_fd(outfile, startfd[1]);
-	ft_putstr_fd("\n", startfd[1]);
+	infile = check_file_in(list_cmds, fd);
+	outfile = check_file_out(list_cmds, fd);
+	// printf("fd infile %d\n", infile);
+	// printf("fd outfile %d\n", outfile);
+	// ft_putstr_fd("infile ", startfd[1]);
+	// ft_putnbr_fd(infile, startfd[1]);
+	// ft_putstr_fd("\noutfile ", startfd[1]);
+	// ft_putnbr_fd(outfile, startfd[1]);
+	// ft_putstr_fd("\n", startfd[1]);
 	if (infile < 0 || outfile < 0)
 	{
 		close(fd[1]);
@@ -75,66 +75,154 @@ int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd, int *startfd)
 		dup2(infile, STDIN_FILENO);
 	if (outfile > 2)
 		dup2(outfile, STDOUT_FILENO);
-	printf("fd infile %d\n", infile);
-	printf("fd outfile %d\n", outfile);
+	if (list_cmds->next)
+	{
+		close(infile);
+		close(outfile);
+	}
+
+	// printf("fd infile %d\n", infile);
+	// printf("fd outfile %d\n", outfile);
 	return (0);
 }
 
-void	pipex(t_list *list_cmds, t_msvar *ms_env)
-{
-	pid_t	pid1;
-	int		fd[2];
-	int		startfd[2];
-	int		builtincmd_nb;
+ void	pipex(t_list *list_cmds, t_msvar *ms_env)
+ {
+	pid_t	pids[env->nbrofcmds];
+	int		pipes[env->nbrofcmds + 1][2];
+	int		i;
 
-	pid1 = -1;
-	fd[0] = 0;
-	fd[1] = 1;
-	startfd[0] = dup (STDIN_FILENO);
-	startfd[1] = dup (STDOUT_FILENO);
-	while (list_cmds)
+	i = 0;
+	while(i < env->nbrofcmds + 1)
 	{
-		ft_putstr_fd(list_cmds->cmd_with_flags[0], startfd[1]);
-		ft_putstr_fd("\n", startfd[1]);
-		printf("commande :%s\n", list_cmds->cmd_with_flags[0]);
-		if (pipe(fd) == -1)
+		if (pipe(pipes[i]) == -1)
 		{
-			perror("Pipe");
+			printf("Error with creating pipe\n");
 			break;
 		}
-		printf("avant STDIN_FILENO = %d , STDOUT_FILENO = %d \n", STDIN_FILENO, STDOUT_FILENO);
-		in_out_fd(list_cmds, ms_env, fd, startfd);
-		printf("apres STDIN_FILENO = %d , STDOUT_FILENO = %d \n", STDIN_FILENO, STDOUT_FILENO);
-		ft_putstr_fd("STDIN_FILENO ", startfd[1]);
-		ft_putnbr_fd(STDIN_FILENO, startfd[1]);
-		ft_putstr_fd("\nSTDOUT_FILENO ", startfd[1]);
-		ft_putnbr_fd( STDOUT_FILENO, startfd[1]);
-		ft_putstr_fd("\n", startfd[1]);
-		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
-		if (builtincmd_nb)
-		{
-			// printf("builtin\n");
-			ms_env->ret = execbuiltin(list_cmds, builtincmd_nb, ms_env);
-		}
-		else
-		{
-			pid1 = fork();
-			if (pid1 < 0 && printf("Fork"))
-				exit(1);
-			if (pid1 == 0)
-				child_process(list_cmds, fd, ms_env);
-			waitpid(pid1, &ms_env->ret, 0);
-		}
-		waitpid(pid1, &ms_env->ret, 0);
+	}
+	while (list_cmds)
+	{
+		pid1 = fork();
+		if (pid1 < 0 && printf("Fork %d : ", n_cmd))
+			break;
+		if (pid1 == 0)
+			child_process(list_cmds, fd, ms_env);
+		close(fd[0]);
+		close(fd[1]);
+		waitpid(pid1, NULL, 0);
 		list_cmds = list_cmds->next;
 	}
-	if (access(".heredoc", F_OK) != 0)
-		unlink(".heredoc");
-	dup2(startfd[0], STDIN_FILENO);
-	dup2(startfd[1], STDOUT_FILENO);
-	if (access(".heredoc", F_OK) != 0)
-		unlink(".heredoc");
-}
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void	pipex(t_list *list_cmds, t_msvar *ms_env)
+// {
+// 	pid_t	pid1;
+// 	int		fd[2];
+// 	int		temp_fd[2];
+// 	int		n_cmd;
+// 	int		builtincmd_nb;
+
+// 	n_cmd = 0;
+// 	temp_fd[0] = -1;
+// 	pid1 = -1;
+// 	fd[0] = 0;
+// 	fd[1] = 1;
+// 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
+// 	if(!(list_cmds)->next)
+// 	{
+// 		printf("only one cmd\n");
+// 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
+// 		if (builtincmd_nb)
+// 		{
+// 			printf("builtin\n");
+// 			execbuiltin(list_cmds, builtincmd_nb, ms_env);
+// 		}
+// 		else
+// 		{
+// 			// pipe(fd);
+// 			pid1 = fork();
+// 			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
+// 				exit(0);
+// 			if (pid1 == 0)
+// 				child_process(list_cmds, fd, ms_env);
+// 			waitpid(pid1, NULL, 0);
+// 			// close(fd[1]);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (list_cmds && ++n_cmd)
+// 		{
+// 			if (list_cmds->next && pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
+// 				perror("Pipe");
+// 			printf("fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+// 			fd_value_exchange(fd, temp_fd);
+// 			// printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
+// 			pid1 = fork();
+// 			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
+// 				exit(1);
+// 			if (pid1 == 0)
+// 				child_process(list_cmds, fd, ms_env);
+// 			waitpid(pid1, &ms_env->ret, 0);
+// 			close(fd[1]);
+// 			list_cmds = list_cmds->next;
+// 		}
+// 		close(fd[0]);
+// 		while (n_cmd--)
+// 			waitpid(pid1, &ms_env->ret, 0);
+// 	}
+// 	if (access(".heredoc", F_OK) != 0)
+// 		unlink(".heredoc");
+// }
+// void	pipex(t_list *list_cmds, t_msvar *ms_env)
+// {
+// 	pid_t		pid1;
+// 	int			fd[2];
+// 	int			temp_fd[2];
+// 	int			n_cmd;
+
+// 	n_cmd = 0;
+// 	temp_fd[0] = -1;
+// 	pid1 = -1;
+// 	while (list_cmds && ++n_cmd)
+// 	{
+// 		if (pipe(fd) == -1)
+// 			printf("Pipe %d : ", n_cmd);
+// 		if (list_cmds->previous)
+// 			fd_value_exchange(fd, temp_fd);
+// 		pid1 = fork();
+// 		if (pid1 < 0)
+// 			printf("Fork %d : ", n_cmd);
+// 		if (pid1 == 0)
+// 			child_process(list_cmds, ms_env, fd);
+// 		close(fd[1]);
+// 		list_cmds = list_cmds->next;
+// 	}
+// 	close(fd[0]);
+// 	while (n_cmd--)
+// 		waitpid(pid1, NULL, 0);
+// }
 
 int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
@@ -144,15 +232,19 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 	checklistcmd(cmd_list);
 	if (cmd_list == NULL)
 	{
-		// printf("error with cmds listing\n");
+		printf("error with cmds listing\n");
 		return (1);
 	}
 	if(g_sig.sigint == 1)
 	{
 		return(g_sig.exit_status);
 	}
-	pipex(cmd_list, ms_env);
-	free(cmd_list);
+	if (pipex(cmd_list, ms_env))
+	{
+		del_list(cmd_list);
+		return(1);
+	}
+	del_list(cmd_list);
 	return (0);
 }
 

@@ -1,3 +1,4 @@
-child fd0 = 11 , fd1 = 12 
-execve
-       0       0       0
+fd infile 0
+fd outfile 1
+infile 0
+outfile 1

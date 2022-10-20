@@ -1,7 +1,0 @@
-path:/bin/cat
-fd infile 0
-fd outfile 1
-fd0 = 0 , fd1 = 1 
-master fd0 = 0 , fd1 = 1 
-child fd0 = 0 , fd1 = 1 
-execve

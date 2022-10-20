@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 18:51:04 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:06:56 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,135 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 		cmd_exit(ms_env,cmds->cmd_with_flags);
 		return(0);
 	}
-
 	else
 		return (4); //cmd builtin error
 }
 
 int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 {
-	// printf("child fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
-	if (list_cmds->cmd_with_flags[0] == NULL)
-	{
-		if (list_cmds->infileflag > 1)
-		{
-			close(fd[0]);
-			close(fd[1]);
-			unlink(".heredoc");
-		}
-		exit(0);
-	}
-	else
-	{
-		// printf("execve\n");
-		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
-	}
-	printf("error execve\n");
-	exit (0);
-}
+	int		infile_fd;
+	int		outfile_fd;
+	int		builtincmd_nb;
+	// int		a = 0;
+
+	ft_fillpath_cmd(list_cmds, ms_env);
+	infile_fd = check_file_in(list_cmds, fd);
+	check_file_out(list_cmds, fd);
+	close(f[0]);
+	close(f[1]);
+
+
+// 	// printf("path:%s\n", list_cmds->path_cmd);
+// 	if (infile < 0 || outfile < 0)
+// 	{
+// 		close(fd[1]);
+// 		close(fd[0]);
+// 		perror("Fork");
+// 		exit(0); // infile outfile error
+// 	}
+// 	// printf("infile %d\n", infile);
+// 	// printf("outfile %d\n", outfile);
+// 	if (infile > 2)
+// 	{
+// 		dup2(infile, STDIN_FILENO);
+// 		close(infile);
+// 	}
+// 	if (outfile > 2)
+// 	{
+// 		dup2(outfile, STDOUT_FILENO);
+// 		close(outfile);
+// 	}
+// 	if (list_cmds->cmd_with_flags[0] == NULL)
+// 	{
+// 		if (list_cmds->infileflag == 2)
+// 			unlink(".heredoc");
+// 		exit(0);
+// 	}
+// 	builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
+// 	if (builtincmd_nb)
+// 	{
+// 		// printf("builtin\n");
+// 		execbuiltin(list_cmds, builtincmd_nb, ms_env);
+// 		exit (0);
+// 	}
+// 	else
+// 	{
+// 		// printf("execve\n");
+// 		// printf("path_cmd:%s\n", list_cmds->path_cmd);
+// 		// a = 0;
+// 		// if (!list_cmds->cmd_with_flags)
+// 		// 	printf("cmd with flag:%s-\n", "NULL");
+// 		// while (list_cmds->cmd_with_flags && list_cmds->cmd_with_flags[a])
+// 		// 	printf("cmd with flag:%s-\n", list_cmds->cmd_with_flags[a++]);
+// 		// printf("infile:%s-\n", list_cmds->infile);
+// 		// printf("infileflag:%d\n", list_cmds->infileflag);
+// 		// printf("outfile:%s-\n", list_cmds->outfile);
+// 		// printf("outfileflag:%d\n", list_cmds->outfileflag);
+// 		// printf("********\n");
+// 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
+// 	}
+// 	printf("error execve\n");
+// 	exit (0);
+// 	// return (2);
+// }
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <unistd.h>
+// #include <sys/types.h>
+// #include <sys/wait.h>
+
+// int main(int argc, char* argv[]) {
+//     int fd[2];
+//     if (pipe(fd) == -1) {
+//         return;
+//     }
+
+//     int pid1 = fork();
+//     if (pid < 0) {
+//         return 2;
+//     }
+
+//     if (pid1 == 0) {
+//         // Child process 1 (ping)
+//         dup2(fd[1], STDOUT_FILENO);
+//         close(fd[0]);
+//         close(fd[1]);
+//         execlp("ping", "ping", "-c", "5", "google.com", NULL);
+//     }
+
+//     int pid2 = fork();
+//     if (pid2 < 0) {
+//         return 3;
+//     }
+
+//     if (pid2 == 0) {
+//         // Child process 2 (grep)
+//         dup2(fd[0], STDIN_FILENO);
+//         close(fd[0]);
+//         close(fd[1]);
+//         execlp("grep", "grep", "rtt", NULL);
+//     }
+
+// 	        close(fd[0]);
+//         close(fd[1]);
+
+//     waitpid(pid1, NULL, 0);
+//     waitpid(pid2, NULL, 0);
+
+//     return 0;
+// }
+
+
+// 		// ft_putstr_fd(list_cmds->cmd_with_flags[0], startfd[1]);
+// 		// ft_putstr_fd("\n", startfd[1]);
+
+// 		// printf("avant STDIN_FILENO = %d , STDOUT_FILENO = %d \n", STDIN_FILENO, STDOUT_FILENO);
+
+// 		// printf("apres STDIN_FILENO = %d , STDOUT_FILENO = %d \n", STDIN_FILENO, STDOUT_FILENO);
+// 		// ft_putstr_fd("STDIN_FILENO ", startfd[1]);
+// 		// ft_putnbr_fd(STDIN_FILENO, startfd[1]);
+// 		// ft_putstr_fd("\nSTDOUT_FILENO ", startfd[1]);
+// 		// ft_putnbr_fd(STDOUT_FILENO, startfd[1]);
+// 		// ft_putstr_fd("\n", startfd[1]);
