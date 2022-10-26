@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 15:49:26 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
 	if(!(list_cmds)->next)
 	{
-		printf("only one cmd\n");
+		// printf("only one cmd\n");
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		if (builtincmd_nb)
 		{
@@ -74,7 +74,6 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 		}
 		else
 		{
-			// pipe(fd);
 			pid1 = fork();
 			if (pid1 < 0 && printf("Fork %d : ", n_cmd))
 				exit(0);
@@ -86,11 +85,10 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	}
 	else
 	{
-		while (list_cmds && ++n_cmd)
+		while (list_cmds && ++n_cmd && g_sig.pid == 0)
 		{
 			if (list_cmds->next && pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
 				perror("Pipe");
-			printf("fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 			fd_value_exchange(fd, temp_fd);
 			// printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 			pid1 = fork();
@@ -98,18 +96,21 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 				exit(1);
 			if (pid1 == 0)
 				child_process(list_cmds, fd, ms_env);
-			waitpid(pid1, &ms_env->ret, 0);
+			waitpid(pid1, NULL, 0);
 			close(fd[1]);
 			list_cmds = list_cmds->next;
 		}
 		close(fd[0]);
+		
+			
 		while (n_cmd--)
-			waitpid(pid1, &ms_env->ret, 0);
+			waitpid(pid1, NULL, 0);
 	}
 	if (access(".heredoc", F_OK) != 0)
 		unlink(".heredoc");
-}
 
+}
+/*
 int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
@@ -122,11 +123,26 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		printf("error with cmds listing");
 		return (1);
 	}
-	if(g_sig.sigint == 1)
-	{
-		return(g_sig.exit_status);
-	}
 	pipex(cmd_list, ms_env);
 	free(cmd_list);
 	return (0);
+}*/
+
+int    ft_pipe(char *cmdline, t_msvar *ms_env)
+{
+    t_list    *cmd_list;
+    cmd_list = list_cmds(cmdline, ms_env);
+    checklistcmd(cmd_list);
+	if (g_sig.sigint >= 1 || g_sig.sigquit >= 1)
+	{
+		printf("OUI JE SUIS ACTIF2");
+	}
+    if (cmd_list == NULL )
+    {
+        printf("error with cmds listing\n");
+        return (1);
+    }
+	pipex(cmd_list, ms_env);
+    del_list(cmd_list);
+    return (0);
 }

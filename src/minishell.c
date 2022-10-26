@@ -91,17 +91,20 @@ int	not_only_space(char *src)
 void	init_module(t_msvar *ms_env, char **envp)
 {
 	char	*cmdline;
+	struct termios saved;
 
 	env_init (ms_env, envp);
 	secret_env_init (ms_env, envp);
 	increment_shell_level (ms_env->env);
 	signal (SIGINT, &sig_int);
 	signal (SIGQUIT, &sig_quit);
+	//sig_init(&saved);
 	while (ms_env->exit == 0)
 	{
-		printf("%s", last_name(getcwd (NULL, 1)));
-		sig_init();
-		cmdline = readline (" ➜ minishell: ");
+		//printf("%s", getcwd (NULL, 0));
+		sig_init(&saved);
+		//cmdline = readline(last_name(getcwd (NULL, 0)));
+		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
@@ -109,9 +112,22 @@ void	init_module(t_msvar *ms_env, char **envp)
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
 		}
-		free (cmdline);
-		cmdline = NULL;
+
 	}
+   /* while (ms_env->exit == 0)
+    {
+        printf("%s",last_name(getcwd(NULL,1)));
+        sig_init();
+        cmdline = readline(" ➜ minishell: ");
+        if (!cmdline)
+            break ;
+        if (g_sig.sigint != 1 && cmdline[0] != '\0'&& not_only_space(cmdline))
+        {
+                add_history(cmdline);
+                ft_pipe(cmdline, ms_env);
+        }
+        del_el(cmdline);
+    }*/
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -121,8 +137,8 @@ int	main(int argc, char **argv, char **envp)
 	ms_env = ini_ms(envp);
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
-		return (1);
-	welcometext();
+		return (1); 
+	 welcometext();
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
 	free_env (ms_env->secret_env);

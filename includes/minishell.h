@@ -30,6 +30,7 @@
 # include <dirent.h>
 # include <curses.h>
 # include <term.h>
+# include <termios.h>
 
 #define BUFF_SIZE 4096
 
@@ -77,6 +78,7 @@ typedef struct	s_sig
 	int				sigquit;
 	int				exit_status;
 	pid_t			pid;
+	
 }				t_sig;
 
 // // Builtins
@@ -95,7 +97,7 @@ int		cmd_echo(char **args);
  int	ft_exit(t_msvar *msvar);
 
 // // signal.c
-void 	sig_init(void);
+void	sig_init(struct termios *saved);
 void	sig_quit(int code);
 void	sig_int(int code);
 

@@ -19,6 +19,8 @@ OBJS_DIR 		= ./obj
 LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
+INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
+LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS 			= 	env_analyze.c\
 					ft_del.c\
@@ -76,10 +78,10 @@ $(OBJS_DIR):
 	@mkdir -p $(dir $(OBJS))
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)
+	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)  $(INCLUDES_READLINE) 
 
 $(TARGET): $(LIBFT_DIR)/libft.a $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS) $(LINK_READLINE)  $(INCLUDES_READLINE) 
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -sC $(LIBFT_DIR)
