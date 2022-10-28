@@ -98,13 +98,18 @@ void	init_module(t_msvar *ms_env, char **envp)
 	increment_shell_level (ms_env->env);
 	signal (SIGINT, &sig_int);
 	signal (SIGQUIT, &sig_quit);
+	ms_env->ret = 0;
 	//sig_init(&saved);
+	ms_env->prev_ret = ms_env->ret;
 	while (ms_env->exit == 0)
 	{
 		//printf("%s", getcwd (NULL, 0));
 		sig_init(&saved);
 		//cmdline = readline(last_name(getcwd (NULL, 0)));
+		printf("\n prev_ret dollar_data = %i", ms_env->prev_ret);
+		printf("\n ret dollar_data = %i\n", ms_env->ret);
 		cmdline = readline(" ➜ minishell: ");
+		//ms_env->prev_ret = ms_env->ret;
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
@@ -112,7 +117,6 @@ void	init_module(t_msvar *ms_env, char **envp)
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
 		}
-
 	}
    /* while (ms_env->exit == 0)
     {

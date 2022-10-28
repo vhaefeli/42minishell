@@ -83,4 +83,3 @@ void	ft_in_out_files(t_list *cmds, t_msvar *ms_env)
 		cmds = (cmds)->next;
 	}
 }
-

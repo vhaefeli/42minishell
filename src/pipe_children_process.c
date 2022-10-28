@@ -198,6 +198,7 @@ int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
 		execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
 	}
 	printf("error execve\n");
+	ms_env->ret = 1;
 	exit (0);
 	// return (2);
 }

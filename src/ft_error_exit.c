@@ -22,11 +22,13 @@
 // 4 erreur cmd builtin
 
 
-int	ft_cmd_error(t_list *list_cmds, int error_type)
+int	ft_cmd_error(t_list *list_cmds, int error_type, t_msvar *ms_env)
 {
 	if (list_cmds)
 		del_list(list_cmds);
-	return (error_type);
+	ms_env->ret = error_type;
+	printf("\n prev_ret = %i", ms_env->prev_ret); //le problem est que la commande change de maniere dznamique sa doit prendre la version d'avant
+	return (ms_env->prev_ret);
 }
 
 int	ft_exit_minishell(t_msvar *ms_env)

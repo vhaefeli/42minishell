@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 # include "libft.h"
 # include "keys.h"
 # include <stddef.h>
@@ -32,7 +32,7 @@
 # include <term.h>
 # include <termios.h>
 
-#define BUFF_SIZE 4096
+# define BUFF_SIZE 4096
 
 typedef struct s_list
 {
@@ -60,6 +60,7 @@ typedef struct s_msvar
 	t_env 	*env;
 	t_env	*secret_env;
 	int 	ret;
+	int		prev_ret;
 	int 	exit;
 	char	**all_path;
 }	t_msvar;
@@ -85,16 +86,14 @@ typedef struct	s_sig
 // // cmd_cd.c
 char	*get_env_path(t_env *env, const char *var, size_t len);
 int	cmd_cd(char **args, t_env *env);
-
- // //cmd_echo.c
+// //cmd_echo.c
 int		cmd_echo(char **args);
-
- // // cmd_env.c
- int	ft_env(t_env *env);
+// // cmd_env.c
+int	ft_env(t_env *env);
 
 // // cmd_exit.c
- void	cmd_exit(t_msvar *msvar, char **cmd);
- int	ft_exit(t_msvar *msvar);
+void	cmd_exit(t_msvar *msvar, char **cmd);
+int	ft_exit(t_msvar *msvar);
 
 // // signal.c
 void	sig_init(struct termios *saved);
@@ -104,7 +103,7 @@ void	sig_int(int code);
 extern t_sig g_sig;
 
 // // cmd_export.c
- int	ft_export(char **args, t_env *env);
+int	ft_export(char **args, t_env *env);
 
 int cmd_pwd(void);
 char	*last_name(char *str);
@@ -208,7 +207,7 @@ int		child_process(t_list *list_cmds, int fd[], t_msvar *ms_env);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell
-int		ft_cmd_error(t_list *list_cmds, int error_type);
+int		ft_cmd_error(t_list *list_cmds, int error_type, t_msvar *ms_env);
 int		ft_exit_minishell(t_msvar *ms_env);
 
 // builtin cmds

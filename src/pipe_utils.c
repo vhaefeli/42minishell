@@ -63,6 +63,8 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	fd[0] = 0;
 	fd[1] = 1;
 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
+	ms_env->prev_ret = ms_env->ret;
+	ms_env->ret = 0;
 	if(!(list_cmds)->next)
 	{
 		// printf("only one cmd\n");
@@ -89,6 +91,7 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 		{
 			if (list_cmds->next && pipe(fd) == -1 && printf("Pipe %d : ", n_cmd))
 				perror("Pipe");
+			ft_cmd_error(list_cmds,ms_env->ret,ms_env);
 			fd_value_exchange(fd, temp_fd);
 			// printf("after exchange) fd0 = %d , fd1 = %d \n", fd[0], fd[1]);
 			pid1 = fork();
@@ -101,8 +104,6 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 			list_cmds = list_cmds->next;
 		}
 		close(fd[0]);
-		
-			
 		while (n_cmd--)
 			waitpid(pid1, NULL, 0);
 	}
@@ -133,13 +134,10 @@ int    ft_pipe(char *cmdline, t_msvar *ms_env)
     t_list    *cmd_list;
     cmd_list = list_cmds(cmdline, ms_env);
     checklistcmd(cmd_list);
-	if (g_sig.sigint >= 1 || g_sig.sigquit >= 1)
-	{
-		printf("OUI JE SUIS ACTIF2");
-	}
     if (cmd_list == NULL )
     {
         printf("error with cmds listing\n");
+		ms_env->ret = 1;
         return (1);
     }
 	pipex(cmd_list, ms_env);

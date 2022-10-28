@@ -18,7 +18,9 @@ void	cpy_text_between_space(t_varchar *src, t_msvar *env)
 		while (src->str[src->i] && src->str[src->i] != ' ')
 		{
 			if (src->str[src->i] == '$')
+			{
 				add_dollar_data(src, env);
+			}
 			if (src->str[src->i] == ('\"') || src->str[src->i] == ('\''))
 				cpy_text_noquote(src, env);
 			src->str2[src->j++] = src->str[src->i++];

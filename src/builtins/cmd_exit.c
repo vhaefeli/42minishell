@@ -33,9 +33,9 @@ void	cmd_exit(t_msvar *msvar, char **cmd)
 	else
 		msvar->ret = 0;
 }
-
+/*
 int	ft_exit(t_msvar *msvar)
 {
 	msvar->exit = 1;
 	return (0);
-}
+}*/
