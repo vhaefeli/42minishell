@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:57:55 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/20 15:06:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:05:05 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,30 @@ int	pass_outfile(char *src, int i)
 	return (i);
 }
 
-int	check_file_in(t_list *cmd, int *fd)
+int	check_file_in(t_list *cmd, int fd_in)
 {
+	int file;
+
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)
 		{
-			return (open(cmd->infile, O_RDONLY));
+			file = open(cmd->infile, O_RDONLY);
+			return(file);
 		}
-		if (cmd->infileflag == 2)
+		else
 		{
-			return (open(".heredoc", O_RDONLY));
+			file = open(".heredoc", O_RDONLY);
+			return(file);
 		}
 	}
-	if (cmd->previous)
-	{
-		return (fd[0]);
-	}
-	return (0);
+	if (cmd->infile_fd > -1)
+		return(cmd->infile_fd);
+	else
+		return(fd_in);
 }
 
-void	check_file_out(t_list *cmd, int *fd, t_msvar *ms_env)
+int	check_file_out(t_list *cmd, int fd_out)
 {
 	int file;
 
@@ -81,18 +84,14 @@ void	check_file_out(t_list *cmd, int *fd, t_msvar *ms_env)
 		if (cmd->outfileflag == 1)
 		{
 			file = open(cmd->outfile, O_WRONLY | O_TRUNC);
-			dup2(file, STDOUT_FILENO);
-			close(file);
+			return(file);
 		}
-		if (cmd->outfileflag == 2)
+		else
 		{
 			file = open(cmd->outfile, O_WRONLY | O_APPEND);
-			dup2(file, STDOUT_FILENO);
-			close(file);
+			return(file);
 		}
 	}
-	else if (cmd->next)
-		dup2(fd[1], STDOUT_FILENO);
 	else
-		dup2(ms_env->stdout_fd, STDOUT_FILENO);
+		return(fd_out);
 }

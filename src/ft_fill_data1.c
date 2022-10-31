@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 12:00:28 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:48:41 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_clean_cmdline(t_list *cmd)
 
 	cmdclean = fillvarchar(cmd->cmd_tmp, ft_strdup(cmd->cmd_tmp), 0, 0);
 	cmdclean->i = no_space(cmd->cmd_tmp, cmdclean->i);
-	while(cmd->cmd_tmp[cmdclean->i] && cmd->cmd_tmp[cmdclean->i])
+	while(cmd->cmd_tmp[cmdclean->i])
 	{
 		if (cmd->cmd_tmp[cmdclean->i] == '\''
 			|| cmd->cmd_tmp[cmdclean->i] == '\"')
@@ -37,8 +37,7 @@ void	ft_clean_cmdline(t_list *cmd)
 		else if (cmd->cmd_tmp[cmdclean->i])
 			cmdclean->str2[cmdclean->j++]= cmd->cmd_tmp[cmdclean->i++];
 	}
-	while(cmdclean->str2[cmdclean->j])
-		cmdclean->str2[cmdclean->j++] = 0;
+	cmdclean->str2[cmdclean->j] = 0;
 	while(cmdclean->str2[--cmdclean->j] == ' ')
 		cmdclean->str2[cmdclean->j] = 0;
 	free (cmd->cmd_tmp);

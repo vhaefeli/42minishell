@@ -9,4 +9,5 @@ minishell
 minishell.dSYM
 obj
 outfile
+outfile1
 src

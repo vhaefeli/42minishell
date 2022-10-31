@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/20 15:06:56 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:05:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	ft_heredoc(t_list *cmd)
 	}
 	if (access(".heredoc", F_OK) == 0)
 	{
-		close(cmd->infileflag);
 		unlink(".heredoc");
 	}
-	cmd->infileflag = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
+	cmd->infile_fd = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
 	while(1)
 	{
 		text = readline("> ");
 		if (!ft_strcmp(text, cmd->infile))
 			break ;
-		write(cmd->infileflag, text, ft_strlen(text));
-		write(cmd->infileflag, "\n", 1);
+		write(cmd->infile_fd, text, ft_strlen(text));
+		write(cmd->infile_fd, "\n", 1);
 	}
-	return (cmd->infileflag);
+	close(cmd->infile_fd);
+	return (0);
 }
 
 int	checkbuiltin(char *cmd)
@@ -75,7 +75,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
 	 if (builtincmd_nb == 5)
 	 	return (ft_unset(cmds->cmd_with_flags, ms_env));
-	if (builtincmd_nb == 6)
+	if (builtincmd_nb == 6) 
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 7)
 	{
@@ -86,18 +86,52 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 		return (4); //cmd builtin error
 }
 
-int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
+int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
-	int		infile_fd;
-	int		outfile_fd;
 	int		builtincmd_nb;
-	// int		a = 0;
+	int		pid;
 
-	ft_fillpath_cmd(list_cmds, ms_env);
-	infile_fd = check_file_in(list_cmds, fd);
-	check_file_out(list_cmds, fd);
-	close(f[0]);
-	close(f[1]);
+	if (ft_fillpath_cmd(list_cmds, ms_env))
+		return (1);
+	pid = fork();
+	if (pid < 0 && printf("Fork error\n"))
+		return (1);
+	if (pid == 0)
+	{
+		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
+		in_out_fd(list_cmds, fd);
+		if (list_cmds->next)
+		{
+			if (fd[0] > -1)
+			close(fd[0]);
+			if (fd[1] > -1)
+			close(fd[1]);
+		}
+		if (builtincmd_nb)
+			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
+		else
+		{
+			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
+			printf("error with execve");
+			return (2);
+		}
+	}
+	waitpid(pid, NULL, 0);
+	return (0);
+}
+
+// int	child_process(t_list *list_cmds, int *fd, t_msvar *ms_env)
+// {
+// 	int		infile_fd;
+// 	int		outfile_fd;
+// 	int		builtincmd_nb;
+// 	// int		a = 0;
+
+// 	ft_fillpath_cmd(list_cmds, ms_env);
+// 	infile_fd = check_file_in(list_cmds, fd);
+// 	check_file_out(list_cmds, fd);
+// 	close(f[0]);
+// 	close(f[1]);
 
 
 // 	// printf("path:%s\n", list_cmds->path_cmd);

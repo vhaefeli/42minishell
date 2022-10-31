@@ -1,5 +1,5 @@
-path:/bin/cat
-fd infile 0
-fd outfile 1
-child fd0 = 15 , fd1 = 16 
-execve
+salut
+coucou
+hello
+
+

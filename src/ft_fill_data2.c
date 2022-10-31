@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/20 14:43:19 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:04:56 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 		{
 			printf("error: command not found: %s\n",
 				cmds->cmd_with_flags[0]);
-			ft_cmd_error(cmds, 1);
 			return (1);
 		}
 	}
@@ -87,7 +86,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 
 void	ft_fillcmd_flag(t_list *cmds, t_msvar *env)
 {
-	env->nbrofcmds = 0
+	env->nbrofcmds = 0;
 	while (cmds)
 	{
 		env->nbrofcmds++;

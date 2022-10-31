@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/20 14:42:45 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:17:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ typedef struct s_list
 	char			**cmd_with_flags; //table with in[0] the cmd and after the flags
 	char			*infile;
 	int				infileflag;//0 no infile / 1 infile / 2 heredoc as infile
+	int				infile_fd;
 	char			*outfile;
 	int				outfileflag;//0 no outfile / 1 outfile O_TRUNC / 2 outfile O_APPEND
+	int				outfile_fd;
 	struct s_list	*previous;
 	struct s_list	*next;
 }	t_list;
@@ -183,8 +185,8 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i);
 // ft_in_out_files3.c check the infile and outfile
 int	pass_infile(char *src, int i);
 int	pass_outfile(char *src, int i);
-int	check_file_in(t_list *cmd, int *fd);
-int	check_file_out(t_list *cmd, int *fd);
+int	check_file_in(t_list *cmd, int fd_in);
+int	check_file_out(t_list *cmd, int fd_out);
 
 // quotes_utiles.c
 int	quotesize(char *s, int i, char quotetype);
@@ -214,19 +216,20 @@ char	**ft_splitcmd(char *s, t_msvar *ms_env);
 int		ft_heredoc(t_list *cmd);
 int		checkbuiltin(char *cmd);
 int		execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
-int		child_process(t_list *list_cmds, int *fd, t_msvar *ms_env);
+int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell
-int		ft_cmd_error(t_list *list_cmds, int error_type);
-int		ft_exit_minishell(t_msvar *ms_env);
+// int		ft_cmd_error(t_list *list_cmds, int error_type);
+// int		ft_exit_minishell(t_msvar *ms_env);
 
 // ft_pipe_spit.c
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c
 // int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd, int *startfd);
-void	pipex(t_list *list_cmds, t_msvar *ms_env);
+int	in_out_fd(t_list *list_cmds, int *fd);
+int	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif
