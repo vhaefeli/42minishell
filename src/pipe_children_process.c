@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 17:05:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 23:01:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,19 @@ int	checkbuiltin(char *cmd)
 	n = ft_strlen(cmd);
 	if (!ft_strncmp("echo", cmd, n))
 		return (1);
-	if (!ft_strncmp("cd", cmd, n))
-		return (2);
 	if (!ft_strncmp("pwd", cmd, n))
-		return (3);
-	if (!ft_strncmp("export", cmd, n))
-		return (4);
-	if (!ft_strncmp("unset", cmd, n))
-		return (5);
+		return (2);
 	if (!ft_strncmp("env", cmd, n))
-		return (6);
+		return (3);
 	if (!ft_strncmp("exit", cmd, n))
+		return (4);
+	if (!ft_strncmp("cd", cmd, n))
+		return (5);
+	if (!ft_strncmp("export", cmd, n))
+		return (6);
+	if (!ft_strncmp("unset", cmd, n))
 		return (7);
+
 	else
 		return (0);
 }
@@ -67,17 +68,17 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 
 	if (builtincmd_nb == 1)
 	 	return (cmd_echo(cmds->cmd_with_flags));
-	 if (builtincmd_nb == 2)
-	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
-	 if (builtincmd_nb == 3)
-	 	return (cmd_pwd());
-	 if (builtincmd_nb == 4)
-	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
 	 if (builtincmd_nb == 5)
+	 	return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
+	 if (builtincmd_nb == 2)
+	 	return (cmd_pwd());
+	 if (builtincmd_nb == 6)
+	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
+	 if (builtincmd_nb == 7)
 	 	return (ft_unset(cmds->cmd_with_flags, ms_env));
-	if (builtincmd_nb == 6) 
+	if (builtincmd_nb == 3) 
 		return (ft_env(ms_env->env));
-	if (builtincmd_nb == 7)
+	if (builtincmd_nb == 4)
 	{
 		cmd_exit(ms_env,cmds->cmd_with_flags);
 		return(0);
@@ -89,15 +90,15 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 {
 	int		builtincmd_nb;
-	int		pid;
+	// int		pid;
 
 	if (ft_fillpath_cmd(list_cmds, ms_env))
 		return (1);
-	pid = fork();
-	if (pid < 0 && printf("Fork error\n"))
-		return (1);
-	if (pid == 0)
-	{
+	// pid = fork();
+	// if (pid < 0 && printf("Fork error\n"))
+	// 	return (1);
+	// if (pid == 0)
+	// {
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		in_out_fd(list_cmds, fd);
 		if (list_cmds->next)
@@ -115,8 +116,8 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 			printf("error with execve");
 			return (2);
 		}
-	}
-	waitpid(pid, NULL, 0);
+	// }
+	// waitpid(pid, NULL, 0);
 	return (0);
 }
 

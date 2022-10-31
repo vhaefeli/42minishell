@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 17:06:17 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 23:17:44 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,38 @@ int	in_out_fd(t_list *list_cmds, int *fd)
 int	pipex(t_list *list_cmds, t_msvar *ms_env)
 {
 	int			fd[2];
+	int			pid;
+	int			n_cmd;
 
 	fd[0] = -1;
 	fd[1] = -1;
-	while (list_cmds)
+	n_cmd = 0;
+	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 4)
+		return (execbuiltin(list_cmds, checkbuiltin(list_cmds->cmd_with_flags[0]),
+			ms_env));
+	while (list_cmds && ++n_cmd)
 	{
 		if (list_cmds->next)
 		{
 			if (pipe(fd) == -1 && printf("Pipe error\n"))
 				break;
 		}
-		if (one_cmd(list_cmds, ms_env, fd))
+		pid = fork();
+		if (pid < 0 && printf("Fork error\n"))
 			return (1);
+		if (pid == 0)
+		{
+			if (one_cmd(list_cmds, ms_env, fd))
+				return (1);
+		}
 		list_cmds = list_cmds->next;
 		if (list_cmds)
 			list_cmds->infile_fd = dup(fd[0]);
 		close(fd[0]);
 		close(fd[1]);
 	}
+	while (n_cmd--)
+		waitpid(pid, NULL, 0);
 	return (0);
 }
 
