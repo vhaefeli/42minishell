@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 14:07:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2021/11/02 13:30:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:49:19 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,9 @@ void	ft_putstr_fd(char *s, int fd)
 	if (!s)
 		return ((void) NULL);
 	write (fd, s, ft_strlen(s));
+}
+
+void	ft_putstr(char *s)
+{
+	ft_putstr_fd(s, 1);
 }

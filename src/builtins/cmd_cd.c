@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_cd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 10:33:40 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/11/01 11:01:46 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	print_error(char **args)
@@ -15,10 +27,9 @@ static void	print_error(char **args)
 
 char	*get_env_path(t_env *env, const char *var, size_t len)
 {
-	char	*oldpwd;
-	int		i;
-	int		j;
-	int		s_alloc;
+	char		*oldpwd;
+	t_varchar	*number;
+	int			s_alloc;
 
 	while (env && env->next != NULL)
 	{
@@ -28,14 +39,13 @@ char	*get_env_path(t_env *env, const char *var, size_t len)
 			oldpwd = malloc(sizeof(char) * s_alloc + 1);
 			if (!oldpwd)
 				return (NULL);
-			i = 0;
-			j = 0;
-			while (env->value[i++])
+			number = fillvarchar(NULL, NULL, 0, 0);
+			while (env->value[number->i++])
 			{
-				if (i > (int)len)
-					oldpwd[j++] = env->value[i];
+				if (number->i > (int)len)
+					oldpwd[number->j++] = env->value[number->i];
 			}
-			oldpwd[j] = '\0';
+			oldpwd[number->j] = '\0';
 			return (oldpwd);
 		}
 		env = env->next;
@@ -100,6 +110,7 @@ int	cmd_cd(char **args, t_env *env)
 	{
 		update_oldpwd(env);
 		cd_ret = chdir(args[1]);
+		update_pwd(env);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)

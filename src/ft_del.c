@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 11:52:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:39:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ void	del_el(char *el)
 
 void	del_tab(char **el)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!el)
 		return ;
 	while (el[i])
 	{
-		free(el[i]);
-		el[i] = NULL;
+		del_el(el[i]);
 		i++;
 	}
 	free(el);
@@ -48,7 +47,6 @@ void	del_list(t_list *list_cmds)
 	el1 = ft_lstfirst(list_cmds);
 	while (el1)
 	{
-
 		del_el(el1->path_cmd);
 		del_el(el1->cmd_tmp);
 		del_tab(el1->cmd_with_flags);
@@ -56,12 +54,10 @@ void	del_list(t_list *list_cmds)
 		el1->infileflag = 0;
 		del_el(el1->outfile);
 		el1->outfileflag = 0;
-		// a ete effacer avant
 		el1->previous = NULL;
 		el2 = el1;
 		el1 = el1->next;
-		free(el2);
+		//free(el2);
 	}
-	// free (list_cmds);
 	list_cmds = NULL;
 }

@@ -1,43 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/19 10:44:04 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/11/01 11:05:15 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
 void	sig_int(int code)
 {
 	(void)code;
-	if (g_sig.pid == 0)
+	if (code == SIGINT)
 	{
-		//ft_putstr_fd("\b\b  ", 2);
-		//ft_putstr_fd("\n", 2);
-		//ft_putstr_fd(" ➜ minishell: ", 2);
+		rl_replace_line("", 0);
+		ft_putendl_fd("", 1);
+		rl_on_new_line();
+		rl_redisplay();
 		g_sig.exit_status = 1;
-	}
-	else
-	{
-		ft_putstr_fd("\n", 2);
-		g_sig.exit_status = 130;
 	}
 	g_sig.sigint = 1;
 }
 
 void	sig_quit(int code)
 {
-	char	*nbr;
-	
-	nbr = ft_itoa(code);
-	if (g_sig.pid != 0)
+	if (code == SIGQUIT)
 	{
-		ft_putstr_fd("Quit: ", 2);
-		ft_putendl_fd(nbr, 2);
-		g_sig.exit_status = 131;
 		g_sig.sigquit = 1;
 	}
-	else
-		ft_putstr_fd("", 2);
-	ft_memdel(nbr);
+	rl_redisplay();
 }
 
-void	sig_init(void)
+void	hide_keystrokes(struct termios *saved)
 {
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, saved);
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+}
+
+void	sig_init(struct termios *saved)
+{
+	hide_keystrokes(saved);
 	g_sig.sigint = 0;
 	g_sig.sigquit = 0;
 	g_sig.pid = 0;

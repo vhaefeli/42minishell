@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_export.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 11:12:17 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 11:12:19 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	print_error(int error, const char *arg)
@@ -18,7 +30,7 @@ static int	print_error(int error, const char *arg)
 	return (1);
 }
 
-int			ft_export(char **args, t_env *env, t_env *secret)
+int	ft_export(char **args, t_env *env)
 {
 	int		new_env;
 	int		error_ret;
@@ -26,7 +38,7 @@ int			ft_export(char **args, t_env *env, t_env *secret)
 	new_env = 0;
 	if (!args[1])
 	{
-		print_sorted_env(secret);
+		print_sorted_env(env);
 		return (0);
 	}
 	else
@@ -36,13 +48,12 @@ int			ft_export(char **args, t_env *env, t_env *secret)
 			error_ret = -3;
 		if (error_ret <= 0)
 			return (print_error(error_ret, args[1]));
-		new_env = error_ret == 2 ? 1 : is_in_env(env, args[1]);
-		if (new_env == 0)
-		{
-			if (error_ret == 1)
-				env_add(args[1], env);
-			//env_add(args[1], secret);
-		}
+		if (error_ret == 2)
+			new_env = 1;
+		else
+			new_env = is_in_env(env, args[1]);
+		if (new_env == 0 && error_ret == 1)
+			env_add(args[1], env);
 	}
 	return (0);
 }

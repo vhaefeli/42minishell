@@ -19,5 +19,5 @@ void	*ft_memdel(void *ptr)
 		free(ptr);
 		ptr = NULL;
 	}
-return (NULL);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:49:48 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/11 15:48:08 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:16:10 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	quotesize(char *s, int i, char quotetype)
 	quotesize = 0;
 	j = i;
 	i++;
-	// printf("s[i]: %c\n", s[i]);
-	while(s[i] != quotetype && s[i] != '\0')
+	while (s[i] != quotetype && s[i] != '\0')
 	{
 		i++;
 		quotesize++;
@@ -29,10 +28,9 @@ int	quotesize(char *s, int i, char quotetype)
 		{
 			printf("error : you can have only an even ");
 			printf("number of %c quotes\n", quotetype);
-			return (- j - 1);
+			return (-j - 1);
 		}
 	}
-	// printf("quotesize: %d\n", quotesize);
 	return (quotesize);
 }
 
@@ -44,7 +42,7 @@ int	quotesize_incl(char *s, int i, char quotetype)
 	quotesize = 0;
 	j = i;
 	i++;
-	while(s[i] != quotetype && s[i] != '\0')
+	while (s[i] != quotetype && s[i] != '\0')
 	{
 		i++;
 		quotesize++;
@@ -52,10 +50,9 @@ int	quotesize_incl(char *s, int i, char quotetype)
 		{
 			printf("error : you can have only an even ");
 			printf("number of %c quotes\n", quotetype);
-			return (- j - 1);
+			return (-j - 1);
 		}
 	}
-	// printf("quotesize_incl: %d\n", quotesize +2);
 	return (quotesize + 2);
 }
 

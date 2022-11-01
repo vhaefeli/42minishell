@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_echo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 10:34:52 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/11/01 11:59:04 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	cmd_echo(char **args)
@@ -19,9 +31,9 @@ int	cmd_echo(char **args)
 	{
 		printf ("%s", args[i++]);
 		if (args[i])
-			printf (" ");
+			printf(" ");
 	}
 	if (nflag)
-		printf ("\n");
+		printf("\n");
 	return (0);
 }

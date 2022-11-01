@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 10:32:50 by tlefebvr          #+#    #+#             */
+/*   Updated: 2022/10/18 10:32:59 by tlefebvr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int		is_env_char(int c)
+int	is_env_char(int c)
 {
 	if (ft_isalnum(c) == 1 || c == '_')
 		return (1);
 	return (0);
 }
 
-int		is_valid_env(const char *env)
+int	is_valid_env(const char *env)
 {
 	int		i;
 
@@ -25,7 +37,7 @@ int		is_valid_env(const char *env)
 	return (1);
 }
 
-int		env_value_len(const char *env)
+int	env_value_len(const char *env)
 {
 	int		i;
 	int		size_name;
@@ -51,7 +63,8 @@ char	*env_value(char *env)
 	char	*env_value;
 
 	size_alloc = env_value_len(env) + 1;
-	if (!(env_value = malloc(sizeof(char) * size_alloc)))
+	env_value = malloc(sizeof(char) * size_alloc);
+	if (!env_value)
 		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')

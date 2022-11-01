@@ -6,17 +6,17 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 21:49:31 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/04 15:38:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:53:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_pipe_split(char *cmdline, t_list *cmd, int i)
+int	ft_pipe_split(char *cmdline, t_list *cmd, int i)
 {
 	int	fullcmdsize;
 	int	ini_i;
-	int j;
+	int	j;
 
 	j = 0;
 	ini_i = i;
@@ -33,9 +33,7 @@ int ft_pipe_split(char *cmdline, t_list *cmd, int i)
 		j++;
 	}
 	cmd->cmd_tmp[j] = 0;
-	// printf("pipe split:cmd temp: -%s-\n", cmd->cmd_tmp);
 	if (cmdline[i] == 0)
 		return (i);
-	// printf("pipe_split i = %d\n", i + 1);
 	return (i + 1);
 }

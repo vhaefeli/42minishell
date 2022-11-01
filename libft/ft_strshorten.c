@@ -22,12 +22,11 @@ char	*ft_strshorten(char *src)
 
 	i = 0;
 	shortstr = malloc(ft_strlen(src) + 1);
-	while(src[i])
+	while (src[i])
 	{
 		shortstr[i] = src[i];
 		i++;
 	}
 	shortstr[i] = 0;
-	//free(src);
 	return (shortstr);
 }
