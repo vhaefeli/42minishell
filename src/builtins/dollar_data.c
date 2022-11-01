@@ -17,7 +17,7 @@ static void	fonct_ret(t_varchar *env_data, t_msvar *env)
 	env_data->str = malloc(2);
 	env_data->str[0] = '?';
 	env_data->i = 1;
-	env_data->str2 = ft_itoa(env->prev_ret);
+	env_data->str2 = ft_itoa(env->ret);
 	env_data->j = 1;
 	env->ret = 1;
 }
@@ -47,8 +47,6 @@ t_varchar	*dollar_data(char *str, int i, t_msvar *env)
 		env_data->str2 = get_env_value(env_datatmp, env->env);
 		env_data->j = ft_strlen(env_data->str2);
 	}
-	printf("\n prev_ret dollar_data = %i", env->prev_ret);
-	printf("\n ret dollar_data = %i", env->ret);
 	free(env_datatmp);
 	return (env_data);
 }

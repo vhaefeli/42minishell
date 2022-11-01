@@ -63,8 +63,6 @@ void	pipex(t_list *list_cmds, t_msvar *ms_env)
 	fd[0] = 0;
 	fd[1] = 1;
 	printf("1) fd0(STDIN_FILENO) = %d , fd1(STDOUT_FILENO) = %d \n", fd[0], fd[1]);
-	ms_env->prev_ret = ms_env->ret;
-	ms_env->ret = 0;
 	if(!(list_cmds)->next)
 	{
 		// printf("only one cmd\n");
@@ -137,9 +135,11 @@ int    ft_pipe(char *cmdline, t_msvar *ms_env)
     if (cmd_list == NULL )
     {
         printf("error with cmds listing\n");
-		ms_env->ret = 1;
+		ft_cmd_error(cmd_list,1,ms_env);
+		ms_env->ret = 0;
         return (1);
     }
+	ms_env->ret = 0;
 	pipex(cmd_list, ms_env);
     del_list(cmd_list);
     return (0);
