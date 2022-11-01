@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:44:04 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/19 10:44:10 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:05:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	sig_int(int code)
 	if (code == SIGINT)
 	{
 		rl_replace_line("", 0);
-		ft_putstr_fd("\n", 1);
+		//ft_putstr_fd("\n", 1);
+		ft_putendl_fd("", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		g_sig.exit_status = 1;

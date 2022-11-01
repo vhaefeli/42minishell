@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/07 11:52:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/30 18:31:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	del_tab(char **el)
 		return ;
 	while (el[i])
 	{
-		free(el[i]);
-		el[i] = NULL;
+		del_el(el[i]);
 		i++;
 	}
 	free(el);

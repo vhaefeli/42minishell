@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/09/26 17:58:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/31 12:17:43 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ t_list	*ft_ininewlst_el(void)
 		return (NULL);
 	list->infile = NULL;
 	list->infileflag = 0;
+	list->infile_fd = -1;
 	list->outfile = NULL;
 	list->outfileflag = 0;
+	list->outfile_fd = -1;
 	list->previous = NULL;
 	list->next = NULL;
 	list->cmd_with_flags = NULL;
