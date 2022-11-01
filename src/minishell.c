@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/12 18:24:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:23:16 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ void	welcometext(void)
 }
 
 char	*last_name(char *str)
-{
-	int		len;
-	int		i;
-	int		j;
-	char	*dst;
-
-	len = ft_strlen(str);
-	i = len - 1;
-	j = 0;
-	while (str[i] && str[i] != '/')
-	{
-		i--;
-	}
-	dst = malloc(len - i);
-	i++;
-	while (i < len)
-	{
-		dst[j++] = str[i++];
-	}
-	return (dst);
-}
-/*
-static char	*last_name(char *str)
 {
 	int	len;
 	int	i;
@@ -71,7 +48,6 @@ static char	*last_name(char *str)
 	dst[j] = 0;
 	return (dst);
 }
-*/
 
 int	not_only_space(char *src)
 {
@@ -99,17 +75,11 @@ void	init_module(t_msvar *ms_env, char **envp)
 	signal (SIGINT, &sig_int);
 	signal (SIGQUIT, &sig_quit);
 	ms_env->ret = 0;
-	//sig_init(&saved);
 	ms_env->prev_ret = ms_env->ret;
 	while (ms_env->exit == 0)
 	{
-		//printf("%s", getcwd (NULL, 0));
 		sig_init(&saved);
-		//cmdline = readline(last_name(getcwd (NULL, 0)));
-		printf("\n prev_ret dollar_data = %i", ms_env->prev_ret);
-		printf("\n ret dollar_data = %i\n", ms_env->ret);
 		cmdline = readline(" ➜ minishell: ");
-		//ms_env->prev_ret = ms_env->ret;
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
@@ -118,20 +88,6 @@ void	init_module(t_msvar *ms_env, char **envp)
 			ft_pipe(cmdline, ms_env);
 		}
 	}
-   /* while (ms_env->exit == 0)
-    {
-        printf("%s",last_name(getcwd(NULL,1)));
-        sig_init();
-        cmdline = readline(" ➜ minishell: ");
-        if (!cmdline)
-            break ;
-        if (g_sig.sigint != 1 && cmdline[0] != '\0'&& not_only_space(cmdline))
-        {
-                add_history(cmdline);
-                ft_pipe(cmdline, ms_env);
-        }
-        del_el(cmdline);
-    }*/
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -141,7 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	ms_env = ini_ms(envp);
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
-		return (1); 
+		return (1);
 	 welcometext();
 	init_module(ms_env, envp);
 	free_env (ms_env->env);

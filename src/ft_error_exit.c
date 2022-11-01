@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 16:43:24 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/08/26 16:58:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:08:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 
 int	ft_cmd_error(t_list *list_cmds, int error_type, t_msvar *ms_env)
 {
-	if (list_cmds)
-		del_list(list_cmds);
 	ms_env->ret = error_type;
 	printf("\n prev_ret = %i", ms_env->prev_ret); //le problem est que la commande change de maniere dznamique sa doit prendre la version d'avant
 	return (ms_env->prev_ret);

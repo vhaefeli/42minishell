@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 16:12:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:48:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	cntchar(char *s, char c, int i)
 	int	start;
 
 	start = i;
+	// printf("s[i] = %c, c = %c\n", s[i], c);
 	while (s[i] != c && s[i] != '\0')
 	{
 		if (s[i] == '\'')
@@ -55,6 +56,33 @@ int	cntchar(char *s, char c, int i)
 	}
 	// printf("cntchar: %d\n", i - start);
 	return (i - start);
+}
+
+int	cntlastchar(char *s, char c)
+{
+	int	i;
+	int tmp;
+
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] != c && s[i] != '\0')
+		{
+			if (s[i] == '\'')
+				i += quotesize_incl(s, i, '\'');
+			else if (s[i] == '\"')
+				i += quotesize_incl(s, i, '\"');
+			else
+				i++;
+		}
+		if (s[i] == c)
+		{
+			tmp = i;
+			i++;
+		}
+	}
+	// printf("cntlastchar: %d\n", tmp);
+	return (tmp);
 }
 
 int	cntchar_noquote(char *s, char c, int i)
@@ -111,6 +139,6 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 			listcmd->str2[listcmd->j++] = listcmd->str[listcmd->i++];
 	}
 	listcmd->str2[listcmd->j] = '\0';
-	printf("listcmd2-%s-\n", listcmd->str2);
+	// printf("listcmd2-%s-\n", listcmd->str2);
 	return (ft_strshorten(listcmd->str2));
 }

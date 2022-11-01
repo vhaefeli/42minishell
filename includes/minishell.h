@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 10:40:56 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/19 10:41:10 by tlefebvr         ###   ########.fr       */
+/*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/11/01 11:01:26 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include "libft.h"
 # include "keys.h"
 # include <stddef.h>
@@ -41,8 +42,10 @@ typedef struct s_list
 	char			**cmd_with_flags; //table with in[0] the cmd and after the flags
 	char			*infile;
 	int				infileflag;//0 no infile / 1 infile / 2 heredoc as infile
+	int				infile_fd;
 	char			*outfile;
 	int				outfileflag;//0 no outfile / 1 outfile O_TRUNC / 2 outfile O_APPEND
+	int				outfile_fd;
 	struct s_list	*previous;
 	struct s_list	*next;
 }	t_list;
@@ -63,6 +66,9 @@ typedef struct s_msvar
 	int		prev_ret;
 	int 	exit;
 	char	**all_path;
+	int		stdin_fd;
+	int		stdout_fd;
+	int		nbrofcmds;
 }	t_msvar;
 
 typedef	struct s_varchar
@@ -79,7 +85,7 @@ typedef struct	s_sig
 	int				sigquit;
 	int				exit_status;
 	pid_t			pid;
-	
+
 }				t_sig;
 
 // // Builtins
@@ -168,10 +174,22 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env);
 int ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // ft_in_out_files.c check the infile and outfile and fill them in the list
-size_t	check_infile(char *cmdline);
-size_t	check_outfile(char *cmdline);
-void	ft_check_in_out(t_list *cmd, t_msvar *ms_env);
-void	ft_in_out_files(t_list *cmds, t_msvar *ms_env);
+int	fill_inout(t_list *cmd, t_msvar *ms_env, int i, char c);
+int	ft_check_in_out(t_list *cmd, t_msvar *ms_env);
+int	ft_in_out_files(t_list *cmds, t_msvar *ms_env);
+
+// ft_in_out_files2.c check the infile and outfile and fill them in the list
+size_t	infile_size(char *cmdline, int i);
+size_t	outfile_size(char *cmdline, int i);
+int inoutfileflag_ini(t_list *cmd, int i, char c);
+int	ft_fill_infile(t_list *cmd, t_msvar *env, int i);
+int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i);
+
+// ft_in_out_files3.c check the infile and outfile
+int	pass_infile(char *src, int i);
+int	pass_outfile(char *src, int i);
+int	check_file_in(t_list *cmd, int fd_in);
+int	check_file_out(t_list *cmd, int fd_out);
 
 // quotes_utiles.c
 int	quotesize(char *s, int i, char quotetype);
@@ -182,8 +200,6 @@ t_varchar	*fillvarchar(char *str, char *str2, int i, int j);
 
 // ft_fill_data1.c et ft_fill_data2.c filling of the different data of
 // chained list of commands
-void	ft_fill_infile(t_list *cmd, size_t infile_len, t_msvar *env);
-void	ft_fill_outfile(t_list *cmd, size_t outfile_len, t_msvar *env);
 void	ft_clean_cmdline(t_list *cmd);
 int		no_space(char *src, int i);
 char	*cmd_path(char **path, char *cmd);
@@ -200,30 +216,23 @@ char	**filltab(char *s, int nbline, t_msvar *env);
 char	**ft_splitcmd(char *s, t_msvar *ms_env);
 
 // pipe_children_process.c execute the commande
-int		ft_heredoc(char *infile);
+int		ft_heredoc(t_list *cmd);
 int		checkbuiltin(char *cmd);
 int		execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
-int		child_process(t_list *list_cmds, int fd[], t_msvar *ms_env);
+int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell
 int		ft_cmd_error(t_list *list_cmds, int error_type, t_msvar *ms_env);
 int		ft_exit_minishell(t_msvar *ms_env);
 
-// builtin cmds
-// int		cmd_echo(t_list *cmds, char **envp);
-// int		cmd_cd(t_list *cmds, char **envp);
-// int		cmd_pwd(t_list *cmds, char **envp);
-// int		cmd_export(t_list *cmds, char **envp);
-// int		cmd_unset(t_list *cmds, char **envp);
-// int		cmd_env(t_list *cmds, char **envp);
-// int		cmd_exit(t_list *cmds, char **envp);
-
 // ft_pipe_spit.c
 int 	ft_pipe_split(char *cmdline, t_list *cmd, int i);
 
 // pipe_utils.c
-void	pipex(t_list *list_cmds, t_msvar *ms_env);
+// int	in_out_fd(t_list *list_cmds, t_msvar *ms_env, int *fd, int *startfd);
+int	in_out_fd(t_list *list_cmds, int *fd);
+int	pipex(t_list *list_cmds, t_msvar *ms_env);
 int		ft_pipe(char *cmdline, t_msvar *ms_env);
 
 #endif

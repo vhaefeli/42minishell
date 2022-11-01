@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 15:48:57 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:49:12 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	**filltab(char *s, int nbline, t_msvar *env)
 	while (l < nbline - 1)
 	{
 		dst[l] = cpycmdflag(lignecmd, env);
-		printf("Adst[0]:%s-\n", dst[0]);
-		printf("dst[%d]:%p\n", l, dst[l]);
+		// printf("Adst[0]:%s-\n", dst[0]);
+		// printf("dst[%d]:%p\n", l, dst[l]);
 		l++;
 		// printf"i: %d\n", lignecmd->i);
 	}
@@ -57,8 +57,8 @@ char	**ft_splitcmd(char *s, t_msvar *env)
 	if (!dst)
 		return (NULL);
 	dst = filltab(s, line, env);
-	printf("dst[0]:%s-\n", dst[0]);
-	printf("dst[1]:%s-\n", dst[1]);
+	// printf("dst[0]:%s-\n", dst[0]);
+	// printf("dst[1]:%s-\n", dst[1]);
 	return (dst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/13 14:24:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:02:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	programm_to_execute(t_list	*cmds, t_msvar *ms_env)
 		cmds->cmd_with_flags[0] = ft_strcpyfrom(tempstr,2);
 		free (tempstr);
 	}
-	printf("cmds->cmd_with_flags[0]:%s-\n", cmds->cmd_with_flags[0]);
+	// printf("cmds->cmd_with_flags[0]:%s-\n", cmds->cmd_with_flags[0]);
 }
 
 int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
@@ -79,7 +79,6 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 			printf("error: command not found: %s\n",
 				cmds->cmd_with_flags[0]);
 			ms_env->ret = 1;
-			ft_cmd_error(cmds, 1, ms_env);
 			return (1);
 		}
 	}
@@ -88,10 +87,12 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 
 void	ft_fillcmd_flag(t_list *cmds, t_msvar *env)
 {
+	env->nbrofcmds = 0;
 	while (cmds)
 	{
+		env->nbrofcmds++;
 		ft_clean_cmdline(cmds);
-		printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
+		// printf("********\ncmd_tmp2:%s-\n", cmds->cmd_tmp);
 		if (cmds->cmd_tmp[0] != 0)
 		{
 			// printf("fillcmd_flag\n");

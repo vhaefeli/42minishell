@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/10/13 13:56:29 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/11/01 11:20:46 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,16 @@ OBJS_DIR 		= ./obj
 LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
-INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
-LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
+INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.1.2/include
+LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.1.2/lib
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS 			= 	env_analyze.c\
 					ft_del.c\
-					ft_error_exit.c\
 					ft_fill_data1.c\
 					ft_fill_data2.c\
-					ft_in_out_files.c\
+					ft_in_out_files1.c\
+					ft_in_out_files2.c\
+					ft_in_out_files3.c\
 					ft_pipe_split.c\
 					ft_splitcmd1.c\
 					ft_splitcmd2.c\
@@ -78,10 +79,10 @@ $(OBJS_DIR):
 	@mkdir -p $(dir $(OBJS))
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)  $(INCLUDES_READLINE) 
+	$(CC) -c $(CFLAGS) -o $@ $^ $(INCLUDES)  $(INCLUDES_READLINE)
 
 $(TARGET): $(LIBFT_DIR)/libft.a $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS) $(LINK_READLINE)  $(INCLUDES_READLINE) 
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INCLUDES) $(LIBS) $(LINK_READLINE)  $(INCLUDES_READLINE)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -sC $(LIBFT_DIR)
