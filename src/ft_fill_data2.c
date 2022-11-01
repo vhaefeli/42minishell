@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:45:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:45:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	if (cmds->cmd_with_flags[0][0] == '/'
 		|| checkbuiltin(cmds->cmd_with_flags[0]))
-		cmds->path_cmd = cmds->cmd_with_flags[0];
+		cmds->path_cmd = strdup(cmds->cmd_with_flags[0]);
 	else if (cmds->cmd_with_flags[0][0] == '.' &&
 		cmds->cmd_with_flags[0][1] == '/')
 		programm_to_execute(cmds, ms_env);

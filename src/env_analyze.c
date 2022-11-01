@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:01:35 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:45:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_msvar	*ini_ms(char **envp)
 	msvar->envp_ms = malloc (sizeof(char *) * ft_strlen(*envp));
 	while (envp[i])
 	{
+		printf("envp:%s\n", envp[i]);
 		msvar->envp_ms[i] = ft_strdup(envp[i]);
 		i++;
 	}
