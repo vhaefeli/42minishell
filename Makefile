@@ -19,8 +19,8 @@ OBJS_DIR 		= ./obj
 LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
-INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.1.2/include
-LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.1.2/lib
+INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
+LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS 			= 	env_analyze.c\
 					ft_del.c\
