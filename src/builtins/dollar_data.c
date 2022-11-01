@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:07:34 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 18:48:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:48:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ t_varchar	*dollar_data(char *str, int i, t_msvar *env)
 		env_data->str2 = get_env_value(env_datatmp, env->env);
 		env_data->j = ft_strlen(env_data->str2);
 	}
-	printf("\n prev_ret dollar_data = %i", env->prev_ret);
-	printf("\n ret dollar_data = %i", env->ret);
 	free(env_datatmp);
 	return (env_data);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 11:35:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:59:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 	int		i;
 
 	i = 0;
-	// printf("list cmds: cmdline:-%s-\n", cmdline);
-	// step 1 create the list with the correct nbr of elements
 	first_cmd = ft_ininewlst_el();
 	i = ft_pipe_split(cmdline, first_cmd, i);
 	if (i >= 0 && cmdline[i] != 0)
@@ -35,13 +33,9 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 		new_cmd1 = new_cmd2;
 	}
 	if (i == -1)
-		return (NULL); //error with the cmd
-	// step 2 clean the cmds lines by searching the infile and outfile
-	// printf("list_cmds step2\n");
+		return (NULL);
 	if (ft_in_out_files(first_cmd, ms_env))
 		return (NULL);
-	// step 3 fill the cmd_with_flag by a new split
-	// printf("list_cmds step3\n");
 	ft_fillcmd_flag(first_cmd, ms_env);
 	return (first_cmd);
 }

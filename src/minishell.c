@@ -6,13 +6,11 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 11:23:16 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:28:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_sig	g_sig;
 
 void	welcometext(void)
 {
@@ -27,9 +25,9 @@ void	welcometext(void)
 
 char	*last_name(char *str)
 {
-	int	len;
-	int	i;
-	int	j;
+	int		len;
+	int		i;
+	int		j;
 	char	*dst;
 
 	len = ft_strlen(str);
@@ -66,8 +64,8 @@ int	not_only_space(char *src)
 
 void	init_module(t_msvar *ms_env, char **envp)
 {
-	char	*cmdline;
-	struct termios saved;
+	char			*cmdline;
+	struct termios	saved;
 
 	env_init (ms_env, envp);
 	secret_env_init (ms_env, envp);
@@ -78,12 +76,12 @@ void	init_module(t_msvar *ms_env, char **envp)
 	ms_env->prev_ret = ms_env->ret;
 	while (ms_env->exit == 0)
 	{
-		sig_init(&saved);
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
 		{
+			sig_init(&saved);
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
 		}
@@ -98,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
 		return (1);
-	 welcometext();
+	welcometext();
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
 	free_env (ms_env->secret_env);

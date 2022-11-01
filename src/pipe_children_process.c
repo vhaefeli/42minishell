@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 11:10:02 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:11:37 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_heredoc(t_list *cmd)
 		unlink(".heredoc");
 	}
 	cmd->infile_fd = open(".heredoc", O_CREAT | O_RDWR | O_APPEND, 0666);
-	while(1)
+	while (1)
 	{
 		text = readline("> ");
 		if (!ft_strcmp(text, cmd->infile))
@@ -58,14 +58,12 @@ int	checkbuiltin(char *cmd)
 		return (6);
 	if (!ft_strncmp("unset", cmd, n))
 		return (7);
-
 	else
 		return (0);
 }
 
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
-
 	if (builtincmd_nb == 1)
 		return (cmd_echo(cmds->cmd_with_flags));
 	if (builtincmd_nb == 5)
@@ -80,11 +78,11 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 4)
 	{
-		cmd_exit(ms_env,cmds->cmd_with_flags);
-		return(0);
+		cmd_exit(ms_env, cmds->cmd_with_flags);
+		return (0);
 	}
 	else
-		return (4); //cmd builtin error
+		return (4);
 }
 
 int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
@@ -100,17 +98,17 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
 		if (list_cmds->next)
 		{
 			if (fd[0] > -1)
-			close(fd[0]);
+				close(fd[0]);
 			if (fd[1] > -1)
-			close(fd[1]);
+				close(fd[1]);
 		}
 		if (builtincmd_nb)
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{
-			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags, ms_env->envp_origin);
-			printf("error with execve");
-			return (2);
+			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
+				ms_env->envp_origin);
+			return (printf("error with execve"));
 		}
 	}
 	return (0);

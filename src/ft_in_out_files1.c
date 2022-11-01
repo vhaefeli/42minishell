@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 14:09:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:49:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	infile_ok(t_list *cmd)
 {
-	// printf("infile %s\n", cmd->infile);
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infileflag == 1)
@@ -62,7 +61,7 @@ int	outfile_ok(t_list *cmd)
 int	fill_inout(t_list *cmd, t_msvar *ms_env, int i, char c)
 {
 	while (cmd->cmd_tmp[i] && cmd->cmd_tmp[i] != c)
-		i+= cntchar(cmd->cmd_tmp, c, i);
+		i += cntchar(cmd->cmd_tmp, c, i);
 	if (cmd->cmd_tmp[i] == '<')
 	{
 		if (cmd->infile)
@@ -114,4 +113,3 @@ int	ft_in_out_files(t_list *cmds, t_msvar *ms_env)
 	}
 	return (0);
 }
-

@@ -6,16 +6,16 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 11:25:05 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:15:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void checklistcmd(t_list *cmd)
+void	checklistcmd(t_list *cmd)
 {
 	int	a;
-	int i = 0;
+	int	i = 0;
 
 	while (cmd && (i + 1))
 	{
@@ -44,7 +44,7 @@ void checklistcmd(t_list *cmd)
 int	in_out_fd(t_list *list_cmds, int *fd)
 {
 	int	infile;
-	int outfile;
+	int	outfile;
 
 	infile = check_file_in(list_cmds, fd[0]);
 	outfile = check_file_out(list_cmds, fd[1]);
@@ -53,7 +53,6 @@ int	in_out_fd(t_list *list_cmds, int *fd)
 		dup2(infile, STDIN_FILENO);
 		close(infile);
 	}
-
 	if (outfile > -1)
 	{
 		dup2(outfile, STDOUT_FILENO);
@@ -62,13 +61,13 @@ int	in_out_fd(t_list *list_cmds, int *fd)
 	return (0);
 }
 
-static void fd_init(int fd[2])
+static void	fd_init(int fd[2])
 {
 	fd[0] = -1;
 	fd[1] = -1;
 }
 
-static void fd_close(int fd[2])
+static void	fd_close(int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
@@ -76,21 +75,21 @@ static void fd_close(int fd[2])
 
 int	pipex(t_list *list_cmds, t_msvar *ms_env)
 {
-	int			fd[2];
-	int			pid;
-	int			n_cmd;
+	int	fd[2];
+	int	pid;
+	int	n_cmd;
 
 	fd_init(fd);
 	n_cmd = 0;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 4)
 		return (execbuiltin(list_cmds,
-			checkbuiltin(list_cmds->cmd_with_flags[0]),ms_env));
+				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
 	while (list_cmds && ++n_cmd)
 	{
 		if (ft_fillpath_cmd(list_cmds, ms_env))
 			return (1);
 		if (list_cmds->next && pipe(fd) == -1 && printf("Pipe error\n"))
-				break;
+			break ;
 		pid = fork();
 		one_cmd(list_cmds, ms_env, fd, pid);
 		list_cmds = list_cmds->next;
@@ -107,9 +106,9 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
 
-	if(g_sig.sigint == 1)
+	if (g_sig.sigint == 1)
 	{
-		return(g_sig.exit_status);
+		return (g_sig.exit_status);
 	}
 	cmd_list = list_cmds(cmdline, ms_env);
 	checklistcmd(cmd_list);
@@ -121,9 +120,8 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 	if (pipex(cmd_list, ms_env))
 	{
 		del_list(cmd_list);
-		return(1);
+		return (1);
 	}
 	del_list(cmd_list);
 	return (0);
 }
-

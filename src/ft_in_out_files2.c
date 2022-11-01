@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:35:23 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/18 18:48:29 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:50:27 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	outfile_size(char *cmdline, int i)
 	return (j);
 }
 
-int inoutfileflag_ini(t_list *cmd, int i, char c)
+int	inoutfileflag_ini(t_list *cmd, int i, char c)
 {
 	if (c == '<')
 	{
@@ -51,7 +51,7 @@ int inoutfileflag_ini(t_list *cmd, int i, char c)
 		cmd->infileflag = 1;
 		return (i);
 	}
-	if (c =='>')
+	if (c == '>')
 	{
 		if (cmd->cmd_tmp[i] == '>')
 		{
@@ -74,7 +74,7 @@ int	ft_fill_infile(t_list *cmd, t_msvar *env, int i)
 	cmd->infile = malloc(infile_len + 1);
 	ci = fillvarchar(cmd->cmd_tmp, cmd->infile, i, 0);
 	while (cmd->cmd_tmp[ci->i] && cmd->cmd_tmp[ci->i] != '<')
-		ci->i+= cntchar(cmd->cmd_tmp, '<', ci->i);
+		ci->i += cntchar(cmd->cmd_tmp, '<', ci->i);
 	if (cmd->cmd_tmp[ci->i] && cmd->cmd_tmp[ci->i++] == '<')
 	{
 		ci->i = inoutfileflag_ini(cmd, ci->i, '<');
@@ -88,7 +88,6 @@ int	ft_fill_infile(t_list *cmd, t_msvar *env, int i)
 	}
 	cmd->infile[ci->j] = 0;
 	free(ci);
-	// printf("infile: %s- flag> %d\n", cmd->infile, cmd->infileflag);
 	if (cmd->infileflag > 1)
 		return (i + 2);
 	return (i + 1);
@@ -103,7 +102,7 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i)
 	cmd->outfile = malloc(outfile_len + 1);
 	co = fillvarchar(cmd->cmd_tmp, cmd->infile, i, 0);
 	while (cmd->cmd_tmp[co->i] && cmd->cmd_tmp[co->i] != '>')
-		co->i+= cntchar(cmd->cmd_tmp, '>', co->i);
+		co->i += cntchar(cmd->cmd_tmp, '>', co->i);
 	if (cmd->cmd_tmp[co->i] && cmd->cmd_tmp[co->i++] == '>')
 	{
 		co->i = inoutfileflag_ini(cmd, co->i, '>');
@@ -117,7 +116,6 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i)
 	}
 	cmd->outfile[co->j] = 0;
 	free(co);
-	// printf("outfile: %s- flag> %d\n", cmd->outfile, cmd->outfileflag);
 	if (cmd->outfileflag > 1)
 		return (i + 2);
 	return (i + 1);
