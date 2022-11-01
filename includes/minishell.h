@@ -6,12 +6,12 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 14:17:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:48:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "libft.h"
 # include "keys.h"
@@ -216,7 +216,7 @@ char	**ft_splitcmd(char *s, t_msvar *ms_env);
 int		ft_heredoc(t_list *cmd);
 int		checkbuiltin(char *cmd);
 int		execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
-int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd);
+int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell

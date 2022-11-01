@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 23:01:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:47:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	 	return (ft_export(cmds->cmd_with_flags, ms_env->env, ms_env->env));
 	 if (builtincmd_nb == 7)
 	 	return (ft_unset(cmds->cmd_with_flags, ms_env));
-	if (builtincmd_nb == 3) 
+	if (builtincmd_nb == 3)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 4)
 	{
@@ -87,18 +87,14 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 		return (4); //cmd builtin error
 }
 
-int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
+int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
 {
 	int		builtincmd_nb;
-	// int		pid;
 
-	if (ft_fillpath_cmd(list_cmds, ms_env))
+	if (pid < 0 && printf("Fork error\n"))
 		return (1);
-	// pid = fork();
-	// if (pid < 0 && printf("Fork error\n"))
-	// 	return (1);
-	// if (pid == 0)
-	// {
+	if (pid == 0)
+	{
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		in_out_fd(list_cmds, fd);
 		if (list_cmds->next)
@@ -116,8 +112,7 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 			printf("error with execve");
 			return (2);
 		}
-	// }
-	// waitpid(pid, NULL, 0);
+	}
 	return (0);
 }
 

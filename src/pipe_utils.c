@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/10/31 23:17:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:51:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	in_out_fd(t_list *list_cmds, int *fd)
 		dup2(infile, STDIN_FILENO);
 		close(infile);
 	}
-		
+
 	if (outfile > -1)
 	{
 		dup2(outfile, STDOUT_FILENO);
@@ -62,12 +62,17 @@ int	in_out_fd(t_list *list_cmds, int *fd)
 	return (0);
 }
 
-// static void	fd_value_exchange(int fd[], int temp_fd[])
-// {
-// 	temp_fd[1] = fd[0];
-// 	fd[0] = temp_fd[0];
-// 	temp_fd[0] = temp_fd[1];
-// }
+static void fd_init(int fd[2])
+{
+	fd[0] = -1;
+	fd[1] = -1;
+}
+
+static void fd_close(int fd[2])
+{
+	close(fd[0]);
+	close(fd[1]);
+}
 
 int	pipex(t_list *list_cmds, t_msvar *ms_env)
 {
@@ -75,35 +80,26 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 	int			pid;
 	int			n_cmd;
 
-	fd[0] = -1;
-	fd[1] = -1;
+	fd_init(fd);
 	n_cmd = 0;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 4)
-		return (execbuiltin(list_cmds, checkbuiltin(list_cmds->cmd_with_flags[0]),
-			ms_env));
+		return (execbuiltin(list_cmds,
+			checkbuiltin(list_cmds->cmd_with_flags[0]),ms_env));
 	while (list_cmds && ++n_cmd)
 	{
-		if (list_cmds->next)
-		{
-			if (pipe(fd) == -1 && printf("Pipe error\n"))
-				break;
-		}
-		pid = fork();
-		if (pid < 0 && printf("Fork error\n"))
+		if (ft_fillpath_cmd(list_cmds, ms_env))
 			return (1);
-		if (pid == 0)
-		{
-			if (one_cmd(list_cmds, ms_env, fd))
-				return (1);
-		}
+		if (list_cmds->next && pipe(fd) == -1 && printf("Pipe error\n"))
+				break;
+		pid = fork();
+		one_cmd(list_cmds, ms_env, fd, pid);
 		list_cmds = list_cmds->next;
 		if (list_cmds)
 			list_cmds->infile_fd = dup(fd[0]);
-		close(fd[0]);
-		close(fd[1]);
+		fd_close(fd);
 	}
-	while (n_cmd--)
-		waitpid(pid, NULL, 0);
+	// while (n_cmd--)
+	// 	waitpid(pid, NULL, 0);
 	return (0);
 }
 
