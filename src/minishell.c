@@ -93,13 +93,14 @@ int	main(int argc, char **argv, char **envp)
 	t_msvar	*ms_env;
 
 	ms_env = ini_ms(envp);
+
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
 		return (1);
 	welcometext();
 	init_module(ms_env, envp);
-	free(ms_env);
 	free_env (ms_env->env);
 	free_env (ms_env->secret_env);
+	//free(ms_env);
 	return (0);
 }

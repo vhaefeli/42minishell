@@ -64,7 +64,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
 	if (cmds->cmd_with_flags[0][0] == '/'
 		|| checkbuiltin(cmds->cmd_with_flags[0]))
-		cmds->path_cmd = cmds->cmd_with_flags[0];
+		cmds->path_cmd = strdup(cmds->cmd_with_flags[0]);
 	else if (cmds->cmd_with_flags[0][0] == '.' &&
 		cmds->cmd_with_flags[0][1] == '/')
 		programm_to_execute(cmds, ms_env);
@@ -76,8 +76,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 		{
 			printf("error: command not found: %s\n",
 				cmds->cmd_with_flags[0]);
-			ms_env->ret = 127;
-			return (1);
+			return (127);
 		}
 	}
 	return (0);

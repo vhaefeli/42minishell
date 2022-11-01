@@ -57,7 +57,7 @@ void	del_list(t_list *list_cmds)
 		el1->previous = NULL;
 		el2 = el1;
 		el1 = el1->next;
-		free(el2);
+		//free(el2);
 	}
 	list_cmds = NULL;
 }

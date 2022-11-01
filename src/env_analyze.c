@@ -46,9 +46,8 @@ t_msvar	*ini_ms(char **envp)
 		msvar->envp_ms[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	msvar->envp_ms[i] = NULL;
 	msvar->all_path = path_finder(envp);
 	msvar->exit = 0;
-	msvar->stdin_fd = dup(STDIN_FILENO);
-	msvar->stdout_fd = dup(STDOUT_FILENO);
 	return (msvar);
 }

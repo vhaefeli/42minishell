@@ -81,7 +81,7 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 
 	fd_init(fd);
 	n_cmd = 0;
-	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 4)
+	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
 				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
 	while (list_cmds && ++n_cmd)
@@ -105,11 +105,8 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
+	int		ret;
 
-	if (g_sig.sigint == 1)
-	{
-		return (g_sig.exit_status);
-	}
 	cmd_list = list_cmds(cmdline, ms_env);
 	checklistcmd(cmd_list);
 	if (cmd_list == NULL)
@@ -117,11 +114,8 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		printf("error with cmds listing\n");
 		return (1);
 	}
-	if (pipex(cmd_list, ms_env))
-	{
-		del_list(cmd_list);
-		return (1);
-	}
+	ret = pipex(cmd_list, ms_env);
+	ms_env->ret = ret;
 	del_list(cmd_list);
 	return (0);
 }
