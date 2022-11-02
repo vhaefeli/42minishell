@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:39:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 20:16:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	del_list(t_list *list_cmds)
 		el1->previous = NULL;
 		el2 = el1;
 		el1 = el1->next;
-		//free(el2);
+		free(el2);
 	}
 	list_cmds = NULL;
 }
