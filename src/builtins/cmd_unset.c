@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:36:45 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 11:36:47 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:01:59 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	ft_unset(char **a, t_msvar *msvar)
 		}
 		env = env->next;
 	}
-	return(0);
+	update_msenv(msvar);
+	return (0);
 }
 

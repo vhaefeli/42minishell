@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:45:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:43:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*cmd_path(char **path, char *cmd)
 	int		i;
 
 	i = 0;
+	if (!path)
+		return (NULL);
 	while (path[i])
 	{
 		temp_cmd = ft_strjoin("/", cmd);
@@ -62,6 +64,7 @@ void	programm_to_execute(t_list	*cmds, t_msvar *ms_env)
 
 int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
+
 	if (cmds->cmd_with_flags[0][0] == '/'
 		|| checkbuiltin(cmds->cmd_with_flags[0]))
 		cmds->path_cmd = ft_strdup(cmds->cmd_with_flags[0]);
@@ -70,7 +73,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 		programm_to_execute(cmds, ms_env);
 	else if (cmds->cmd_with_flags)
 	{
-		cmds->path_cmd = cmd_path(ms_env->all_path,
+		cmds->path_cmd = cmd_path(path_finder(ms_env->envp_ms),
 				cmds->cmd_with_flags[0]);
 		if (cmds->path_cmd == NULL)
 		{

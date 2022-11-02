@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:37:16 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 10:37:18 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:29:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	cmd_exit(t_msvar *msvar, char **cmd)
 {
 	msvar->exit = 1;
-	ft_putstr_fd("exit ", 2);
+	ft_putstr_fd("Good Bye\n", 2);
 	if (cmd[1] && cmd[2])
 	{
 		msvar->ret = 1;
@@ -33,9 +33,3 @@ void	cmd_exit(t_msvar *msvar, char **cmd)
 	else
 		msvar->ret = 0;
 }
-/*
-int	ft_exit(t_msvar *msvar)
-{
-	msvar->exit = 1;
-	return (0);
-}*/

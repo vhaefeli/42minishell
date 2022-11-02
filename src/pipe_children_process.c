@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 13:11:37 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:07:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 1)
 		return (cmd_echo(cmds->cmd_with_flags));
 	if (builtincmd_nb == 5)
-		return (cmd_cd(cmds->cmd_with_flags, ms_env->env));
+		return (cmd_cd(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 2)
 		return (cmd_pwd());
 	if (builtincmd_nb == 6)
-		return (ft_export(cmds->cmd_with_flags, ms_env->env));
+		return (ft_export(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 7)
 		return (ft_unset(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 3)
@@ -106,7 +106,7 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{
-			printf("\nEXECVE%s\n",list_cmds->path_cmd);
+			printf("path:%s\n ",list_cmds->path_cmd);
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
 				ms_env->envp_origin);
 			return (printf("error with execve"));
