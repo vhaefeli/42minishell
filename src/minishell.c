@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 14:07:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:26:34 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	t_msvar	*ms_env;
 
 	ms_env = ini_ms(envp);
+
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
 		return (1);

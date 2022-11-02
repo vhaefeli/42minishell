@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 13:36:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 10:59:10 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_sig	g_sig;
 // // Builtins
 // // cmd_cd.c
 char		*get_env_path(t_env *env, const char *var, size_t len);
-int			cmd_cd(char **args, t_env *env);
+int			cmd_cd(char **args, t_msvar *envp);
 // //cmd_echo.c
 int			cmd_echo(char **args);
 // // cmd_env.c
@@ -110,7 +110,7 @@ void		sig_quit(int code);
 void		sig_int(int code);
 
 // // cmd_export.c
-int			ft_export(char **args, t_env *env);
+int			ft_export(char **args, t_msvar *envp);
 
 int			cmd_pwd(void);
 char		*last_name(char *str);
@@ -147,6 +147,7 @@ void		print_sorted_env(t_env *env);
 
 // env_analzye.c fonction using the original envp to find data
 // and initialisation
+void		update_msenv(t_msvar *envp);
 t_msvar		*ini_ms(char **envp);
 char		**path_finder(char **envp);
 

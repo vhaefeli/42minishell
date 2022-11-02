@@ -1,21 +1,2 @@
-path:/bin/ls
-infile 0
-outfile 1
-execve
-path_cmd:/bin/ls
-cmd with flag:ls-
-infile:(null)-
-infileflag:0
-outfile:outfile-
-outfileflag:1
-********
-Makefile
-builtins
-includes
-infile
-libft
-minishell
-minishell.dSYM
-obj
-outfile
-src
+path:/usr/bin/wc
+       3       3      14

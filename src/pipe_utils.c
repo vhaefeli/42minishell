@@ -76,22 +76,16 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 int	ft_pipe(char *cmdline, t_msvar *ms_env)
 {
 	t_list	*cmd_list;
+	int		ret;
 
-	if (g_sig.sigint == 1)
-	{
-		return (g_sig.exit_status);
-	}
 	cmd_list = list_cmds(cmdline, ms_env);
 	if (cmd_list == NULL)
 	{
 		printf("error with cmds listing\n");
 		return (1);
 	}
-	if (pipex(cmd_list, ms_env))
-	{
-		del_list(cmd_list);
-		return (1);
-	}
+	ret = pipex(cmd_list, ms_env);
+	ms_env->ret = ret;
 	del_list(cmd_list);
 	return (0);
 }

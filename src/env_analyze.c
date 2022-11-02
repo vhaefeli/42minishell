@@ -6,11 +6,36 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 15:45:39 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:39:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_msenv(t_msvar *envp)
+{
+	int		lstsize;
+	int		i;
+	t_env	*temp;
+
+	i = 0;
+	lstsize = 0;
+	temp = envp->env;
+	while (temp->next)
+	{
+		temp = temp->next;
+		lstsize++;
+	}
+	// del_tab(envp->envp_ms);
+	envp->envp_ms = malloc(sizeof(char*) * lstsize + 1);
+	while (envp->env->next)
+	{
+		envp->envp_ms[i] = ft_strdup(envp->env->value);
+		envp->env = envp->env->next;
+		i++;
+	}
+	envp->envp_ms[i] = 0;
+}
 
 char	**path_finder(char **envp)
 {
@@ -19,12 +44,18 @@ char	**path_finder(char **envp)
 	char	**all_path;
 
 	i = 0;
+	while (envp[i])
+	{
+		printf("envp[i] %s\n", envp[i]);
+		i++;
+	}
+	i = 0;
 	while (envp[i] && (ft_strnstr(envp[i], "PATH=", 5) == NULL))
 		i++;
 	if (envp[i] == NULL)
 	{
 		printf("(Error) PATH not found\n");
-		exit(EXIT_FAILURE);
+		return(char**)(NULL);
 	}
 	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 	all_path = ft_split(path, ':');
@@ -40,16 +71,15 @@ t_msvar	*ini_ms(char **envp)
 	i = 0;
 	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_origin = envp;
-	msvar->envp_ms = malloc (sizeof(char *) * ft_strlen(*envp));
+	msvar->envp_ms = malloc (sizeof(char *) * ft_strlen(*envp) + 1);
 	while (envp[i])
 	{
-		printf("envp:%s\n", envp[i]);
+		printf("Envp[i] %s\n", envp[i]);
 		msvar->envp_ms[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	msvar->envp_ms[i] = NULL;
 	msvar->all_path = path_finder(envp);
 	msvar->exit = 0;
-	msvar->stdin_fd = dup(STDIN_FILENO);
-	msvar->stdout_fd = dup(STDOUT_FILENO);
 	return (msvar);
 }

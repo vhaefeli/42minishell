@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:33:40 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/01 11:01:46 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:06:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,24 @@ static int	go_to_path(int option, t_env *env)
 	return (ret);
 }
 
-int	cmd_cd(char **args, t_env *env)
+int	cmd_cd(char **args, t_msvar *envp)
 {
 	int		cd_ret;
 
 	if (!args[1])
-		return (go_to_path(0, env));
+		return (go_to_path(0, envp->env));
 	if (ft_strcmp(args[1], "-") == 0)
-		cd_ret = go_to_path(1, env);
+		cd_ret = go_to_path(1, envp->env);
 	else
 	{
-		update_oldpwd(env);
+		update_oldpwd(envp->env);
 		cd_ret = chdir(args[1]);
-		update_pwd(env);
+		update_pwd(envp->env);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)
 			print_error(args);
 	}
+	update_msenv(envp);
 	return (cd_ret);
 }
