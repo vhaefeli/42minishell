@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:03:00 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 12:03:01 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:22:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ int	env_init(t_msvar *msvar, char **env_array)
 		env = new;
 		i++;
 	}
+	del_tab(msvar->envp_ms);
 	msvar->envp_ms = env_array;
+	printf("envp_ms env ini %p\n", msvar->envp_ms);
 	return (0);
 }
 

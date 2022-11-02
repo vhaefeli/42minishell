@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 10:59:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:55:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_msvar
 	int		ret;
 	int		prev_ret;
 	int		exit;
-	char	**all_path;
 	int		stdin_fd;
 	int		stdout_fd;
 	int		nbrofcmds;
