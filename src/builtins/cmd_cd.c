@@ -97,7 +97,7 @@ static int	go_to_path(int option, t_env *env)
 	ft_memdel(env_path);
 	return (ret);
 }
-
+/*
 int	cmd_cd(char **args, t_env *env)
 {
 	int		cd_ret;
@@ -116,5 +116,28 @@ int	cmd_cd(char **args, t_env *env)
 		if (cd_ret != 0)
 			print_error(args);
 	}
+	return (cd_ret);
+}*/
+
+
+int	cmd_cd(char **args, t_msvar *msenv)
+{
+	int		cd_ret;
+
+	if (!args[1])
+		return (go_to_path(0, msenv->env));
+	if (ft_strcmp(args[1], "-") == 0)
+		cd_ret = go_to_path(1, msenv->env);
+	else
+	{
+		update_oldpwd(msenv->env);
+		cd_ret = chdir(args[1]);
+		update_pwd(msenv->env);
+		if (cd_ret < 0)
+			cd_ret *= -1;
+		if (cd_ret != 0)
+			print_error(args);
+	}
+	update_msenv(msenv);
 	return (cd_ret);
 }

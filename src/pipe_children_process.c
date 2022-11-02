@@ -106,6 +106,7 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{
+			printf("\nEXECVE%s\n",list_cmds->path_cmd);
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
 				ms_env->envp_origin);
 			return (printf("error with execve"));

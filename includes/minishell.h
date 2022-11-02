@@ -94,7 +94,7 @@ t_sig	g_sig;
 // // Builtins
 // // cmd_cd.c
 char		*get_env_path(t_env *env, const char *var, size_t len);
-int			cmd_cd(char **args, t_env *env);
+int			cmd_cd(char **args, t_msvar *msenv);
 // //cmd_echo.c
 int			cmd_echo(char **args);
 // // cmd_env.c
@@ -149,6 +149,7 @@ void		print_sorted_env(t_env *env);
 // and initialisation
 t_msvar		*ini_ms(char **envp);
 char		**path_finder(char **envp);
+void 		update_msenv(t_msvar *envp);
 
 t_varchar	*dollar_data(char *str, int i, t_msvar *env);
 

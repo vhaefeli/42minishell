@@ -51,3 +51,28 @@ t_msvar	*ini_ms(char **envp)
 	msvar->exit = 0;
 	return (msvar);
 }
+
+void    update_msenv(t_msvar *envp)
+{ 
+    int lstsize;
+    int    i;
+    t_env        *temp;
+
+    i = 0;
+    lstsize = 0;
+    temp = envp->env;
+    while (temp->next)
+    {
+        temp = temp->next;
+        lstsize++;
+    }
+    del_tab(envp->envp_ms);
+    envp->envp_ms = malloc(sizeof (char *) * lstsize + 1);
+    while (envp->env->next)
+    {
+        envp->envp_ms[i] = ft_strdup(envp->env->value);
+        envp->env = envp->env->next;
+        i++;
+    }
+    envp->envp_ms[i] = 0;
+}
