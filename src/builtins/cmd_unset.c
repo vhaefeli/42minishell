@@ -40,6 +40,7 @@ static void ft_unset_suite(t_env *env, t_msvar *msvar)
 	if (env->next)
 		msvar->env = env->next;
 	free_node(msvar, env);
+	//update_msenv(msvar);
 }
 
 int	ft_unset(char **a, t_msvar *msvar)
@@ -63,13 +64,14 @@ int	ft_unset(char **a, t_msvar *msvar)
 		if (ft_strncmp(a[1], env->next->value, env_size(env->next->value)) == 0)
 		{
 			tmp = env->next->next;
+			//update_msenv(msvar);
 			free_node(msvar, env->next);
 			env->next = tmp;
 			return (0);
 		}
 		env = env->next;
 	}
-	update_msenv(msvar);
+	//update_msenv(msvar);
 	return (0);
 }
 

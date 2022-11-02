@@ -71,7 +71,7 @@ void	init_module(t_msvar *ms_env, char **envp)
 	secret_env_init (ms_env, envp);
 	increment_shell_level (ms_env->env);
 	signal (SIGINT, &sig_int);
-	signal (SIGQUIT, &sig_quit);
+	signal (SIGQUIT, &sig_int);
 	while (ms_env->exit == 0)
 	{
 		cmdline = readline(" ➜ minishell: ");
@@ -82,6 +82,7 @@ void	init_module(t_msvar *ms_env, char **envp)
 			sig_init(&saved);
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
+			update_msenv(ms_env);
 		}
 	}
 }
@@ -99,6 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
 	free_env (ms_env->secret_env);
+	del_tab(ms_env->envp_ms);
 	free(ms_env);
 	return (0);
 }

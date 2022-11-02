@@ -80,6 +80,7 @@ int	env_init(t_msvar *msvar, char **env_array)
 		i++;
 	}
 	msvar->envp_ms = env_array;
+	update_msenv(msvar);
 	return (0);
 }
 
