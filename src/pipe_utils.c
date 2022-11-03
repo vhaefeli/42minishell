@@ -85,6 +85,7 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		return (1);
 	}
 	ret = pipex(cmd_list, ms_env);
+	update_msenv(ms_env);
 	ms_env->ret = ret;
 	del_list(cmd_list);
 	return (0);

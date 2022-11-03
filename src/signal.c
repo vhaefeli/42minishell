@@ -14,7 +14,8 @@
 
 void	sig_int(int code)
 {
-	(void)code;
+	//(void)code;
+	
 	if (code == SIGINT)
 	{
 		rl_replace_line("", 0);
@@ -24,11 +25,12 @@ void	sig_int(int code)
 		g_sig.exit_status = 1;
 	}
 	//g_sig.sigint = 1;
+	rl_redisplay();
 	if (code == SIGQUIT)
 	{
 		g_sig.sigquit = 1;
 	}
-	rl_redisplay();
+	
 }
 
 void	hide_keystrokes(struct termios *saved)

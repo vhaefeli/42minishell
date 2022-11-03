@@ -63,7 +63,6 @@ typedef struct s_msvar
 	t_env	*env;
 	t_env	*secret_env;
 	int		ret;
-	int		prev_ret;
 	int		exit;
 	char	**all_path;
 	int		stdin_fd;

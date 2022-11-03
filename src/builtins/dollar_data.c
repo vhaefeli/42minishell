@@ -19,7 +19,7 @@ static void	fonct_ret(t_varchar *env_data, t_msvar *env)
 	env_data->i = 1;
 	env_data->str2 = ft_itoa(env->ret);
 	env_data->j = 1;
-	env->ret = 1;
+	//env->ret = 0;
 }
 
 t_varchar	*dollar_data(char *str, int i, t_msvar *env)

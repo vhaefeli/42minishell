@@ -74,12 +74,12 @@ void	init_module(t_msvar *ms_env, char **envp)
 	signal (SIGQUIT, &sig_int);
 	while (ms_env->exit == 0)
 	{
+		sig_init(&saved);
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
 		{
-			sig_init(&saved);
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
 			update_msenv(ms_env);

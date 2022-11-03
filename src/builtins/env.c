@@ -79,8 +79,8 @@ int	env_init(t_msvar *msvar, char **env_array)
 		env = new;
 		i++;
 	}
-	msvar->envp_ms = env_array;
-	update_msenv(msvar);
+	//msvar->envp_ms = env_array;
+	//update_msenv(msvar);
 	return (0);
 }
 
