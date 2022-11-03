@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 10:25:03 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:18:49 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	init_module(t_msvar *ms_env, char **envp)
 	struct termios	saved;
 
 	env_init (ms_env, envp);
-	secret_env_init (ms_env, envp);
 	increment_shell_level (ms_env->env);
 	signal (SIGINT, &sig_int);
 	signal (SIGQUIT, &sig_int);
@@ -98,7 +97,6 @@ int	main(int argc, char **argv, char **envp)
 	welcometext();
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
-	free_env (ms_env->secret_env);
 	del_tab(ms_env->envp_ms);
 	free(ms_env);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 13:02:04 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:44:19 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,12 @@ void	wait_all(t_list	*cmds, t_msvar *ms_env)
 	{
 		if (cmds->infile_fd > -1)
 			close(cmds->infile_fd);
-		printf("3cmd: %s, pid:%d\n", cmds->cmd_with_flags[0], cmds->cmd_pid);
+		if (cmds->outfile_fd > -1)
+			close(cmds->outfile_fd);
+		printf("cmd: %s, pid:%d infile fd %d outfile fd %d\n", cmds->cmd_with_flags[0], cmds->cmd_pid, cmds->infile_fd, cmds->outfile_fd);
 		if (cmds->cmd_pid > 0)
 		{
+			g_sig.pid = cmds->cmd_pid;
 			waitpid(cmds->cmd_pid, &ms_env->ret, 0);
 			if (WIFSIGNALED(ms_env->ret))
 			{
@@ -134,6 +137,7 @@ void	wait_all(t_list	*cmds, t_msvar *ms_env)
 			}
 			if (WIFEXITED(ms_env->ret))
 				ms_env->ret = WEXITSTATUS(ms_env->ret);
+			g_sig.pid = 0;
 		}
 		cmds = cmds->next;
 	}
