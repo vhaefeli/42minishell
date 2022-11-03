@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 10:59:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 10:46:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_list
 	char			*outfile;
 	int				outfileflag;
 	int				outfile_fd;
+	int				cmd_pid;
 	struct s_list	*previous;
 	struct s_list	*next;
 }	t_list;
@@ -61,10 +62,8 @@ typedef struct s_msvar
 	char	**envp_origin;
 	char	**envp_ms;
 	t_env	*env;
-	t_env	*secret_env;
 	int		ret;
 	int		exit;
-	char	**all_path;
 	int		stdin_fd;
 	int		stdout_fd;
 	int		nbrofcmds;
@@ -111,7 +110,7 @@ void		sig_int(int code);
 // // cmd_export.c
 int			ft_export(char **args, t_msvar *envp);
 
-int			cmd_pwd(void);
+int			cmd_pwd(char **cmd);
 char		*last_name(char *str);
 
 int			ft_unset(char **a, t_msvar *msvar);
@@ -129,7 +128,6 @@ void		increment_shell_level(t_env *env);
 size_t		size_env(t_env *lst);
 char		*env_to_str(t_env *lst);
 int			env_init(t_msvar *msvar, char **env_array);
-int			secret_env_init(t_msvar *msvar, char **env_array);
 void		free_env(t_env *env);
 
 // // get_env.c

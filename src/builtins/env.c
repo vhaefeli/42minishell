@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:03:00 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 12:03:01 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:33:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,9 @@ int	env_init(t_msvar *msvar, char **env_array)
 		env = new;
 		i++;
 	}
-	//msvar->envp_ms = env_array;
-	//update_msenv(msvar);
 	return (0);
 }
-
+/*
 int	secret_env_init(t_msvar *msvar, char **env_array)
 {
 	t_env	*env;
@@ -109,7 +107,7 @@ int	secret_env_init(t_msvar *msvar, char **env_array)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 void	free_env(t_env *env)
 {

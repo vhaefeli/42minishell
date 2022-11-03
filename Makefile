@@ -6,12 +6,12 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/11/01 11:20:46 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/11/02 11:55:25 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS 			= -g -Wall -Wextra -Werror -fsanitize=address -fno-omit-frame-pointer
+CFLAGS 			= -g -Wall -Wextra -Werror #-fsanitize=address -fno-omit-frame-pointer
 LDFLAGS			= -lreadline
 TARGET 			= minishell
 SRCS_DIR 		= ./src

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:07:34 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 11:48:09 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:03:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	fonct_ret(t_varchar *env_data, t_msvar *env)
 	env_data->i = 1;
 	env_data->str2 = ft_itoa(env->ret);
 	env_data->j = 1;
-	//env->ret = 0;
 }
 
 t_varchar	*dollar_data(char *str, int i, t_msvar *env)

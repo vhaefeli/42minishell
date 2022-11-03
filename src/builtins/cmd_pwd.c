@@ -12,10 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-int	cmd_pwd(void)
+int	cmd_pwd(char **cmd)
 {
 	char	*buf;
-
+	if (cmd[1])
+	{
+		ft_putendl_fd(" too many arguments", 2);
+		return(1);
+	}
 	buf = getcwd(NULL, 0);
 	ft_putendl_fd(buf, 1);
 	free(buf);
