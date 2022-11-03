@@ -35,6 +35,14 @@ static void	free_node(t_msvar *msvar, t_env *env)
 	ft_memdel(env);
 }
 
+static void ft_unset_suite(t_env *env, t_msvar *msvar)
+{
+	if (env->next)
+		msvar->env = env->next;
+	free_node(msvar, env);
+	//update_msenv(msvar);
+}
+
 int	ft_unset(char **a, t_msvar *msvar)
 {
 	t_env	*env;
@@ -45,22 +53,25 @@ int	ft_unset(char **a, t_msvar *msvar)
 		return (0);
 	if (ft_strncmp(a[1], env->value, env_size(env->value)) == 0)
 	{
-		if (env->next)
+		/*if (env->next)
 			msvar->env = env->next;
-		free_node(msvar, env);
-		return (0);
+		free_node(msvar, env);*/
+		ft_unset_suite(env, msvar);
+		return(0);
 	}
 	while (env && env->next)
 	{
 		if (ft_strncmp(a[1], env->next->value, env_size(env->next->value)) == 0)
 		{
 			tmp = env->next->next;
+			//update_msenv(msvar);
 			free_node(msvar, env->next);
 			env->next = tmp;
 			return (0);
 		}
 		env = env->next;
 	}
-	update_msenv(msvar);
+	//update_msenv(msvar);
 	return (0);
 }
+

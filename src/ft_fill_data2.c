@@ -79,7 +79,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 		{
 			printf("error: command not found: %s\n",
 				cmds->cmd_with_flags[0]);
-			return (127);
+			return (1);
 		}
 	}
 	return (0);

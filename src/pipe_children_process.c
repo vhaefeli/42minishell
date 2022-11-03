@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 11:07:04 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 09:51:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,9 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd, int pid)
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{
-			printf("path:%s\n ",list_cmds->path_cmd);
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
 				ms_env->envp_origin);
-			return (printf("error with execve"));
+			return (printf("error with execve\n"));
 		}
 	}
 	return (0);

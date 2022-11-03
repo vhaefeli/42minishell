@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 13:55:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 10:46:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_list
 	char			*outfile;
 	int				outfileflag;
 	int				outfile_fd;
+	int				cmd_pid;
 	struct s_list	*previous;
 	struct s_list	*next;
 }	t_list;
@@ -149,6 +150,7 @@ void		print_sorted_env(t_env *env);
 void		update_msenv(t_msvar *envp);
 t_msvar		*ini_ms(char **envp);
 char		**path_finder(char **envp);
+void 		update_msenv(t_msvar *envp);
 
 t_varchar	*dollar_data(char *str, int i, t_msvar *env);
 

@@ -23,11 +23,7 @@ void	sig_int(int code)
 		rl_redisplay();
 		g_sig.exit_status = 1;
 	}
-	g_sig.sigint = 1;
-}
-
-void	sig_quit(int code)
-{
+	//g_sig.sigint = 1;
 	if (code == SIGQUIT)
 	{
 		g_sig.sigquit = 1;

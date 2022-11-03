@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 15:01:57 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:03:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 
 void	del_el(char *el)
 {
-	printf("el: %s, %p\n", el, el);
 	if (el)
 	{
 		free(el);
