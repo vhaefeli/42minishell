@@ -73,7 +73,7 @@ int	ft_unset(char **a, t_msvar *msvar)
 		}
 		env = env->next;
 	}
-	update_msenv(msvar);
+	//update_msenv(msvar);
 	return (0);
 }
 

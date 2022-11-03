@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	ms_env = ini_ms(envp);
 	welcometext();
 	init_module(ms_env, envp);
-	free_env (ms_env->env);
+	free_env(ms_env->env);
 	del_tab(ms_env->envp_ms);
 	return (0);
 }
