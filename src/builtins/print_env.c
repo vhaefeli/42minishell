@@ -79,7 +79,7 @@ void	print_sorted_env(t_env *env)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(tabl[i], 1);
-		i++;
+		i--;
 	}
 	free_tab(tabl);
 }

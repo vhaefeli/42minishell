@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 13:35:59 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:48:11 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,20 @@ void	init_module(t_msvar *ms_env, char **envp)
 	struct termios	saved;
 
 	env_init (ms_env, envp);
-	secret_env_init (ms_env, envp);
 	increment_shell_level (ms_env->env);
 	signal (SIGINT, &sig_int);
-	signal (SIGQUIT, &sig_quit);
-	//sig_init(&saved);
-
+	signal (SIGQUIT, &sig_int);
 	while (ms_env->exit == 0)
 	{
+		sig_init(&saved);
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
 		{
-			sig_init(&saved);
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
+			update_msenv(ms_env);
 		}
 	}
 }
@@ -92,15 +90,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_msvar	*ms_env;
 
-	ms_env = ini_ms(envp);
-
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
 		return (1);
+	ms_env = ini_ms(envp);
 	welcometext();
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
-	free_env (ms_env->secret_env);
-	//free(ms_env);
+	del_tab(ms_env->envp_ms);
 	return (0);
 }

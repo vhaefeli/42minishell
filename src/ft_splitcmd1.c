@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 13:03:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/01 16:50:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,9 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 	listcmd->j = 0;
 	while (listcmd->str[listcmd->i] != ' ' && listcmd->str[listcmd->i] != '\0')
 	{
-		if (listcmd->str[listcmd->i] == '$')
+		if (listcmd->str[listcmd->i] == '$'
+			&& listcmd->str[listcmd->i + 1] != ' '
+			&& listcmd->str[listcmd->i + 1] != 0)
 			add_dollar_data(listcmd, env);
 		else if (listcmd->str[listcmd->i] == '\''
 			|| listcmd->str[listcmd->i] == '\"')

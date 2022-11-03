@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:12:17 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 11:12:19 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:00:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	print_error(int error, const char *arg)
 	return (1);
 }
 
-int	ft_export(char **args, t_env *env)
+int	ft_export(char **args, t_msvar *envp)
 {
 	int		new_env;
 	int		error_ret;
@@ -38,7 +38,7 @@ int	ft_export(char **args, t_env *env)
 	new_env = 0;
 	if (!args[1])
 	{
-		print_sorted_env(env);
+		print_sorted_env(envp->env);
 		return (0);
 	}
 	else
@@ -51,9 +51,10 @@ int	ft_export(char **args, t_env *env)
 		if (error_ret == 2)
 			new_env = 1;
 		else
-			new_env = is_in_env(env, args[1]);
+			new_env = is_in_env(envp->env, args[1]);
 		if (new_env == 0 && error_ret == 1)
-			env_add(args[1], env);
+			env_add(args[1], envp->env);
 	}
+	update_msenv(envp);
 	return (0);
 }

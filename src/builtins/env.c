@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:03:00 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 12:03:01 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:36:08 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,34 +67,6 @@ int	env_init(t_msvar *msvar, char **env_array)
 	env->value = ft_strdup(env_array[0]);
 	env->next = NULL;
 	msvar->env = env;
-	i = 1;
-	while (env_array && env_array[0] && env_array[i])
-	{
-		new = malloc(sizeof(t_env));
-		if (!(new))
-			return (1);
-		new->value = ft_strdup(env_array[i]);
-		new->next = NULL;
-		env->next = new;
-		env = new;
-		i++;
-	}
-	msvar->envp_ms = env_array;
-	return (0);
-}
-
-int	secret_env_init(t_msvar *msvar, char **env_array)
-{
-	t_env	*env;
-	t_env	*new;
-	int		i;
-
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return (1);
-	env->value = ft_strdup(env_array[0]);
-	env->next = NULL;
-	msvar->secret_env = env;
 	i = 1;
 	while (env_array && env_array[0] && env_array[i])
 	{

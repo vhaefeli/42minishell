@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:44:04 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/01 11:05:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:43:46 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,26 @@
 
 void	sig_int(int code)
 {
-	(void)code;
-	if (code == SIGINT)
+	if (g_sig.pid == 0)
 	{
-		rl_replace_line("", 0);
-		ft_putendl_fd("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		g_sig.exit_status = 1;
+		if (code == SIGINT)
+		{
+			rl_replace_line("", 0);
+			ft_putendl_fd("", 1);
+			rl_on_new_line();
+			rl_redisplay();
+			g_sig.exit_status = 1;
+		}
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+		}
+		if (code == SIGQUIT)
+		{
+			g_sig.sigquit = 1;
+		}
 	}
-	g_sig.sigint = 1;
-}
-
-void	sig_quit(int code)
-{
-	if (code == SIGQUIT)
-	{
-		g_sig.sigquit = 1;
-	}
-	rl_redisplay();
 }
 
 void	hide_keystrokes(struct termios *saved)
