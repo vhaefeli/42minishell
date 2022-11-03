@@ -68,8 +68,6 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 			list_cmds->infile_fd = dup(fd[0]);
 		fd_close(fd);
 	}
-	/*while (n_cmd--)
-		waitpid(pid, NULL, 0);*/
 	return (0);
 }
 
@@ -86,6 +84,5 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 	pipex(cmd_list, ms_env);
 	wait_all(cmd_list, ms_env);
 	del_list(cmd_list);
-	free_env(ms_env->env);
 	return (0);
 }

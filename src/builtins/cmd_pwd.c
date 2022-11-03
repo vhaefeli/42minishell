@@ -17,7 +17,7 @@ int	cmd_pwd(char **cmd)
 	char	*buf;
 	if (cmd[1])
 	{
-		ft_putendl_fd(" too many arguments", 2);
+		ft_putendl_fd("pwd: too many arguments", 2);
 		return(1);
 	}
 	buf = getcwd(NULL, 0);
