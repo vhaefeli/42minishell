@@ -14,21 +14,23 @@
 
 void	sig_int(int code)
 {
-	(void)code;
-	if (code == SIGINT)
+	if(g_sig.pid == 0)
 	{
-		rl_replace_line("", 0);
-		ft_putendl_fd("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		g_sig.exit_status = 1;
+		if (code == SIGINT)
+		{
+			rl_replace_line("", 0);
+			ft_putendl_fd("", 1);
+			rl_on_new_line();
+			rl_redisplay();
+			g_sig.exit_status = 1;
+		}else
+			rl_on_new_line();
+			rl_redisplay();
+		if (code == SIGQUIT)
+		{
+			g_sig.sigquit = 1;
+		}
 	}
-	//g_sig.sigint = 1;
-	if (code == SIGQUIT)
-	{
-		g_sig.sigquit = 1;
-	}
-	rl_redisplay();
 }
 
 void	hide_keystrokes(struct termios *saved)

@@ -81,7 +81,7 @@ int	env_init(t_msvar *msvar, char **env_array)
 	}
 	return (0);
 }
-
+/*
 int	secret_env_init(t_msvar *msvar, char **env_array)
 {
 	t_env	*env;
@@ -107,7 +107,7 @@ int	secret_env_init(t_msvar *msvar, char **env_array)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 void	free_env(t_env *env)
 {

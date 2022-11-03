@@ -40,10 +40,8 @@ static void	fd_init(int fd[2])
 
 static void	fd_close(int fd[2])
 {
-	if (fd[0] > -1)
-		close(fd[0]);
-	if (fd[1] > -1)
-		close(fd[1]);
+	close(fd[0]);
+	close(fd[1]);
 }
 
 int	pipex(t_list *list_cmds, t_msvar *ms_env)
@@ -52,7 +50,7 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 	int	n_cmd;
 
 	fd_init(fd);
-	n_cmd = 1;
+	n_cmd = 0;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
 				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));

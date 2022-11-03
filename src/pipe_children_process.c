@@ -69,7 +69,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 5)
 		return (cmd_cd(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 2)
-		return (cmd_pwd());
+		return (cmd_pwd(cmds->cmd_with_flags));
 	if (builtincmd_nb == 6)
 		return (ft_export(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 7)

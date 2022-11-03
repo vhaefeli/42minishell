@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 11:12:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 10:46:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_msvar
 	t_env	*env;
 	t_env	*secret_env;
 	int		ret;
-	int		prev_ret;
 	int		exit;
 	int		stdin_fd;
 	int		stdout_fd;
@@ -112,7 +111,7 @@ void		sig_int(int code);
 // // cmd_export.c
 int			ft_export(char **args, t_msvar *envp);
 
-int			cmd_pwd(void);
+int			cmd_pwd(char **cmd);
 char		*last_name(char *str);
 
 int			ft_unset(char **a, t_msvar *msvar);
@@ -223,7 +222,7 @@ int			ft_heredoc(t_list *cmd);
 int			checkbuiltin(char *cmd);
 int			execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env);
 int			one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd);
-void		wait_all(t_list	*cmds, t_msvar *ms_env);
+void		 wait_all(t_list	*cmds, t_msvar *ms_env);
 
 // ft_error_exit.c list of the insid errors and their number
 // exit of minishell

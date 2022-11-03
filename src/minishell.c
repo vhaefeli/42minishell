@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 14:18:49 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:48:11 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	init_module(t_msvar *ms_env, char **envp)
 	signal (SIGQUIT, &sig_int);
 	while (ms_env->exit == 0)
 	{
+		sig_init(&saved);
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
 		if (cmdline[0] != '\0' && not_only_space(cmdline))
 		{
-			sig_init(&saved);
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
 			update_msenv(ms_env);
@@ -98,6 +98,5 @@ int	main(int argc, char **argv, char **envp)
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
 	del_tab(ms_env->envp_ms);
-	free(ms_env);
 	return (0);
 }
