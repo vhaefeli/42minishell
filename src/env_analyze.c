@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 19:03:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 22:41:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ char	**path_finder(char **envp)
 t_msvar	*ini_ms(void)
 {
 	t_msvar	*msvar;
-	int		i;
 
-	i = 0;
 	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_ms = NULL;
 	msvar->exit = 0;

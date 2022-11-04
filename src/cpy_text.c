@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:42:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 16:27:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 22:41:48 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ char	*ft_realloc(char *src, int diff)
 {
 	char	*newstr;
 	int		len;
-	int		i;
 
-	i = 0;
 	len = ft_strlen(src) + diff;
 	newstr = ft_calloc(len + 1, 1);
 	free(src);
