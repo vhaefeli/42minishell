@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 09:59:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:27:24 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	checkbuiltin(char *cmd)
 
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
+	if (builtincmd_nb > 3 && cmds->cmd_pid == 0)
+		return (0);
 	if (builtincmd_nb == 1)
 		return (cmd_echo(cmds->cmd_with_flags));
 	if (builtincmd_nb == 5)
@@ -102,7 +104,7 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 			if (fd[1] > -1)
 				close(fd[1]);
 		}
-		if (builtincmd_nb)
+		if (builtincmd_nb )
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{

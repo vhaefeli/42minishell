@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 09:52:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:42:50 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,9 @@ void		print_sorted_env(t_env *env);
 
 // env_analzye.c fonction using the original envp to find data
 // and initialisation
-void		update_msenv(t_msvar *envp);
+int			update_msenv(t_msvar *envp);
 t_msvar		*ini_ms(void);
 char		**path_finder(char **envp);
-void 		update_msenv(t_msvar *envp);
 
 t_varchar	*dollar_data(char *str, int i, t_msvar *env);
 
@@ -188,7 +187,7 @@ int			check_file_in(t_list *cmd, int fd_in);
 int			check_file_out(t_list *cmd, int fd_out);
 
 // quotes_utiles.c
-int			quotesize(char *s, int i, char quotetype);
+int			checkquotes(char *s);
 int			quotesize_incl(char *s, int i, char quotetype);
 void		cpy_text_wquote(t_varchar *cpytext);
 void		cpy_text_noquote(t_varchar *cpytext, t_msvar *env);

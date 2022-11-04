@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 09:58:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:18:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	init_module(t_msvar *ms_env, char **envp)
 		cmdline = readline(" ➜ minishell: ");
 		if (!cmdline)
 			break ;
-		if (cmdline[0] != '\0' && not_only_space(cmdline))
+		if (cmdline[0] != '\0' && not_only_space(cmdline)
+			&& !checkquotes(cmdline))
 		{
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
@@ -99,5 +100,6 @@ int	main(int argc, char **argv, char **envp)
 	init_module(ms_env, envp);
 	free_env (ms_env->env);
 	del_tab(ms_env->envp_ms);
+	ft_putstr_fd("Good Bye See you soon\n", 2);
 	return (0);
 }
