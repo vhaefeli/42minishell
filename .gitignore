@@ -18,3 +18,5 @@ a.out
 *.pdf
 
 .vscode*
+ 
+.idea
