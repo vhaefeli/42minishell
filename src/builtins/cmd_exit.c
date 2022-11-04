@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:37:16 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/01 16:29:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:16:46 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	cmd_exit(t_msvar *msvar, char **cmd)
 {
 	msvar->exit = 1;
-	ft_putstr_fd("Good Bye\n", 2);
 	if (cmd[1] && cmd[2])
 	{
 		msvar->ret = 1;

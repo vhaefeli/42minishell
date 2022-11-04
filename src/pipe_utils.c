@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 22:15:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 22:39:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 	n_cmd = 1;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
-				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
+			checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
+	update_msenv(ms_env);
 	while (list_cmds && ++n_cmd)
 	{
 		if (ft_fillpath_cmd(list_cmds, ms_env))
@@ -64,8 +65,6 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 			break ;
 		list_cmds->cmd_pid = fork();
 		one_cmd(list_cmds, ms_env, fd);
-		if (list_cmds)
-			list_cmds->outfile_fd = fd[1];
 		list_cmds = list_cmds->next;
 		if (list_cmds)
 			list_cmds->infile_fd = dup(fd[0]);

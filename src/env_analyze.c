@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 10:24:58 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 19:03:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,19 @@ char	**path_finder(char **envp)
 	return (all_path);
 }
 
-t_msvar	*ini_ms(char **envp)
+t_msvar	*ini_ms(void)
 {
 	t_msvar	*msvar;
 	int		i;
 
 	i = 0;
 	msvar = malloc(sizeof(t_msvar));
-	msvar->envp_origin = envp;
-	msvar->envp_ms = malloc (sizeof(char *) * ft_strlen(*envp));
-	while (envp[i])
-	{
-		msvar->envp_ms[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	msvar->envp_ms[i] = NULL;
+	msvar->envp_ms = NULL;
 	msvar->exit = 0;
 	return (msvar);
 }
 
-void	update_msenv(t_msvar *envp)
+int	update_msenv(t_msvar *envp)
 {
 	int		lstsize;
 	int		i;
@@ -59,7 +52,7 @@ void	update_msenv(t_msvar *envp)
 	t_env	*temp2;
 
 	i = 0;
-	lstsize = 0;
+	lstsize = 1;
 	temp = envp->env;
 	temp2 = envp->env;
 	while (temp->next)
@@ -67,14 +60,20 @@ void	update_msenv(t_msvar *envp)
 		temp = temp->next;
 		lstsize++;
 	}
+	if (envp->envp_ms)
+	{
+		printf("envp->envp_ms del %p \n", envp->envp_ms);
+	}
 	del_tab(envp->envp_ms);
-	envp->envp_ms = malloc(sizeof(char *) * lstsize + 1);
-	while (envp->env->next)
+	envp->envp_ms = malloc(sizeof(char *) * (lstsize + 1));
+	while (envp->env)
 	{
 		envp->envp_ms[i] = ft_strdup(envp->env->value);
 		envp->env = envp->env->next;
 		i++;
 	}
 	envp->envp_ms[i] = NULL;
+	printf("envp->envp_ms cree %p \n", envp->envp_ms);
 	envp->env = temp2;
+	return (1);
 }

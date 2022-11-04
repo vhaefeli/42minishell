@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 16:31:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:36:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	checkbuiltin(char *cmd)
 
 int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 {
+	if (builtincmd_nb > 3 && cmds->cmd_pid == 0)
+		return (0);
 	if (builtincmd_nb == 1)
 		return (cmd_echo(cmds->cmd_with_flags));
 	if (builtincmd_nb == 5)
@@ -95,19 +97,19 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 	{
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		in_out_fd(list_cmds, fd);
-		if (list_cmds->next)
-		{
+		// if (list_cmds->next)
+		// {
 			if (fd[0] > -1)
 				close(fd[0]);
 			if (fd[1] > -1)
 				close(fd[1]);
-		}
-		if (builtincmd_nb)
+		// }
+		if (builtincmd_nb )
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
 		else
 		{
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
-				ms_env->envp_origin);
+				ms_env->envp_ms);
 			return (printf("error with execve\n"));
 		}
 	}
@@ -122,7 +124,6 @@ void	wait_all(t_list	*cmds, t_msvar *ms_env)
 			close(cmds->infile_fd);
 		if (cmds->outfile_fd > -1)
 			close(cmds->outfile_fd);
-		printf("cmd: %s, pid:%d infile fd %d outfile fd %d\n", cmds->cmd_with_flags[0], cmds->cmd_pid, cmds->infile_fd, cmds->outfile_fd);
 		if (cmds->cmd_pid > 0)
 		{
 			g_sig.pid = cmds->cmd_pid;

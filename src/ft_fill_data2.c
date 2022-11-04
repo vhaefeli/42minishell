@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/02 11:43:07 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 19:02:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ char	*cmd_path(char **path, char *cmd)
 		temp_cmd = ft_strjoin("/", cmd);
 		temp_cmd = ft_strjoin_free_s2(path[i], temp_cmd);
 		if (access(temp_cmd, F_OK) == 0)
+		{
+			del_tab(path);
 			return (temp_cmd);
+		}
 		else
 		{
 			free(temp_cmd);
 			i++;
 		}
 	}
+	del_tab(path);
 	return (NULL);
 }
 

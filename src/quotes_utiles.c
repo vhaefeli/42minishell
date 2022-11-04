@@ -6,32 +6,39 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:49:48 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 13:16:10 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:15:27 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	quotesize(char *s, int i, char quotetype)
+int	checkquotes(char *s)
 {
-	int	quotesize;
-	int	j;
+	int		i;
+	char	quotetype;
 
-	quotesize = 0;
-	j = i;
-	i++;
-	while (s[i] != quotetype && s[i] != '\0')
+	i = 0;
+	quotetype = '\0';
+	while (s[i])
 	{
-		i++;
-		quotesize++;
-		if (s[i] == '\0')
+		while (s[i] && s[i] != '\'' && s[i] != '\"')
+			i++;
+		if (s[i])
+			quotetype = s[i++];
+		else
+			return(0);
+		while (s[i] != quotetype && s[i] != '\0')
 		{
-			printf("error : you can have only an even ");
-			printf("number of %c quotes\n", quotetype);
-			return (-j - 1);
+			i++;
+			if (s[i] == '\0')
+			{
+				printf("error : you can have only an even nbr of quote\n");
+				return (1);
+			}
 		}
+		i++;
 	}
-	return (quotesize);
+	return (0);
 }
 
 int	quotesize_incl(char *s, int i, char quotetype)
