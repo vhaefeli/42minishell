@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 16:40:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/03 22:28:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_env
 
 typedef struct s_msvar
 {
-	char	**envp_origin;
 	char	**envp_ms;
 	t_env	*env;
 	int		ret;
