@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 16:29:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 09:54:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 
 	fd_init(fd);
 	n_cmd = 1;
+	update_msenv(ms_env);
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
 				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));

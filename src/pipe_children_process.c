@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 16:31:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 09:59:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 		else
 		{
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
-				ms_env->envp_origin);
+				ms_env->envp_ms);
 			return (printf("error with execve\n"));
 		}
 	}
@@ -122,7 +122,6 @@ void	wait_all(t_list	*cmds, t_msvar *ms_env)
 			close(cmds->infile_fd);
 		if (cmds->outfile_fd > -1)
 			close(cmds->outfile_fd);
-		printf("cmd: %s, pid:%d infile fd %d outfile fd %d\n", cmds->cmd_with_flags[0], cmds->cmd_pid, cmds->infile_fd, cmds->outfile_fd);
 		if (cmds->cmd_pid > 0)
 		{
 			g_sig.pid = cmds->cmd_pid;
