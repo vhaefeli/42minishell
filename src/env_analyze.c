@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 09:56:18 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 09:23:53 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,20 @@ char	**path_finder(char **envp)
 t_msvar	*ini_ms(void)
 {
 	t_msvar	*msvar;
+<<<<<<< HEAD
 	//int		i;
 
 	//i = 0;
+=======
+
+>>>>>>> 0cdcc142626ea10c28f629dede1f0fe5e0ddeba3
 	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_ms = NULL;
 	msvar->exit = 0;
 	return (msvar);
 }
 
-void	update_msenv(t_msvar *envp)
+int	update_msenv(t_msvar *envp)
 {
 	int		lstsize;
 	int		i;
@@ -60,8 +64,12 @@ void	update_msenv(t_msvar *envp)
 		temp = temp->next;
 		lstsize++;
 	}
+	if (envp->envp_ms)
+	{
+		printf("envp->envp_ms del %p \n", envp->envp_ms);
+	}
 	del_tab(envp->envp_ms);
-	envp->envp_ms = malloc(sizeof(char *) * lstsize + 1);
+	envp->envp_ms = malloc(sizeof(char *) * (lstsize + 1));
 	while (envp->env)
 	{
 		envp->envp_ms[i] = ft_strdup(envp->env->value);
@@ -69,5 +77,7 @@ void	update_msenv(t_msvar *envp)
 		i++;
 	}
 	envp->envp_ms[i] = NULL;
+	printf("envp->envp_ms cree %p \n", envp->envp_ms);
 	envp->env = temp2;
+	return (1);
 }

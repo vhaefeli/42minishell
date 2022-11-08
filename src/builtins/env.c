@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:03:00 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/03 16:36:08 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 09:15:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ int	env_init(t_msvar *msvar, char **env_array)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (1);
+	printf("t_env %p\n", env);
 	env->value = ft_strdup(env_array[0]);
+	printf("t_env value %p\n", env->value);
 	env->next = NULL;
 	msvar->env = env;
 	i = 1;
@@ -73,7 +75,9 @@ int	env_init(t_msvar *msvar, char **env_array)
 		new = malloc(sizeof(t_env));
 		if (!(new))
 			return (1);
+		printf("t_env %p\n", new);
 		new->value = ft_strdup(env_array[i]);
+		printf("t_env value %p\n", new->value);
 		new->next = NULL;
 		env->next = new;
 		env = new;

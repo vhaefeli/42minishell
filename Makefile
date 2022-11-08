@@ -6,7 +6,7 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/11/02 11:55:25 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/11/04 22:56:07 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ OBJS_DIR 		= ./obj
 LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
+#INCLUDES_READLINE = -I /opt/homebrew/Cellar/readline/8.2.1/include
+#LINK_READLINE 	= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
 INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
 LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
 LIBS			= $(LIBFT_DIR)/libft.a

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:19:16 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:40:07 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:05:58 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_clean_cmdline(t_list *cmd)
 			cmdclean->str2[cmdclean->j++] = cmd->cmd_tmp[cmdclean->i++];
 	}
 	cmdclean->str2[cmdclean->j] = 0;
-	while (cmdclean->str2[--cmdclean->j] == ' ')
+	while (cmdclean->j > 0 && cmdclean->str2[--cmdclean->j] == ' ')
 		cmdclean->str2[cmdclean->j] = 0;
 	free (cmd->cmd_tmp);
 	cmd->cmd_tmp = ft_strdup(cmdclean->str2);
