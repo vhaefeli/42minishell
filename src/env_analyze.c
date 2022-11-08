@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 13:48:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:28:58 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,17 @@ char	**path_finder(char **envp)
 	while (envp[i] && (ft_strnstr(envp[i], "PATH=", 5) == NULL))
 		i++;
 	if (envp[i] == NULL)
-	{
-		printf("(Error) PATH not found\n");
 		return(NULL);
-	}
 	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 	all_path = ft_split(path, ':');
 	free(path);
 	return (all_path);
 }
 
-t_msvar	*ini_ms(void)
+void ini_ms(t_msvar	*msvar)
 {
-	t_msvar	*msvar;
-
-	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_ms = NULL;
 	msvar->exit = 0;
-	return (msvar);
 }
 
 int	update_msenv(t_msvar *envp)
