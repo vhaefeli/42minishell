@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:42:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 22:41:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:32:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	add_dollar_data(t_varchar *src, t_msvar *env)
 
 	i = 0;
 	datatmp = dollar_data(src->str, src->i, env);
-
 	if (datatmp->i + 1 < datatmp->j)
 	{
-		src->str2 = ft_realloc(src->str2, datatmp->j - (datatmp->i + 1));
+		src->str2 = ft_realloc(src->str2, datatmp->j);
 	}
 	src->i += (datatmp->i + 1);
 	while (datatmp->str2 && datatmp->str2[i])
@@ -51,11 +50,18 @@ void	add_dollar_data(t_varchar *src, t_msvar *env)
 
 char	*ft_realloc(char *src, int diff)
 {
-	char	*newstr;
+		char	*newstr;
 	int		len;
+	int		i;
 
+	i = 0;
 	len = ft_strlen(src) + diff;
-	newstr = ft_calloc(len + 1, 1);
+	newstr = malloc(len + 1);
+	while (i < len)
+	{
+		newstr[i] = src[i];
+		i++;
+	}
 	free(src);
 	return (newstr);
 }

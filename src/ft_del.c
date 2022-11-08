@@ -6,40 +6,40 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 10:59:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:32:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*static void	checklistcmd(t_list *cmd)
-{
-	int	a;
-	int	i = 0;
+// static void	checklistcmd(t_list *cmd)
+// {
+// 	int	a;
+// 	int	i = 0;
 
-	while (cmd && (i + 1))
-	{
-		printf("********\n%d eme commande\n", i++ + 1);
-		printf("cmd_tmp:%s-\n", cmd->cmd_tmp);
-		printf("path_cmd:%s\n", cmd->path_cmd);
-		a = 0;
-		if (!cmd->cmd_with_flags)
-			printf("cmd with flag:%s-\n", "NULL");
-		while (cmd->cmd_with_flags && cmd->cmd_with_flags[a])
-			printf("cmd with flag:%s-\n", cmd->cmd_with_flags[a++]);
-		printf("infile:%s-\n", cmd->infile);
-		printf("infileflag:%d\n", cmd->infileflag);
-		printf("infile fd:%d\n", cmd->infile_fd);
-		printf("outfile:%s-\n", cmd->outfile);
-		printf("outfileflag:%d\n", cmd->outfileflag);
-		printf("outfile fd:%d\n", cmd->outfile_fd);
-		printf("address cmd: %p\n", cmd);
-		printf("address previous: %p\n", cmd->previous);
-		printf("address next: %p\n", cmd->next);
-		printf("********\n");
-		cmd = cmd->next;
-	}
-}*/
+// 	while (cmd && (i + 1))
+// 	{
+// 		printf("********\n%d eme commande\n", i++ + 1);
+// 		printf("cmd_tmp:%s-\n", cmd->cmd_tmp);
+// 		printf("path_cmd:%s\n", cmd->path_cmd);
+// 		a = 0;
+// 		if (!cmd->cmd_with_flags)
+// 			printf("cmd with flag:%s-\n", "NULL");
+// 		while (cmd->cmd_with_flags && cmd->cmd_with_flags[a])
+// 			printf("cmd with flag:%s-\n", cmd->cmd_with_flags[a++]);
+// 		printf("infile:%s-\n", cmd->infile);
+// 		printf("infileflag:%d\n", cmd->infileflag);
+// 		printf("infile fd:%d\n", cmd->infile_fd);
+// 		printf("outfile:%s-\n", cmd->outfile);
+// 		printf("outfileflag:%d\n", cmd->outfileflag);
+// 		printf("outfile fd:%d\n", cmd->outfile_fd);
+// 		printf("address cmd: %p\n", cmd);
+// 		printf("address previous: %p\n", cmd->previous);
+// 		printf("address next: %p\n", cmd->next);
+// 		printf("********\n");
+// 		cmd = cmd->next;
+// 	}
+// }
 
 void	del_el(char *el)
 {
@@ -74,7 +74,7 @@ void	del_list(t_list *list_cmds)
 
 	if (!list_cmds)
 		return ;
-	//checklistcmd(list_cmds);
+	// checklistcmd(list_cmds);
 	el1 = ft_lstfirst(list_cmds);
 	while (el1)
 	{

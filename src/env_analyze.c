@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 09:23:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:48:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,6 @@ int	update_msenv(t_msvar *envp)
 		temp = temp->next;
 		lstsize++;
 	}
-	if (envp->envp_ms)
-	{
-		printf("envp->envp_ms del %p \n", envp->envp_ms);
-	}
 	del_tab(envp->envp_ms);
 	envp->envp_ms = malloc(sizeof(char *) * (lstsize + 1));
 	while (envp->env)
@@ -71,7 +67,6 @@ int	update_msenv(t_msvar *envp)
 		i++;
 	}
 	envp->envp_ms[i] = NULL;
-	printf("envp->envp_ms cree %p \n", envp->envp_ms);
 	envp->env = temp2;
 	return (1);
 }

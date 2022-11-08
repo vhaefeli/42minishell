@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlefebvr <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:45:52 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/10/18 11:45:54 by tlefebvr         ###   ########.fr       */
+/*   Updated: 2022/11/08 10:39:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	print_sorted_env(t_env *env)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(tabl[i], 1);
-		i--;
+		i++;
 	}
 	free_tab(tabl);
 }

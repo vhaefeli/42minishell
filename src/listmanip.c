@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 08:20:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:26:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_list	*ft_ininewlst_el(void)
 	t_list	*list;
 
 	list = malloc(sizeof(t_list));
-	printf("list el pos>%p\n", list);
 	if (!list)
 		return (NULL);
 	list->infile = NULL;
