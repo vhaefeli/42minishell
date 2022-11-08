@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-CFLAGS 			= -g -Wall -Wextra -Werror #-fsanitize=address -fno-omit-frame-pointer
+CFLAGS 			= -g #-Wall -Wextra -Werror #-fsanitize=address -fno-omit-frame-pointer
 LDFLAGS			= -lreadline
 TARGET 			= minishell
 SRCS_DIR 		= ./src
