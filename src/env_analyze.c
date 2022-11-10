@@ -35,13 +35,6 @@ char	**path_finder(char **envp)
 t_msvar	*ini_ms(void)
 {
 	t_msvar	*msvar;
-<<<<<<< HEAD
-	//int		i;
-
-	//i = 0;
-=======
-
->>>>>>> 0cdcc142626ea10c28f629dede1f0fe5e0ddeba3
 	msvar = malloc(sizeof(t_msvar));
 	msvar->envp_ms = NULL;
 	msvar->exit = 0;
