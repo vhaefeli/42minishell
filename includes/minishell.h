@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 17:14:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/10 13:37:08 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,8 @@ int			update_msenv(t_msvar *envp);
 void		ini_ms(t_msvar	*msvar);
 char		**path_finder(char **envp);
 
+// dollar_data.c
 t_varchar	*dollar_data(char *str, int i, t_msvar *env);
-
-// cpy_text.c
-void		cpy_text_between_space(t_varchar *src, t_msvar *env);
 void		add_dollar_data(t_varchar *src, t_msvar *env);
 char		*ft_realloc(char *src, int diff);
 

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:33:40 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/04 09:58:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:28:31 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int	cmd_cd(char **args, t_msvar *envp)
 		if (cd_ret != 0)
 			print_error(args);
 	}
-	// update_msenv(envp);
 	if (cd_ret == -1)
 	{
 		envp->ret = 127;
@@ -122,4 +121,3 @@ int	cmd_cd(char **args, t_msvar *envp)
 	}
 	return (cd_ret);
 }
-

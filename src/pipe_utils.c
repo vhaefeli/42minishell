@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 11:19:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:27:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 	n_cmd = 1;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
-			checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
+				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
 	update_msenv(ms_env);
 	while (list_cmds && ++n_cmd)
 	{
@@ -83,7 +83,7 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		printf("error with cmds listing\n");
 		return (1);
 	}
-	if(cmd_list->cmd_with_flags)
+	if (cmd_list->cmd_with_flags)
 	{
 		pipex(cmd_list, ms_env);
 		wait_all(cmd_list, ms_env);

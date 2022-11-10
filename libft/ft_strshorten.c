@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:11:38 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 13:43:12 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:24:26 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_strshorten(char *src)
 	shortstr = malloc(ft_strlen(src) + 1);
 	while (src[i])
 	{
-
 		shortstr[i] = src[i];
 		i++;
 	}

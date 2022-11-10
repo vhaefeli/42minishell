@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 17:19:42 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:27:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	init_module(t_msvar *ms_env, char **envp)
 		{
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
-			// update_msenv(ms_env);
 		}
 		free(cmdline);
 	}

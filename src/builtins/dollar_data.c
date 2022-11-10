@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:07:34 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 15:32:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/10 13:46:02 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,41 @@ t_varchar	*dollar_data(char *str, int i, t_msvar *env)
 	}
 	free(env_datatmp);
 	return (env_data);
+}
+
+void	add_dollar_data(t_varchar *src, t_msvar *env)
+{
+	t_varchar	*datatmp;
+	int			i;
+
+	i = 0;
+	datatmp = dollar_data(src->str, src->i, env);
+	if (datatmp->i + 1 < datatmp->j)
+	{
+		src->str2 = ft_realloc(src->str2, ft_strlen(src->str) + datatmp->j);
+	}
+	src->i += (datatmp->i + 1);
+	while (datatmp->str2 && datatmp->str2[i])
+	{
+		src->str2[src->j++] = datatmp->str2[i++];
+	}
+	free(datatmp->str);
+	free(datatmp->str2);
+	free(datatmp);
+}
+
+char	*ft_realloc(char *src, int new)
+{
+	char	*newstr;
+	int		i;
+
+	i = 0;
+	newstr = ft_calloc(new + 1, sizeof(char));
+	while (src[i] && i < new)
+	{
+		newstr[i] = src[i];
+		i++;
+	}
+	free(src);
+	return (newstr);
 }

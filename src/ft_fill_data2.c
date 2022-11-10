@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 19:02:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:26:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	programm_to_execute(t_list	*cmds, t_msvar *ms_env)
 
 int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 {
-
 	if (cmds->cmd_with_flags[0][0] == '/'
 		|| checkbuiltin(cmds->cmd_with_flags[0]))
 		cmds->path_cmd = ft_strdup(cmds->cmd_with_flags[0]);

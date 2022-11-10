@@ -6,12 +6,12 @@
 #    By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 16:28:53 by vhaefeli          #+#    #+#              #
-#    Updated: 2022/11/08 17:20:10 by vhaefeli         ###   ########.fr        #
+#    Updated: 2022/11/10 13:36:39 by vhaefeli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CFLAGS 			= -g -Wall -Wextra -Werror #-fsanitize=address -fno-omit-frame-pointer
+CFLAGS 			= -g -Wall -Wextra -Werror -fsanitize=address -fno-omit-frame-pointer
 LDFLAGS			= -lreadline
 TARGET 			= minishell
 SRCS_DIR 		= ./src
@@ -19,10 +19,10 @@ OBJS_DIR 		= ./obj
 LIBFT_DIR		= ./libft
 INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
-INCLUDES_READLINE = -I /opt/homebrew/Cellar/readline/8.2.1/include
-LINK_READLINE 	= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
-#INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
-#LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
+#INCLUDES_READLINE = -I /opt/homebrew/Cellar/readline/8.2.1/include
+#LINK_READLINE 	= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
+INCLUDES_READLINE = -I $(HOME)/.brew/Cellar/readline/8.2.1/include
+LINK_READLINE 	= -lreadline -L $(HOME)/.brew/Cellar/readline/8.2.1/lib
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS 			= 	env_analyze.c\
 					ft_del.c\
@@ -35,7 +35,6 @@ _SRCS 			= 	env_analyze.c\
 					ft_splitcmd1.c\
 					ft_splitcmd2.c\
 					quotes_utiles.c\
-					cpy_text.c\
 					list_cmds.c\
 					listmanip.c\
 					pipe_children_process.c\
