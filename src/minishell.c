@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 17:18:39 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:27:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	init_module(t_msvar *ms_env, char **envp)
 		{
 			add_history(cmdline);
 			ft_pipe(cmdline, ms_env);
-			// update_msenv(ms_env);
 		}
 		free(cmdline);
 	}
@@ -90,16 +89,16 @@ void	init_module(t_msvar *ms_env, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_msvar	*ms_env;
+	t_msvar	ms_env;
 
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
 		return (1);
-	ms_env = ini_ms();
+	ini_ms(&ms_env);
 	welcometext();
-	init_module(ms_env, envp);
-	free_env (ms_env->env);
-	del_tab(ms_env->envp_ms);
+	init_module(&ms_env, envp);
+	free_env (ms_env.env);
+	del_tab(ms_env.envp_ms);
 	ft_putstr_fd("Good Bye See you soon\n", 2);
 	return (0);
 }

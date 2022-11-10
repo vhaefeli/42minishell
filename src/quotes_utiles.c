@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 12:49:48 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 17:15:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:28:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	checkquotes(char *s)
 		if (s[i])
 			quotetype = s[i++];
 		else
-			return(0);
+			return (0);
 		while (s[i] != quotetype && s[i] != '\0')
 		{
 			i++;

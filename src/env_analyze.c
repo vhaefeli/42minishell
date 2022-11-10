@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:16:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 09:23:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:25:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,22 @@ char	**path_finder(char **envp)
 	while (envp[i] && (ft_strnstr(envp[i], "PATH=", 5) == NULL))
 		i++;
 	if (envp[i] == NULL)
-	{
-		printf("(Error) PATH not found\n");
-		return(NULL);
-	}
+		return (NULL);
 	path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 	all_path = ft_split(path, ':');
 	free(path);
 	return (all_path);
 }
 
-t_msvar	*ini_ms(void)
+void	ini_ms(t_msvar	*msvar)
 {
+<<<<<<< HEAD
 	t_msvar	*msvar;
 	msvar = malloc(sizeof(t_msvar));
+=======
+>>>>>>> 0a4816bce6dd5c0efc32fd2e1936df664142aee7
 	msvar->envp_ms = NULL;
 	msvar->exit = 0;
-	return (msvar);
 }
 
 int	update_msenv(t_msvar *envp)
@@ -57,10 +56,6 @@ int	update_msenv(t_msvar *envp)
 		temp = temp->next;
 		lstsize++;
 	}
-	if (envp->envp_ms)
-	{
-		printf("envp->envp_ms del %p \n", envp->envp_ms);
-	}
 	del_tab(envp->envp_ms);
 	envp->envp_ms = malloc(sizeof(char *) * (lstsize + 1));
 	while (envp->env)
@@ -70,7 +65,6 @@ int	update_msenv(t_msvar *envp)
 		i++;
 	}
 	envp->envp_ms[i] = NULL;
-	printf("envp->envp_ms cree %p \n", envp->envp_ms);
 	envp->env = temp2;
 	return (1);
 }

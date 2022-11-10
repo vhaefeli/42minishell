@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 16:50:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:33:33 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ char	*cpycmdflag(t_varchar *listcmd, t_msvar *env)
 		free (listcmd->str2);
 		listcmd->str2 = NULL;
 	}
+	listcmd->str2 = ft_calloc(ft_strlen(listcmd->str) + 1, sizeof(char));
 	while (listcmd->str[listcmd->i] == ' ')
 		(listcmd->i)++;
-	listcmd->str2 = ft_strdup(listcmd->str);
 	if (!listcmd->str2)
 		return (NULL);
 	listcmd->j = 0;

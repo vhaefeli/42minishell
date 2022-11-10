@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:54:15 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/03 15:22:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:23:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	**filltab(char *s, int nbline, t_msvar *env)
 		l++;
 	}
 	dst[l] = NULL;
+	del_el(lignecmd->str2);
+	free (lignecmd);
 	return (dst);
 }
 
@@ -43,9 +45,6 @@ char	**ft_splitcmd(char *s, t_msvar *env)
 		return (NULL);
 	line = cntcmdline(s);
 	if (!line)
-		return (NULL);
-	dst = (char **)malloc(line * sizeof(char *));
-	if (!dst)
 		return (NULL);
 	dst = filltab(s, line, env);
 	return (dst);

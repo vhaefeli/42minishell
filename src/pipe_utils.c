@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/08 09:22:49 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:20:43 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 	n_cmd = 1;
 	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
-			checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
+				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
 	update_msenv(ms_env);
 	while (list_cmds && ++n_cmd)
 	{
@@ -64,7 +64,6 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 		if (list_cmds->next && pipe(fd) == -1 && printf("Pipe error\n"))
 			break ;
 		list_cmds->cmd_pid = fork();
-		printf("fork pid %d, ad cmd %p\n", list_cmds->cmd_pid, list_cmds);
 		one_cmd(list_cmds, ms_env, fd);
 		list_cmds = list_cmds->next;
 		if (list_cmds)
@@ -84,11 +83,15 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 		printf("error with cmds listing\n");
 		return (1);
 	}
-	if(cmd_list->cmd_with_flags)
+	if (cmd_list->cmd_with_flags)
 	{
 		pipex(cmd_list, ms_env);
 		wait_all(cmd_list, ms_env);
 	}
 	del_list(cmd_list);
+	if (access(".heredoc", F_OK) == 0)
+	{
+		unlink(".heredoc");
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:12:17 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/04 09:58:16 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:29:09 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ int	ft_export(char **args, t_msvar *envp)
 		if (new_env == 0 && error_ret == 1)
 			env_add(args[1], envp->env);
 	}
-	// update_msenv(envp);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/04 22:39:00 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/10 13:37:08 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,11 @@ void		print_sorted_env(t_env *env);
 // env_analzye.c fonction using the original envp to find data
 // and initialisation
 int			update_msenv(t_msvar *envp);
-t_msvar		*ini_ms(void);
+void		ini_ms(t_msvar	*msvar);
 char		**path_finder(char **envp);
 
+// dollar_data.c
 t_varchar	*dollar_data(char *str, int i, t_msvar *env);
-
-// cpy_text.c
-void		cpy_text_between_space(t_varchar *src, t_msvar *env);
 void		add_dollar_data(t_varchar *src, t_msvar *env);
 char		*ft_realloc(char *src, int diff);
 

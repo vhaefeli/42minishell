@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 13:37:45 by vhaefeli          #+#    #+#             */
-/*   Updated: 2021/10/27 14:25:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:28:38 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strdup(const char *s1)
