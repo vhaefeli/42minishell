@@ -79,10 +79,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 3)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 4)
-	{
-		cmd_exit(ms_env, cmds->cmd_with_flags);
-		return (0);
-	}
+		return(cmd_exit(ms_env, cmds->cmd_with_flags));
 	else
 		return (4);
 }

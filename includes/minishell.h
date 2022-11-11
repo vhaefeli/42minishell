@@ -98,7 +98,7 @@ int			cmd_echo(char **args);
 int			ft_env(t_env *env);
 
 // // cmd_exit.c
-void		cmd_exit(t_msvar *msvar, char **cmd);
+int		cmd_exit(t_msvar *msvar, char **cmd);
 
 // // signal.c
 void		sig_init(struct termios *saved);

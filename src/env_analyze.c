@@ -31,11 +31,6 @@ char	**path_finder(char **envp)
 
 void	ini_ms(t_msvar	*msvar)
 {
-<<<<<<< HEAD
-	t_msvar	*msvar;
-	msvar = malloc(sizeof(t_msvar));
-=======
->>>>>>> 0a4816bce6dd5c0efc32fd2e1936df664142aee7
 	msvar->envp_ms = NULL;
 	msvar->env = NULL;
 	msvar->ret = 0;

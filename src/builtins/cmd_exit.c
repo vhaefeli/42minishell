@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	cmd_exit(t_msvar *msvar, char **cmd)
+int	cmd_exit(t_msvar *msvar, char **cmd)
 {
 	msvar->exit = 1;
 	if (cmd[1] && cmd[2])
@@ -31,4 +31,5 @@ void	cmd_exit(t_msvar *msvar, char **cmd)
 		msvar->ret = ft_atoi(cmd[1]);
 	else
 		msvar->ret = 0;
+	return(msvar->ret);
 }
