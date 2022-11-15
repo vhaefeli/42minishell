@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/10 15:21:11 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:04:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_heredoc(t_list *cmd)
 	while (1)
 	{
 		text = readline("> ");
-		if (!ft_strcmp(text, cmd->infile))
+		if (!text || !ft_strcmp(text, cmd->infile))
 			break ;
 		write(cmd->infile_fd, text, ft_strlen(text));
 		write(cmd->infile_fd, "\n", 1);
@@ -79,7 +79,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 3)
 		return (ft_env(ms_env->env));
 	if (builtincmd_nb == 4)
-		return(cmd_exit(ms_env, cmds->cmd_with_flags));
+		return (cmd_exit(ms_env, cmds->cmd_with_flags));
 	else
 		return (4);
 }
@@ -94,9 +94,9 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 	{
 		builtincmd_nb = checkbuiltin(list_cmds->cmd_with_flags[0]);
 		in_out_fd(list_cmds, fd);
-		if (fd[0] > -1)
+		if (fd[0] > 2)
 			close(fd[0]);
-		if (fd[1] > -1)
+		if (fd[1] > 2)
 			close(fd[1]);
 		if (builtincmd_nb)
 			exit(execbuiltin(list_cmds, builtincmd_nb, ms_env));
@@ -104,8 +104,9 @@ int	one_cmd(t_list *list_cmds, t_msvar *ms_env, int *fd)
 		{
 			execve(list_cmds->path_cmd, list_cmds->cmd_with_flags,
 				ms_env->envp_ms);
-			return (printf("error with execve\n"));
+			printf("error with execve\n");
 		}
+		exit (127);
 	}
 	return (0);
 }

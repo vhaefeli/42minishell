@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/15 11:30:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:55:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_module(t_msvar *ms_env, char **envp)
 	char			*cmdline;
 	struct termios	saved;
 
-	if (envp)
+	if (*envp)
 	{
 		env_init (ms_env, envp);
 		increment_shell_level (ms_env->env);

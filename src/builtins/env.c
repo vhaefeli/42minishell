@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:03:00 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/11 15:25:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:54:50 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	free_env(t_env *env)
 {
 	t_env	*tmp;
 
+	if (!env)
+		return ;
 	while (env && env->next)
 	{
 		tmp = env;

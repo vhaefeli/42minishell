@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:43:46 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/09 11:26:18 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:47:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	ft_fillpath_cmd(t_list *cmds, t_msvar *ms_env)
 		{
 			printf("error: command not found: %s\n",
 				cmds->cmd_with_flags[0]);
+			ms_env->ret = 127;
 			return (1);
 		}
 	}

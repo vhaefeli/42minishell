@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/10 15:20:43 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:05:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	fd_init(int fd[2])
 
 static void	fd_close(int fd[2])
 {
-	if (fd[0] > -1)
+	if (fd[0] > 2)
 		close(fd[0]);
-	if (fd[1] > -1)
+	if (fd[1] > 2)
 		close(fd[1]);
 }
 
@@ -53,7 +53,9 @@ int	pipex(t_list *list_cmds, t_msvar *ms_env)
 
 	fd_init(fd);
 	n_cmd = 1;
-	if (!list_cmds->next && checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
+	if (!list_cmds->next
+		&& (ms_env->env || (checkbuiltin(list_cmds->cmd_with_flags[0]) == 4))
+		&& checkbuiltin(list_cmds->cmd_with_flags[0]) > 3)
 		return (execbuiltin(list_cmds,
 				checkbuiltin(list_cmds->cmd_with_flags[0]), ms_env));
 	update_msenv(ms_env);

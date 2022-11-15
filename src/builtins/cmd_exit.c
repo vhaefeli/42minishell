@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:37:16 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/15 11:38:56 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:06:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cmd_exit(t_msvar *msvar, char **cmd)
 	{
 		msvar->ret = 1;
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
-		return(msvar->ret);
+		return (msvar->ret);
 	}
 	msvar->exit = 1;
 	if (cmd[1] && ft_strisnum(cmd[1]) == 0)
@@ -32,5 +32,5 @@ int	cmd_exit(t_msvar *msvar, char **cmd)
 		msvar->ret = ft_atoi(cmd[1]);
 	else
 		msvar->ret = 0;
-	return(msvar->ret);
+	return (msvar->ret);
 }

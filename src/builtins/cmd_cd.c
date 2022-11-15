@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:33:40 by tlefebvr          #+#    #+#             */
-/*   Updated: 2022/11/09 11:28:31 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:09:34 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	cmd_cd(char **args, t_msvar *envp)
 {
 	int		cd_ret;
 
+	if (!envp->env)
+		return (1);
 	if (!args[1])
 		return (go_to_path(0, envp->env));
 	if (ft_strcmp(args[1], "-") == 0)
@@ -116,8 +118,8 @@ int	cmd_cd(char **args, t_msvar *envp)
 	}
 	if (cd_ret == -1)
 	{
-		envp->ret = 127;
-		return (127);
+		envp->ret = 1;
+		return (1);
 	}
 	return (cd_ret);
 }

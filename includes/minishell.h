@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/10 13:37:08 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:03:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			cmd_echo(char **args);
 int			ft_env(t_env *env);
 
 // // cmd_exit.c
-int		cmd_exit(t_msvar *msvar, char **cmd);
+int			cmd_exit(t_msvar *msvar, char **cmd);
 
 // // signal.c
 void		sig_init(struct termios *saved);
