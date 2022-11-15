@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:35:23 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:50:27 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 11:54:05 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	ft_fill_infile(t_list *cmd, t_msvar *env, int i)
 	size_t		infile_len;
 
 	infile_len = infile_size(cmd->cmd_tmp, i);
+	del_el(cmd->infile);
 	cmd->infile = malloc(infile_len + 1);
 	ci = fillvarchar(cmd->cmd_tmp, cmd->infile, i, 0);
 	while (cmd->cmd_tmp[ci->i] && cmd->cmd_tmp[ci->i] != '<')
@@ -99,6 +100,7 @@ int	ft_fill_outfile(t_list *cmd, t_msvar *env, int i)
 	size_t		outfile_len;
 
 	outfile_len = outfile_size(cmd->cmd_tmp, i);
+	del_el(cmd->outfile);
 	cmd->outfile = malloc(outfile_len + 1);
 	co = fillvarchar(cmd->cmd_tmp, cmd->infile, i, 0);
 	while (cmd->cmd_tmp[co->i] && cmd->cmd_tmp[co->i] != '>')

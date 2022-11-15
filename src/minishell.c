@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:18:30 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/11 15:25:41 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/15 11:30:52 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	init_module(t_msvar *ms_env, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_msvar	ms_env;
+	int		ret_exit;
 
 	(void)argv;
 	if (argc != 1 && printf("Sorry, no flag allowed, try without any.\n"))
@@ -100,8 +101,9 @@ int	main(int argc, char **argv, char **envp)
 	ini_ms(&ms_env);
 	welcometext();
 	init_module(&ms_env, envp);
+	ret_exit = ms_env.ret;
 	free_env (ms_env.env);
 	del_tab(ms_env.envp_ms);
 	ft_putstr_fd("Good Bye See you soon\n", 2);
-	return (0);
+	return (ret_exit);
 }
