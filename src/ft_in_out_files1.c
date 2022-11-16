@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:09:17 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/01 12:49:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:38:55 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,19 @@ int	fill_inout(t_list *cmd, t_msvar *ms_env, int i, char c)
 			del_el(cmd->infile);
 		i = ft_fill_infile(cmd, ms_env, i);
 		if (infile_ok(cmd) != 0)
+		{
+			cmd->infileflag = 0;
 			return (-1);
+		}
 	}
 	else if (cmd->cmd_tmp[i] == '>')
 	{
 		i = ft_fill_outfile(cmd, ms_env, i);
 		if (outfile_ok(cmd) != 0)
+		{
+			cmd->outfileflag = 0;
 			return (-1);
+		}
 	}
 	return (i);
 }
@@ -108,7 +114,7 @@ int	ft_in_out_files(t_list *cmds, t_msvar *ms_env)
 	{
 		check_error = ft_check_in_out(cmds, ms_env);
 		if (check_error)
-			return (1);
+			ms_env->ret = -240;
 		cmds = (cmds)->next;
 	}
 	return (0);

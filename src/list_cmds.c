@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 13:22:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/10 15:16:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:39:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ t_list	*list_cmds(char *cmdline, t_msvar *ms_env)
 		new_cmd1 = new_cmd2;
 	}
 	if (i == -1)
-		return (NULL);
-	if (ft_in_out_files(first_cmd, ms_env))
-		return (NULL);
+		return (del_list(first_cmd));
+	ft_in_out_files(first_cmd, ms_env);
 	ft_fillcmd_flag(first_cmd, ms_env);
 	return (first_cmd);
 }

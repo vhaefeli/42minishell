@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/15 16:03:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:12:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ t_list		*ft_ininewlst_el(void);
 // ft_del.c fonctions used to delete stuff
 void		del_el(char *el);
 void		del_tab(char **el);
-void		del_list(t_list *list_cmds);
+t_list		*del_list(t_list *list_cmds);
 
 // list_cmds.c create the chained list of cmds from the cmd line
 t_list		*list_cmds(char *cmdline, t_msvar *ms_env);

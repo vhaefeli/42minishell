@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 15:43:52 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/10 15:33:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:56:24 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	del_tab(char **el)
 	el = NULL;
 }
 
-void	del_list(t_list *list_cmds)
+t_list	*del_list(t_list *list_cmds)
 {
 	t_list	*el1;
 	t_list	*el2;
 
 	if (!list_cmds)
-		return ;
+		return (NULL);
 	// checklistcmd(list_cmds);
 	el1 = ft_lstfirst(list_cmds);
 	while (el1)
@@ -91,4 +91,5 @@ void	del_list(t_list *list_cmds)
 		free(el2);
 	}
 	list_cmds = NULL;
+	return (NULL);
 }
