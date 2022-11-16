@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 14:48:06 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/16 11:12:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:11:23 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		sig_int(int code);
 
 // // cmd_export.c
 int			ft_export(char **args, t_msvar *envp);
-int			cmd_pwd(char **cmd);
+int			cmd_pwd(void);
 char		*last_name(char *str);
 int			ft_unset(char **a, t_msvar *msvar);
 

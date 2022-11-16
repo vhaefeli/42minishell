@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:32:32 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/16 11:54:31 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:28:18 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ int	ft_pipe(char *cmdline, t_msvar *ms_env)
 	cmd_list = list_cmds(cmdline, ms_env);
 	if (cmd_list == NULL)
 	{
-		printf("error with cmds listing\n");
 		ms_env->ret = 1;
-		return (1);
+		return (printf("error with cmds listing\n"));
 	}
 	if (ms_env->ret == -240)
 	{
+		ms_env->ret = 1;
 		del_list(cmd_list);
 		return (1);
 	}

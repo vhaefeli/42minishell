@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/16 10:05:25 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:31:20 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ int	checkbuiltin(char *cmd)
 	n = ft_strlen(cmd);
 	if (!ft_strcmp("echo", cmd))
 		return (1);
-	if (!ft_strncmp("pwd", cmd, n))
+	if (!ft_strcmp("pwd", cmd))
 		return (2);
-	if (!ft_strncmp("env", cmd, n))
+	if (!ft_strcmp("env", cmd))
 		return (3);
-	if (!ft_strncmp("exit", cmd, n))
+	if (!ft_strcmp("exit", cmd))
 		return (4);
-	if (!ft_strncmp("cd", cmd, n))
+	if (!ft_strcmp("cd", cmd))
 		return (5);
-	if (!ft_strncmp("export", cmd, n))
+	if (!ft_strcmp("export", cmd))
 		return (6);
-	if (!ft_strncmp("unset", cmd, n))
+	if (!ft_strcmp("unset", cmd))
 		return (7);
 	else
 		return (0);
@@ -72,7 +72,7 @@ int	execbuiltin(t_list *cmds, int builtincmd_nb, t_msvar *ms_env)
 	if (builtincmd_nb == 5)
 		return (cmd_cd(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 2)
-		return (cmd_pwd(cmds->cmd_with_flags));
+		return (cmd_pwd());
 	if (builtincmd_nb == 6)
 		return (ft_export(cmds->cmd_with_flags, ms_env));
 	if (builtincmd_nb == 7)
