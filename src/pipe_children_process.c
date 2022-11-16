@@ -6,7 +6,7 @@
 /*   By: vhaefeli <vhaefeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:17:40 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/11/15 16:04:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/11/16 10:05:25 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_heredoc(t_list *cmd)
 			break ;
 		write(cmd->infile_fd, text, ft_strlen(text));
 		write(cmd->infile_fd, "\n", 1);
+		free (text);
 	}
 	close(cmd->infile_fd);
 	return (0);
